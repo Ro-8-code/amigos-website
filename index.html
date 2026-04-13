@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amigos — Trearddur Bay</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══ LOADER ══ -->
+  <div id="loader">
+    <div class="loader-skull-wrap">
+      <div class="skull-ring r1"></div>
+      <div class="skull-ring r2"></div>
+      <div class="skull-ring r3"></div>
+      <svg class="loader-skull-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main skull cranium -->
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.88)" stroke-width="2" fill="none"/>
+        <!-- Jaw teeth slots -->
+        <rect x="64" y="186" width="14" height="10" rx="1.5" stroke="rgba(245,240,232,0.7)" stroke-width="1.6" fill="none"/>
+        <rect x="82" y="186" width="10" height="10" rx="1.5" stroke="rgba(245,240,232,0.7)" stroke-width="1.6" fill="none"/>
+        <rect x="96" y="186" width="10" height="10" rx="1.5" stroke="rgba(245,240,232,0.7)" stroke-width="1.6" fill="none"/>
+        <rect x="110" y="186" width="10" height="10" rx="1.5" stroke="rgba(245,240,232,0.7)" stroke-width="1.6" fill="none"/>
+        <rect x="124" y="186" width="12" height="10" rx="1.5" stroke="rgba(245,240,232,0.7)" stroke-width="1.6" fill="none"/>
+        <!-- Eye sockets -->
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.82)" stroke-width="1.8" fill="rgba(245,240,232,0.05)"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.82)" stroke-width="1.8" fill="rgba(245,240,232,0.05)"/>
+        <!-- Nose cavity -->
+        <path d="M93 128 L100 118 L107 128 Q100 134 93 128 Z" stroke="rgba(245,240,232,0.5)" stroke-width="1.2" fill="none"/>
+        <!-- Smile line -->
+        <path d="M78 148 Q100 158 122 148" stroke="rgba(245,240,232,0.45)" stroke-width="1.4" fill="none"/>
+        <!-- Captain hat brim -->
+        <path d="M28 52 Q100 38 172 52" stroke="rgba(245,240,232,0.75)" stroke-width="2" fill="none"/>
+        <!-- Hat top flat section -->
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="rgba(245,240,232,0.7)" stroke-width="1.8" fill="none"/>
+        <!-- Hat peak left -->
+        <path d="M28 52 C18 52 12 46 14 38 C16 32 24 30 34 34 L52 30" stroke="rgba(245,240,232,0.5)" stroke-width="1.4" fill="none"/>
+        <!-- Hat peak right -->
+        <path d="M172 52 C182 52 188 46 186 38 C184 32 176 30 166 34 L148 30" stroke="rgba(245,240,232,0.5)" stroke-width="1.4" fill="none"/>
+        <!-- Anchor on hat -->
+        <circle cx="100" cy="20" r="5" stroke="rgba(245,240,232,0.75)" stroke-width="1.4" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="rgba(245,240,232,0.75)" stroke-width="1.2"/>
+        <path d="M96 18 L100 15 L104 18" stroke="rgba(245,240,232,0.75)" stroke-width="1.2" fill="none"/>
+        <path d="M97 26 C94 26 92 24 93 22" stroke="rgba(245,240,232,0.6)" stroke-width="1" fill="none"/>
+        <path d="M103 26 C106 26 108 24 107 22" stroke="rgba(245,240,232,0.6)" stroke-width="1" fill="none"/>
+        <!-- Flowing hair left -->
+        <path d="M28 90 C16 84 8 72 10 58 C12 46 22 40 30 44" stroke="rgba(245,240,232,0.38)" stroke-width="1.4" fill="none"/>
+        <path d="M28 110 C12 106 4 94 6 80 C8 68 16 60 24 62" stroke="rgba(245,240,232,0.28)" stroke-width="1.2" fill="none"/>
+        <path d="M30 130 C14 128 6 116 8 104 C10 94 18 88 26 90" stroke="rgba(245,240,232,0.2)" stroke-width="1.1" fill="none"/>
+        <path d="M34 150 C18 150 10 140 12 128 C14 118 22 114 30 116" stroke="rgba(245,240,232,0.15)" stroke-width="1" fill="none"/>
+        <!-- Flowing hair right -->
+        <path d="M172 90 C184 84 192 72 190 58 C188 46 178 40 170 44" stroke="rgba(245,240,232,0.38)" stroke-width="1.4" fill="none"/>
+        <path d="M172 110 C188 106 196 94 194 80 C192 68 184 60 176 62" stroke="rgba(245,240,232,0.28)" stroke-width="1.2" fill="none"/>
+        <path d="M170 130 C186 128 194 116 192 104 C190 94 182 88 174 90" stroke="rgba(245,240,232,0.2)" stroke-width="1.1" fill="none"/>
+        <path d="M166 150 C182 150 190 140 188 128 C186 118 178 114 170 116" stroke="rgba(245,240,232,0.15)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <p class="loader-brand">Amigos</p>
+    <p class="loader-sub">Founded in Trearddur Bay &nbsp;&middot;&nbsp; Wales</p>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='index.html'">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="2.2" fill="none"/>
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.2"/>
+      </svg>
+      <span class="nav-logo">Amigos</span>
+    </div>
+
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a class="nav-link has-drop">Men</a>
+        <div class="dropdown">
+          <a href="pages/mens.html?cat=all">All Men's</a>
+          <div class="dropdown-divider"></div>
+          <a href="pages/mens.html?cat=t-shirts">T-Shirts</a>
+          <a href="pages/mens.html?cat=hoodies">Hoodies</a>
+          <a href="pages/mens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="pages/mens.html?cat=caps">Caps</a>
+          <a href="pages/mens.html?cat=trousers">Trousers</a>
+          <a href="pages/mens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link has-drop">Women</a>
+        <div class="dropdown">
+          <a href="pages/womens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="pages/womens.html?cat=t-shirts">T-Shirts</a>
+          <a href="pages/womens.html?cat=hoodies">Hoodies</a>
+          <a href="pages/womens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="pages/womens.html?cat=caps">Caps</a>
+          <a href="pages/womens.html?cat=trousers">Trousers</a>
+          <a href="pages/womens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="pages/about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="pages/book.html">The Knowing Within</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <button class="cart-btn" id="cart-btn">
+        Cart (<span id="cart-count">0</span>)
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="pages/mens.html">Men</a>
+    <a href="pages/womens.html">Women</a>
+    <a href="#bay-section" onclick="document.getElementById('mobile-menu').classList.remove('open')">Trearddur Bay</a>
+    <a href="pages/about.html">About Us</a>
+    <a href="pages/book.html">The Knowing Within</a>
+  </div>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="home">
+    <div class="hero-bg-overlay"></div>
+    <!-- Replace with: <img class="hero-bg-img" src="images/hero-bay.jpg" alt="Trearddur Bay"> -->
+    <div class="hero-bg-img-placeholder"></div>
+    <div class="hero-bg-text">AMIGOS</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Trearddur Bay &nbsp;&middot;&nbsp; Anglesey, Wales</p>
+      <svg class="hero-skull-logo" viewBox="0 0 200 240" fill="none">
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--warm-brown)" stroke-width="2" fill="none"/>
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <path d="M78 148 Q100 158 122 148" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
+        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.6" fill="none"/>
+        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.2" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.1"/>
+        <path d="M28 90 C16 84 8 72 10 58" stroke="rgba(139,107,74,0.5)" stroke-width="1.2" fill="none"/>
+        <path d="M172 90 C184 84 192 72 190 58" stroke="rgba(139,107,74,0.5)" stroke-width="1.2" fill="none"/>
+      </svg>
+      <h1 class="hero-title">Amigos</h1>
+      <p class="hero-founded">Founded at Pebbles, Trearddur Bay — Est. 2025</p>
+      <p class="hero-subtitle">Born by the sea, made for the storm</p>
+      <p class="hero-coords">53°16'04" N &nbsp;&nbsp; 4°37'35" W</p>
+      <div class="hero-cta">
+        <a href="pages/mens.html" class="btn-primary">Shop Men</a>
+        <a href="pages/womens.html" class="btn-outline">Shop Women</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MARQUEE ══ -->
+  <div class="marquee-bar">
+    <span class="marquee-inner">
+      &nbsp;&nbsp;Amigos por siempre &nbsp;&middot;&nbsp; Founded at Pebbles, Trearddur Bay &nbsp;&middot;&nbsp; A smooth sea never made a skilled sailor &nbsp;&middot;&nbsp; 53°16'04" N · 4°37'35" W &nbsp;&middot;&nbsp; Amigos por siempre &nbsp;&middot;&nbsp; Founded at Pebbles, Trearddur Bay &nbsp;&middot;&nbsp; A smooth sea never made a skilled sailor &nbsp;&middot;&nbsp; 53°16'04" N · 4°37'35" W &nbsp;&middot;&nbsp; Amigos por siempre &nbsp;&middot;&nbsp; Founded at Pebbles, Trearddur Bay &nbsp;&middot;&nbsp; A smooth sea never made a skilled sailor &nbsp;&middot;&nbsp;
+    </span>
+  </div>
+
+  <!-- ══ STATEMENT ══ -->
+  <section class="statement-section">
+    <blockquote>"A smooth sea never made a skilled sailor — and it never made a great story either."</blockquote>
+    <p class="statement-attr">Amigos &nbsp;&middot;&nbsp; Trearddur Bay, Wales</p>
+  </section>
+
+  <!-- ══ FEATURED PRODUCTS ══ -->
+  <section class="collection-section">
+    <div class="section-header">
+      <h2 class="section-title">New Arrivals</h2>
+      <a href="pages/mens.html" class="section-link">View all</a>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- ══ TREARDDUR BAY ══ -->
+  <section class="bay-split" id="bay-section">
+    <div class="bay-img-side">
+      <!-- Replace with: <img src="images/trearddur-bay.jpg" alt="Trearddur Bay"> -->
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80" alt="Coastal Wales — replace with Trearddur Bay photo">
+      <div class="bay-overlay-content">
+        <p class="bay-coords-text">53°16'04" N<br>4°37'35" W</p>
+        <div class="bay-pebbles-tag">Pebbles, Trearddur Bay</div>
+      </div>
+    </div>
+    <div class="bay-text-side">
+      <p class="eyebrow">Where it all began</p>
+      <h2 class="split-title">Trearddur Bay —<br>our corner of the world</h2>
+      <p class="split-body">On a small island off the north coast of Wales, where the Atlantic meets the Irish Sea, sits a bay that feels like it belongs to another world. Trearddur Bay — wild, beautiful, and quietly extraordinary.</p>
+      <p class="split-body">It was here, at a house called Pebbles, that Amigos was born. A place of good people, sea air, and the kind of calm that only the ocean can bring.</p>
+      <div class="pebble-note">
+        <span class="pebble-dot"></span>
+        Born at Pebbles &nbsp;&middot;&nbsp; Trearddur Bay, Anglesey
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LOOKBOOK ══ -->
+  <section class="lookbook-section">
+    <p class="lookbook-eyebrow">Lookbook — Spring 2025</p>
+    <h2 class="lookbook-title">i am calm in the eye of the storm</h2>
+    <p class="lookbook-spanish">Amigos por siempre</p>
+    <div class="lookbook-grid">
+      <!-- Replace these with her actual lookbook photos -->
+      <div class="lookbook-item">
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80" alt="Lookbook 01 — replace with brand photo">
+      </div>
+      <div class="lookbook-item">
+        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80" alt="Lookbook 02 — replace with brand photo">
+      </div>
+      <div class="lookbook-item">
+        <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?w=600&q=80" alt="Lookbook 03 — replace with brand photo">
+      </div>
+    </div>
+    <button class="btn-outline btn-outline-light">See full lookbook</button>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand-row">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+            <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
+            <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+            <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+            <path d="M28 52 Q100 38 172 52" stroke="rgba(245,240,232,0.35)" stroke-width="1.8" fill="none"/>
+            <rect x="52" y="10" width="96" height="20" rx="4" stroke="rgba(245,240,232,0.3)" stroke-width="1.5" fill="none"/>
+          </svg>
+          <span class="footer-brand-name">Amigos</span>
+        </div>
+        <p class="footer-tagline">"A smooth sea never made a skilled sailor"</p>
+        <p class="footer-founded">Founded at Pebbles, Trearddur Bay — Est. 2025</p>
+        <p class="footer-coords">53°16'04" N &nbsp;&middot;&nbsp; 4°37'35" W — Anglesey, Wales</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="pages/mens.html">Men</a></li>
+          <li><a href="pages/womens.html">Women</a></li>
+          <li><a href="pages/mens.html?cat=caps">Caps</a></li>
+          <li><a href="pages/womens.html?cat=jewellery">Jewellery</a></li>
+          <li><a href="pages/mens.html">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Sizing Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">More</p>
+        <ul class="footer-links">
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="pages/book.html">The Knowing Within</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Amigos. Pebbles, Trearddur Bay, Anglesey, Wales. All rights reserved.</p>
+      <p class="footer-spanish">Amigos por siempre</p>
+    </div>
+  </footer>
+
+  <!-- ══ CART MODAL ══ -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">&#215;</button>
+      <h3 class="modal-product-name" id="modal-name">The Sailor Tee</h3>
+      <p class="modal-product-variant" id="modal-variant">Classic Cream</p>
+      <div class="modal-swatches" id="modal-swatches"></div>
+      <p class="size-label">Select Size</p>
+      <div class="size-grid" id="size-grid">
+        <button class="size-btn" onclick="pickSize(this)">XS</button>
+        <button class="size-btn" onclick="pickSize(this)">S</button>
+        <button class="size-btn active" onclick="pickSize(this)">M</button>
+        <button class="size-btn" onclick="pickSize(this)">L</button>
+        <button class="size-btn" onclick="pickSize(this)">XL</button>
+      </div>
+      <p class="modal-price" id="modal-price">£45.00</p>
+      <button class="btn-primary btn-full" onclick="addToCart()">Add to Cart</button>
+      <div class="payment-badges">
+        <span class="pay-badge">Stripe</span>
+        <span class="pay-badge">Apple Pay</span>
+        <span class="pay-badge">Klarna</span>
+        <span class="pay-badge">WooCommerce</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

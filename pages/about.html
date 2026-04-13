@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — Amigos</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="2.2" fill="none"/>
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.2"/>
+      </svg>
+      <span class="nav-logo">Amigos</span>
+    </div>
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a class="nav-link has-drop">Men</a>
+        <div class="dropdown">
+          <a href="mens.html?cat=all">All Men's</a>
+          <div class="dropdown-divider"></div>
+          <a href="mens.html?cat=t-shirts">T-Shirts</a>
+          <a href="mens.html?cat=hoodies">Hoodies</a>
+          <a href="mens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="mens.html?cat=caps">Caps</a>
+          <a href="mens.html?cat=trousers">Trousers</a>
+          <a href="mens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link has-drop">Women</a>
+        <div class="dropdown">
+          <a href="womens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="womens.html?cat=t-shirts">T-Shirts</a>
+          <a href="womens.html?cat=hoodies">Hoodies</a>
+          <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="womens.html?cat=caps">Caps</a>
+          <a href="womens.html?cat=trousers">Trousers</a>
+          <a href="womens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="mens.html">Men</a>
+    <a href="womens.html">Women</a>
+    <a href="../index.html#bay-section">Trearddur Bay</a>
+    <a href="about.html">About Us</a>
+    <a href="book.html">The Knowing Within</a>
+  </div>
+
+  <!-- ══ PAGE HERO ══ -->
+  <div class="page-hero">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80" alt="Trearddur Bay">
+    <div class="page-hero-content">
+      <h1>Our Story</h1>
+      <p>Amigos &nbsp;&middot;&nbsp; Founded at Pebbles, Trearddur Bay</p>
+    </div>
+  </div>
+
+  <!-- ══ ABOUT SPLIT ══ -->
+  <section class="about-split">
+    <div class="about-img-side">
+      <!-- Replace with your own photo: <img src="../images/trearddur-coast.jpg" alt="Trearddur Bay"> -->
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80" alt="Coastal Wales — replace with Trearddur Bay photo">
+    </div>
+    <div class="about-text-side">
+      <p class="eyebrow">The beginning</p>
+      <h2 class="split-title">Born between the sea<br>and the sombrero</h2>
+      <p class="split-body">Amigos was born in a room by the bay — a place called Pebbles on the shores of Trearddur Bay, Anglesey. A gathering place for good people, good waves, and the kind of conversations that last until sunrise.</p>
+      <p class="split-body">The brand takes its name from the spirit of that room — the friends who filled it, the sea that surrounded it, and the feeling that some places on earth are simply irreplaceable.</p>
+      <p class="split-body">Designed with love. Worn with purpose. Carried by the tide.</p>
+      <div class="pebble-note">
+        <span class="pebble-dot"></span>
+        Pebbles, Trearddur Bay, Anglesey, Wales
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TREARDDUR BAY SECTION ══ -->
+  <section class="bay-split">
+    <div class="bay-text-side" style="background: var(--sand);">
+      <p class="eyebrow">The place</p>
+      <h2 class="split-title">Trearddur Bay —<br>our corner of the world</h2>
+      <p class="split-body">On a small island off the north coast of Wales, where the Atlantic meets the Irish Sea, sits a bay that feels like it belongs to another world. Trearddur Bay — wild, beautiful, and quietly extraordinary.</p>
+      <p class="split-body">The coordinates printed on every garment — 53°16'04" N, 4°37'35" W — are the exact location of Pebbles. Every piece carries that place with it.</p>
+      <div class="pebble-note">
+        <span class="pebble-dot"></span>
+        53°16'04" N &nbsp;&middot;&nbsp; 4°37'35" W
+      </div>
+    </div>
+    <div class="bay-img-side">
+      <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1000&q=80" alt="Welsh coastline">
+      <div class="bay-overlay-content">
+        <p class="bay-coords-text">53°16'04" N<br>4°37'35" W</p>
+        <div class="bay-pebbles-tag">Pebbles, Trearddur Bay</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VALUES ══ -->
+  <div class="values-grid">
+    <div class="value-card">
+      <p class="value-title">The Place</p>
+      <p class="value-body">Trearddur Bay sits on Holy Island off the north-west coast of Anglesey. Tidal pools, white sand, and a sky that changes every hour. It's where the brand lives — and breathes.</p>
+    </div>
+    <div class="value-card">
+      <p class="value-title">The Name</p>
+      <p class="value-body">Amigos. Friends. The people who show up, who stay, who make a house feel like home. The brand is for them — and for anyone who's ever found their people in an unexpected place.</p>
+    </div>
+    <div class="value-card">
+      <p class="value-title">The Philosophy</p>
+      <p class="value-body">A smooth sea never made a skilled sailor. We make clothes for people who embrace the storm — who know that the best stories come from the most unexpected moments.</p>
+    </div>
+    <div class="value-card">
+      <p class="value-title">The Future</p>
+      <p class="value-body">Amigos is just beginning. Each piece is designed with intention — ethically made, built to last, and rooted in the wild beauty of the Welsh coast. Amigos por siempre.</p>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand-row">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+            <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
+            <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+            <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="footer-brand-name">Amigos</span>
+        </div>
+        <p class="footer-tagline">"A smooth sea never made a skilled sailor"</p>
+        <p class="footer-founded">Founded at Pebbles, Trearddur Bay — Est. 2025</p>
+        <p class="footer-coords">53°16'04" N &nbsp;&middot;&nbsp; 4°37'35" W — Anglesey, Wales</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="mens.html">Men</a></li>
+          <li><a href="womens.html">Women</a></li>
+          <li><a href="mens.html?cat=caps">Caps</a></li>
+          <li><a href="womens.html?cat=jewellery">Jewellery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Sizing Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">More</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="book.html">The Knowing Within</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Amigos. Pebbles, Trearddur Bay, Anglesey, Wales.</p>
+      <p class="footer-spanish">Amigos por siempre</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

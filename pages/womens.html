@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women's Collection — Amigos</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="2.2" fill="none"/>
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.2"/>
+      </svg>
+      <span class="nav-logo">Amigos</span>
+    </div>
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a class="nav-link has-drop">Men</a>
+        <div class="dropdown">
+          <a href="womens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="womens.html?cat=t-shirts">T-Shirts</a>
+          <a href="womens.html?cat=hoodies">Hoodies</a>
+          <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="womens.html?cat=caps">Caps</a>
+          <a href="womens.html?cat=trousers">Trousers</a>
+          <a href="womens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link has-drop">Women</a>
+        <div class="dropdown">
+          <a href="wowomens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="wowomens.html?cat=t-shirts">T-Shirts</a>
+          <a href="wowomens.html?cat=hoodies">Hoodies</a>
+          <a href="wowomens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="wowomens.html?cat=caps">Caps</a>
+          <a href="wowomens.html?cat=trousers">Trousers</a>
+          <a href="wowomens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="womens.html">Men</a>
+    <a href="wowomens.html">Women</a>
+    <a href="../index.html#bay-section">Trearddur Bay</a>
+    <a href="about.html">About Us</a>
+    <a href="book.html">The Knowing Within</a>
+  </div>
+
+  <!-- ══ PAGE HERO ══ -->
+  <div class="page-hero">
+    <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1400&q=80" alt="Women's Collection">
+    <div class="page-hero-content">
+      <h1>Women's</h1>
+      <p>Amigos &nbsp;&middot;&nbsp; Trearddur Bay</p>
+    </div>
+  </div>
+
+  <!-- ══ SHOP ══ -->
+  <section class="collection-section">
+    <div class="section-header">
+      <h2 class="section-title">Women's Collection</h2>
+    </div>
+    <div class="filter-bar" id="womens-filter-bar"></div>
+    <div class="product-grid" id="womens-product-grid"></div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand-row">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+            <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
+            <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+            <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="footer-brand-name">Amigos</span>
+        </div>
+        <p class="footer-tagline">"A smooth sea never made a skilled sailor"</p>
+        <p class="footer-founded">Founded at Pebbles, Trearddur Bay — Est. 2025</p>
+        <p class="footer-coords">53°16'04" N &nbsp;&middot;&nbsp; 4°37'35" W</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="womens.html">Men</a></li>
+          <li><a href="wowomens.html">Women</a></li>
+          <li><a href="womens.html?cat=caps">Caps</a></li>
+          <li><a href="wowomens.html?cat=jewellery">Jewellery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Sizing Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">More</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="book.html">The Knowing Within</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Amigos. Pebbles, Trearddur Bay, Anglesey, Wales.</p>
+      <p class="footer-spanish">Amigos por siempre</p>
+    </div>
+  </footer>
+
+  <!-- ══ CART MODAL ══ -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">&#215;</button>
+      <h3 class="modal-product-name" id="modal-name">Product</h3>
+      <p class="modal-product-variant" id="modal-variant">Variant</p>
+      <div class="modal-swatches" id="modal-swatches"></div>
+      <p class="size-label">Select Size</p>
+      <div class="size-grid">
+        <button class="size-btn" onclick="pickSize(this)">XS</button>
+        <button class="size-btn" onclick="pickSize(this)">S</button>
+        <button class="size-btn active" onclick="pickSize(this)">M</button>
+        <button class="size-btn" onclick="pickSize(this)">L</button>
+        <button class="size-btn" onclick="pickSize(this)">XL</button>
+      </div>
+      <p class="modal-price" id="modal-price">£45.00</p>
+      <button class="btn-primary btn-full" onclick="addToCart()">Add to Cart</button>
+      <div class="payment-badges">
+        <span class="pay-badge">Stripe</span>
+        <span class="pay-badge">Apple Pay</span>
+        <span class="pay-badge">Klarna</span>
+        <span class="pay-badge">WooCommerce</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

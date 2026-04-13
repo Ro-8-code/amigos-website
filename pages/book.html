@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Knowing Within — Amigos</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
+        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
+        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="2.2" fill="none"/>
+        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
+        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
+        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.2"/>
+      </svg>
+      <span class="nav-logo">Amigos</span>
+    </div>
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a class="nav-link has-drop">Men</a>
+        <div class="dropdown">
+          <a href="mens.html?cat=all">All Men's</a>
+          <div class="dropdown-divider"></div>
+          <a href="mens.html?cat=t-shirts">T-Shirts</a>
+          <a href="mens.html?cat=hoodies">Hoodies</a>
+          <a href="mens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="mens.html?cat=caps">Caps</a>
+          <a href="mens.html?cat=trousers">Trousers</a>
+          <a href="mens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link has-drop">Women</a>
+        <div class="dropdown">
+          <a href="womens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="womens.html?cat=t-shirts">T-Shirts</a>
+          <a href="womens.html?cat=hoodies">Hoodies</a>
+          <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="womens.html?cat=caps">Caps</a>
+          <a href="womens.html?cat=trousers">Trousers</a>
+          <a href="womens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="mens.html">Men</a>
+    <a href="womens.html">Women</a>
+    <a href="../index.html#bay-section">Trearddur Bay</a>
+    <a href="about.html">About Us</a>
+    <a href="book.html">The Knowing Within</a>
+  </div>
+
+  <!-- ══ PAGE HERO ══ -->
+  <div class="page-hero">
+    <img src="https://images.unsplash.com/photo-1476611338391-6f395a0ebc7b?w=1400&q=80" alt="The Knowing Within">
+    <div class="page-hero-content">
+      <h1>The Knowing Within</h1>
+      <p>A book by the founder of Amigos</p>
+    </div>
+  </div>
+
+  <!-- ══ BOOK SECTION ══ -->
+  <section class="book-section">
+    <div class="book-cover-side">
+      <!-- Replace this placeholder with the actual book cover:
+           <img src="../images/knowing-within-cover.jpg" alt="The Knowing Within" style="width:260px; height:auto; box-shadow: 0 8px 32px rgba(61,43,31,0.15);">
+      -->
+      <div class="book-cover-placeholder">
+        <span class="book-cover-note">Cover coming soon</span>
+        <p class="book-title-text">The Knowing<br>Within</p>
+        <span class="book-cover-note">Add cover image to<br>/images/knowing-within-cover.jpg</span>
+      </div>
+    </div>
+    <div class="book-info-side">
+      <h2 class="book-title">The Knowing Within</h2>
+      <p class="book-author">By the Founder of Amigos</p>
+      <p class="book-body">Some things can't be taught — they can only be known. This book is about finding that quiet voice inside yourself that already has the answers.</p>
+      <p class="book-body">Written from the shores of Trearddur Bay, drawn from a life of deep listening, The Knowing Within is a guide back to yourself. To that still, certain place that was always there.</p>
+      <p class="book-body">A companion to the brand, and a love letter to the people who dare to be still long enough to hear it.</p>
+      <div class="book-cta">
+        <!--
+          When the book website is ready, replace # with the real URL:
+          <a href="https://theknowingwithin.com" target="_blank" class="book-external-btn">
+        -->
+        <a href="#" target="_blank" class="book-external-btn">
+          Visit Book Website &nbsp;&#8599;
+        </a>
+        <button class="book-notify-btn" onclick="notifyMe()">Notify Me</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUOTE SECTION ══ -->
+  <section style="background: var(--dark-brown); padding: 5rem 2rem; text-align: center;">
+    <p style="font-family:'Arial',sans-serif; font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(245,240,232,0.35); margin-bottom:1rem;">From the book</p>
+    <blockquote style="font-family:'Georgia',serif; font-size:clamp(1.3rem,2.8vw,2rem); font-style:italic; color:var(--cream); max-width:720px; margin:0 auto 1.5rem; line-height:1.6; quotes:none;">
+      "The answer was never out there. It was always in here — waiting for you to get quiet enough to hear it."
+    </blockquote>
+    <p style="font-family:'Arial',sans-serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(245,240,232,0.3);">The Knowing Within</p>
+  </section>
+
+  <!-- ══ ALSO FROM AMIGOS ══ -->
+  <section class="collection-section">
+    <div class="section-header">
+      <h2 class="section-title">Also from Amigos</h2>
+      <a href="mens.html" class="section-link">View full collection</a>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand-row">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+            <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
+            <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+            <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="footer-brand-name">Amigos</span>
+        </div>
+        <p class="footer-tagline">"A smooth sea never made a skilled sailor"</p>
+        <p class="footer-founded">Founded at Pebbles, Trearddur Bay — Est. 2025</p>
+        <p class="footer-coords">53°16'04" N &nbsp;&middot;&nbsp; 4°37'35" W — Anglesey, Wales</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="mens.html">Men</a></li>
+          <li><a href="womens.html">Women</a></li>
+          <li><a href="mens.html?cat=caps">Caps</a></li>
+          <li><a href="womens.html?cat=jewellery">Jewellery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">Sizing Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">More</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="book.html">The Knowing Within</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Amigos. Pebbles, Trearddur Bay, Anglesey, Wales.</p>
+      <p class="footer-spanish">Amigos por siempre</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    function notifyMe() {
+      const email = prompt('Enter your email and we\'ll notify you when the book launches:');
+      if (email && email.includes('@')) {
+        alert('Thank you! We\'ll be in touch. Amigos por siempre.');
+        // TODO: connect this to an email service like Mailchimp or EmailJS
+      }
+    }
+  </script>
+</body>
+</html>
