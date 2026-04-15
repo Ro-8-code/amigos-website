@@ -3,15 +3,62 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Knowing Within — Amigos</title>
+
+  <title>The Knowing Within | Book by the Founder of Amigos</title>
+  <meta name="description" content="The Knowing Within — a book about inner wisdom and self-knowledge, written from the shores of Trearddur Bay, Wales, by the founder of Amigos clothing brand.">
+  <meta name="keywords" content="The Knowing Within book, Amigos founder book, Welsh author self help, Trearddur Bay author, inner wisdom book Wales, knowing within, coastal wisdom book">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://amigos-website.vercel.app/pages/book.html">
+
+  <meta property="og:type" content="book">
+  <meta property="og:url" content="https://amigos-website.vercel.app/pages/book.html">
+  <meta property="og:title" content="The Knowing Within | Book by the Founder of Amigos">
+  <meta property="og:description" content="A book about finding the quiet voice inside yourself. Written from the shores of Trearddur Bay, Wales.">
+  <meta property="og:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+  <meta property="og:site_name" content="Amigos">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Knowing Within — Book">
+  <meta name="twitter:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "The Knowing Within",
+    "description": "A guide to inner wisdom and self-knowledge, written from the shores of Trearddur Bay, Anglesey, Wales.",
+    "author": {
+      "@type": "Person",
+      "name": "Founder of Amigos",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Amigos",
+        "url": "https://amigos-website.vercel.app"
+      }
+    },
+    "inLanguage": "en-GB",
+    "locationCreated": {
+      "@type": "Place",
+      "name": "Trearddur Bay, Anglesey, Wales"
+    },
+    "url": "https://amigos-website.vercel.app/pages/book.html",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://amigos-website.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "The Knowing Within", "item": "https://amigos-website.vercel.app/pages/book.html" }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="../style.css"/>
 </head>
 <body>
 
-  <!-- ══ NAV ══ -->
   <nav id="navbar">
-    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
-      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'" aria-label="Amigos Home">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
         <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
         <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
         <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
@@ -22,7 +69,7 @@
       </svg>
       <span class="nav-logo">Amigos</span>
     </div>
-    <ul class="nav-center">
+    <ul class="nav-center" role="navigation" aria-label="Main navigation">
       <li class="nav-item">
         <a class="nav-link has-drop">Men</a>
         <div class="dropdown">
@@ -54,8 +101,8 @@
       <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
     </ul>
     <div class="nav-right">
-      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</button>
     </div>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
@@ -66,25 +113,20 @@
     <a href="book.html">The Knowing Within</a>
   </div>
 
-  <!-- ══ PAGE HERO ══ -->
-  <div class="page-hero">
-    <img src="https://images.unsplash.com/photo-1476611338391-6f395a0ebc7b?w=1400&q=80" alt="The Knowing Within">
+  <div class="page-hero" aria-label="The Knowing Within">
+    <img src="https://images.unsplash.com/photo-1476611338391-6f395a0ebc7b?w=1400&q=80" alt="The Knowing Within — book by the founder of Amigos">
     <div class="page-hero-content">
       <h1>The Knowing Within</h1>
       <p>A book by the founder of Amigos</p>
     </div>
   </div>
 
-  <!-- ══ BOOK SECTION ══ -->
-  <section class="book-section">
+  <section class="book-section" aria-label="Book details">
     <div class="book-cover-side">
-      <!-- Replace this placeholder with the actual book cover:
-           <img src="../images/knowing-within-cover.jpg" alt="The Knowing Within" style="width:260px; height:auto; box-shadow: 0 8px 32px rgba(61,43,31,0.15);">
-      -->
       <div class="book-cover-placeholder">
         <span class="book-cover-note">Cover coming soon</span>
         <p class="book-title-text">The Knowing<br>Within</p>
-        <span class="book-cover-note">Add cover image to<br>/images/knowing-within-cover.jpg</span>
+        <span class="book-cover-note">Add: /images/knowing-within-cover.jpg</span>
       </div>
     </div>
     <div class="book-info-side">
@@ -94,29 +136,19 @@
       <p class="book-body">Written from the shores of Trearddur Bay, drawn from a life of deep listening, The Knowing Within is a guide back to yourself. To that still, certain place that was always there.</p>
       <p class="book-body">A companion to the brand, and a love letter to the people who dare to be still long enough to hear it.</p>
       <div class="book-cta">
-        <!--
-          When the book website is ready, replace # with the real URL:
-          <a href="https://theknowingwithin.com" target="_blank" class="book-external-btn">
-        -->
-        <a href="#" target="_blank" class="book-external-btn">
-          Visit Book Website &nbsp;&#8599;
-        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="book-external-btn">Visit Book Website &nbsp;&#8599;</a>
         <button class="book-notify-btn" onclick="notifyMe()">Notify Me</button>
       </div>
     </div>
   </section>
 
-  <!-- ══ QUOTE SECTION ══ -->
-  <section style="background: var(--dark-brown); padding: 5rem 2rem; text-align: center;">
-    <p style="font-family:'Arial',sans-serif; font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(245,240,232,0.35); margin-bottom:1rem;">From the book</p>
-    <blockquote style="font-family:'Georgia',serif; font-size:clamp(1.3rem,2.8vw,2rem); font-style:italic; color:var(--cream); max-width:720px; margin:0 auto 1.5rem; line-height:1.6; quotes:none;">
-      "The answer was never out there. It was always in here — waiting for you to get quiet enough to hear it."
-    </blockquote>
-    <p style="font-family:'Arial',sans-serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(245,240,232,0.3);">The Knowing Within</p>
+  <section style="background:var(--dark-brown);padding:5rem 2rem;text-align:center;" aria-label="Book quote">
+    <p style="font-family:'Arial',sans-serif;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-bottom:1rem;">From the book</p>
+    <blockquote style="font-family:'Georgia',serif;font-size:clamp(1.3rem,2.8vw,2rem);font-style:italic;color:var(--cream);max-width:720px;margin:0 auto 1.5rem;line-height:1.6;quotes:none;">"The answer was never out there. It was always in here — waiting for you to get quiet enough to hear it."</blockquote>
+    <p style="font-family:'Arial',sans-serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.3);">The Knowing Within</p>
   </section>
 
-  <!-- ══ ALSO FROM AMIGOS ══ -->
-  <section class="collection-section">
+  <section class="collection-section" aria-label="Also from Amigos">
     <div class="section-header">
       <h2 class="section-title">Also from Amigos</h2>
       <a href="mens.html" class="section-link">View full collection</a>
@@ -124,12 +156,11 @@
     <div class="product-grid" id="featured-grid"></div>
   </section>
 
-  <!-- ══ FOOTER ══ -->
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-top">
       <div class="footer-brand-col">
         <div class="footer-brand-row">
-          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
             <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
             <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
             <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
@@ -180,7 +211,6 @@
       const email = prompt('Enter your email and we\'ll notify you when the book launches:');
       if (email && email.includes('@')) {
         alert('Thank you! We\'ll be in touch. Amigos por siempre.');
-        // TODO: connect this to an email service like Mailchimp or EmailJS
       }
     }
   </script>

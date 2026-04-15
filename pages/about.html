@@ -3,15 +3,55 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us — Amigos</title>
+
+  <title>About Us | Amigos — Born at Pebbles, Trearddur Bay, Wales</title>
+  <meta name="description" content="The story of Amigos — an independent coastal clothing brand born at a house called Pebbles on the shores of Trearddur Bay, Anglesey, Wales. Founded 2025.">
+  <meta name="keywords" content="Amigos clothing brand story, Welsh clothing brand founded, Trearddur Bay clothing brand, Anglesey fashion brand, coastal lifestyle brand Wales, Pebbles Trearddur Bay, independent Welsh fashion">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://amigos-website.vercel.app/pages/about.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amigos-website.vercel.app/pages/about.html">
+  <meta property="og:title" content="About Amigos | Born at Pebbles, Trearddur Bay">
+  <meta property="og:description" content="The story of Amigos — born at a house called Pebbles on the shores of Trearddur Bay, Anglesey, Wales.">
+  <meta property="og:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+  <meta property="og:site_name" content="Amigos">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Amigos Clothing">
+  <meta name="twitter:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Amigos — Our Story",
+    "description": "Amigos was born at a house called Pebbles on the shores of Trearddur Bay, Anglesey, Wales in 2025.",
+    "url": "https://amigos-website.vercel.app/pages/about.html",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Amigos",
+      "foundingDate": "2025",
+      "foundingLocation": "Pebbles, Trearddur Bay, Anglesey, Wales",
+      "description": "Independent coastal clothing brand inspired by the wild beauty of the Welsh coastline"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://amigos-website.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://amigos-website.vercel.app/pages/about.html" }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="../style.css"/>
 </head>
 <body>
 
-  <!-- ══ NAV ══ -->
   <nav id="navbar">
-    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
-      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'" aria-label="Amigos Home">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
         <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
         <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
         <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
@@ -22,7 +62,7 @@
       </svg>
       <span class="nav-logo">Amigos</span>
     </div>
-    <ul class="nav-center">
+    <ul class="nav-center" role="navigation" aria-label="Main navigation">
       <li class="nav-item">
         <a class="nav-link has-drop">Men</a>
         <div class="dropdown">
@@ -54,8 +94,8 @@
       <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
     </ul>
     <div class="nav-right">
-      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</button>
     </div>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
@@ -66,20 +106,17 @@
     <a href="book.html">The Knowing Within</a>
   </div>
 
-  <!-- ══ PAGE HERO ══ -->
-  <div class="page-hero">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80" alt="Trearddur Bay">
+  <div class="page-hero" aria-label="About Amigos">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80" alt="Trearddur Bay coastline — birthplace of Amigos clothing brand">
     <div class="page-hero-content">
       <h1>Our Story</h1>
       <p>Amigos &nbsp;&middot;&nbsp; Founded at Pebbles, Trearddur Bay</p>
     </div>
   </div>
 
-  <!-- ══ ABOUT SPLIT ══ -->
-  <section class="about-split">
+  <section class="about-split" aria-label="Brand story">
     <div class="about-img-side">
-      <!-- Replace with your own photo: <img src="../images/trearddur-coast.jpg" alt="Trearddur Bay"> -->
-      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80" alt="Coastal Wales — replace with Trearddur Bay photo">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80" alt="Coastal Wales — Trearddur Bay, Anglesey, birthplace of Amigos" loading="lazy">
     </div>
     <div class="about-text-side">
       <p class="eyebrow">The beginning</p>
@@ -94,8 +131,7 @@
     </div>
   </section>
 
-  <!-- ══ TREARDDUR BAY SECTION ══ -->
-  <section class="bay-split">
+  <section class="bay-split" aria-label="Trearddur Bay">
     <div class="bay-text-side" style="background: var(--sand);">
       <p class="eyebrow">The place</p>
       <h2 class="split-title">Trearddur Bay —<br>our corner of the world</h2>
@@ -107,7 +143,7 @@
       </div>
     </div>
     <div class="bay-img-side">
-      <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1000&q=80" alt="Welsh coastline">
+      <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1000&q=80" alt="Welsh coastline — Anglesey, North Wales" loading="lazy">
       <div class="bay-overlay-content">
         <p class="bay-coords-text">53°16'04" N<br>4°37'35" W</p>
         <div class="bay-pebbles-tag">Pebbles, Trearddur Bay</div>
@@ -115,8 +151,7 @@
     </div>
   </section>
 
-  <!-- ══ VALUES ══ -->
-  <div class="values-grid">
+  <div class="values-grid" aria-label="Brand values">
     <div class="value-card">
       <p class="value-title">The Place</p>
       <p class="value-body">Trearddur Bay sits on Holy Island off the north-west coast of Anglesey. Tidal pools, white sand, and a sky that changes every hour. It's where the brand lives — and breathes.</p>
@@ -135,12 +170,11 @@
     </div>
   </div>
 
-  <!-- ══ FOOTER ══ -->
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-top">
       <div class="footer-brand-col">
         <div class="footer-brand-row">
-          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
             <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
             <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
             <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>

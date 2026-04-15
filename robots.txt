@@ -1,0 +1,34 @@
+# Amigos — Trearddur Bay, Wales
+# robots.txt
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Allow AI crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://amigos-website.vercel.app/sitemap.xml
+
+# LLMs.txt location (AI visibility)
+# https://amigos-website.vercel.app/llms.txt

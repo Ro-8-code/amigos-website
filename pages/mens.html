@@ -3,15 +3,58 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Men's Collection — Amigos</title>
+
+  <!-- ══ PRIMARY SEO ══ -->
+  <title>Men's Collection | Amigos — Coastal Clothing, Trearddur Bay</title>
+  <meta name="description" content="Shop Amigos men's coastal clothing — t-shirts, hoodies, sweatshirts, caps and jewellery. Independent Welsh brand founded at Trearddur Bay, Anglesey. Free UK shipping over £60.">
+  <meta name="keywords" content="mens coastal clothing Wales, mens t-shirts Anglesey, Welsh mens fashion, coastal hoodies men, Amigos mens collection, Trearddur Bay clothing mens">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://amigos-website.vercel.app/pages/mens.html">
+
+  <!-- ══ OPEN GRAPH ══ -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amigos-website.vercel.app/pages/mens.html">
+  <meta property="og:title" content="Men's Collection | Amigos — Coastal Clothing, Wales">
+  <meta property="og:description" content="Shop Amigos men's coastal clothing. T-shirts, hoodies, caps and more from Trearddur Bay, Anglesey.">
+  <meta property="og:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+  <meta property="og:site_name" content="Amigos">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Men's Collection | Amigos Clothing">
+  <meta name="twitter:description" content="Shop Amigos men's coastal clothing from Trearddur Bay, Wales.">
+  <meta name="twitter:image" content="https://amigos-website.vercel.app/images/og-image.jpg">
+
+  <!-- ══ SCHEMA — Collection Page ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Men's Collection — Amigos",
+    "description": "Men's coastal clothing from Amigos, founded at Trearddur Bay, Anglesey, Wales. T-shirts, hoodies, sweatshirts, caps, trousers and jewellery.",
+    "url": "https://amigos-website.vercel.app/pages/mens.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Amigos",
+      "url": "https://amigos-website.vercel.app"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://amigos-website.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Men's Collection", "item": "https://amigos-website.vercel.app/pages/mens.html" }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="../style.css"/>
 </head>
 <body>
 
   <!-- ══ NAV ══ -->
   <nav id="navbar">
-    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
-      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'" aria-label="Amigos Home">
+      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
         <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
         <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
         <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
@@ -22,31 +65,31 @@
       </svg>
       <span class="nav-logo">Amigos</span>
     </div>
-    <ul class="nav-center">
+    <ul class="nav-center" role="navigation" aria-label="Main navigation">
       <li class="nav-item">
-        <a class="nav-link has-drop">Men</a>
-        <div class="dropdown">
-          <a href="mens.html?cat=all">All Men's</a>
+        <a class="nav-link has-drop" aria-haspopup="true">Men</a>
+        <div class="dropdown" role="menu">
+          <a href="mens.html?cat=all" role="menuitem">All Men's</a>
           <div class="dropdown-divider"></div>
-          <a href="mens.html?cat=t-shirts">T-Shirts</a>
-          <a href="mens.html?cat=hoodies">Hoodies</a>
-          <a href="mens.html?cat=sweatshirts">Sweatshirts</a>
-          <a href="mens.html?cat=caps">Caps</a>
-          <a href="mens.html?cat=trousers">Trousers</a>
-          <a href="mens.html?cat=jewellery">Jewellery</a>
+          <a href="mens.html?cat=t-shirts" role="menuitem">T-Shirts</a>
+          <a href="mens.html?cat=hoodies" role="menuitem">Hoodies</a>
+          <a href="mens.html?cat=sweatshirts" role="menuitem">Sweatshirts</a>
+          <a href="mens.html?cat=caps" role="menuitem">Caps</a>
+          <a href="mens.html?cat=trousers" role="menuitem">Trousers</a>
+          <a href="mens.html?cat=jewellery" role="menuitem">Jewellery</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link has-drop">Women</a>
-        <div class="dropdown">
-          <a href="womens.html?cat=all">All Women's</a>
+        <a class="nav-link has-drop" aria-haspopup="true">Women</a>
+        <div class="dropdown" role="menu">
+          <a href="womens.html?cat=all" role="menuitem">All Women's</a>
           <div class="dropdown-divider"></div>
-          <a href="womens.html?cat=t-shirts">T-Shirts</a>
-          <a href="womens.html?cat=hoodies">Hoodies</a>
-          <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
-          <a href="womens.html?cat=caps">Caps</a>
-          <a href="womens.html?cat=trousers">Trousers</a>
-          <a href="womens.html?cat=jewellery">Jewellery</a>
+          <a href="womens.html?cat=t-shirts" role="menuitem">T-Shirts</a>
+          <a href="womens.html?cat=hoodies" role="menuitem">Hoodies</a>
+          <a href="womens.html?cat=sweatshirts" role="menuitem">Sweatshirts</a>
+          <a href="womens.html?cat=caps" role="menuitem">Caps</a>
+          <a href="womens.html?cat=trousers" role="menuitem">Trousers</a>
+          <a href="womens.html?cat=jewellery" role="menuitem">Jewellery</a>
         </div>
       </li>
       <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
@@ -54,8 +97,8 @@
       <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
     </ul>
     <div class="nav-right">
-      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</button>
     </div>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
@@ -67,8 +110,8 @@
   </div>
 
   <!-- ══ PAGE HERO ══ -->
-  <div class="page-hero">
-    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1400&q=80" alt="Men's Collection">
+  <div class="page-hero" aria-label="Men's Collection">
+    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1400&q=80" alt="Amigos men's coastal clothing collection">
     <div class="page-hero-content">
       <h1>Men's</h1>
       <p>Amigos &nbsp;&middot;&nbsp; Trearddur Bay</p>
@@ -76,20 +119,20 @@
   </div>
 
   <!-- ══ SHOP ══ -->
-  <section class="collection-section">
+  <section class="collection-section" aria-label="Men's products">
     <div class="section-header">
       <h2 class="section-title">Men's Collection</h2>
     </div>
-    <div class="filter-bar" id="mens-filter-bar"></div>
+    <div class="filter-bar" id="mens-filter-bar" role="group" aria-label="Filter by category"></div>
     <div class="product-grid" id="mens-product-grid"></div>
   </section>
 
   <!-- ══ FOOTER ══ -->
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-top">
       <div class="footer-brand-col">
         <div class="footer-brand-row">
-          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none">
+          <svg class="footer-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
             <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="rgba(245,240,232,0.5)" stroke-width="2.5" fill="none"/>
             <ellipse cx="70" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
             <ellipse cx="130" cy="96" rx="17" ry="19" stroke="rgba(245,240,232,0.4)" stroke-width="2" fill="none"/>
@@ -135,14 +178,14 @@
   </footer>
 
   <!-- ══ CART MODAL ══ -->
-  <div class="modal-overlay" id="cart-modal">
+  <div class="modal-overlay" id="cart-modal" role="dialog" aria-modal="true" aria-label="Add to cart">
     <div class="modal">
-      <button class="modal-close" id="modal-close">&#215;</button>
+      <button class="modal-close" id="modal-close" aria-label="Close">&#215;</button>
       <h3 class="modal-product-name" id="modal-name">Product</h3>
       <p class="modal-product-variant" id="modal-variant">Variant</p>
       <div class="modal-swatches" id="modal-swatches"></div>
       <p class="size-label">Select Size</p>
-      <div class="size-grid">
+      <div class="size-grid" role="group" aria-label="Size selection">
         <button class="size-btn" onclick="pickSize(this)">XS</button>
         <button class="size-btn" onclick="pickSize(this)">S</button>
         <button class="size-btn active" onclick="pickSize(this)">M</button>
