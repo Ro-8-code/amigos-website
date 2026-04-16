@@ -288,11 +288,11 @@ async function proceedToCheckout() {
     });
     if (result.error) {
       alert(result.error.message);
-      if (btn) { btn.textContent = 'Checkout with Stripe'; btn.disabled = false; }
+      if (btn) { btn.textContent = 'Checkout'; btn.disabled = false; }
     }
   } catch (err) {
     console.error('Stripe error:', err);
-    if (btn) { btn.textContent = 'Checkout with Stripe'; btn.disabled = false; }
+    if (btn) { btn.textContent = 'Checkout'; btn.disabled = false; }
   }
 }
 
