@@ -3,7 +3,7 @@
    Trearddur Bay, Wales — Est. 2025
 ══════════════════════════════════════════ */
 
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TMaAOPMdJmZLvpCVFZEwQDxdBWbN2pRFJwJwJFJwxZy3nCXK6fiDrycNJHZstmDLI9mTBPzKgGSosEF9TaaHSDx00HWT9TU5E';
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51TMaACAflN0J7YHbn0LtIghGZTRTZvEeefVa296ODebCQACNIqMqyerKGiiL2n0zoHnzPb0r8jWhyJY6ouf5atPq005nIl8Ul4';
 
 window.addEventListener('load', () => {
   setTimeout(() => { const l = document.getElementById('loader'); if (l) l.classList.add('hide'); }, 3500);
