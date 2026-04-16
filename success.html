@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmed — Amigos</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      padding-top: calc(var(--nav-height) + 2rem);
+      background: var(--cream);
+    }
+    .success-card {
+      text-align: center;
+      max-width: 520px;
+      padding: 4rem 3rem;
+      border: 1px solid rgba(139,107,74,0.15);
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .success-title {
+      font-family: 'Georgia', serif;
+      font-size: 2rem;
+      font-weight: normal;
+      color: var(--dark-brown);
+      margin-bottom: 0.5rem;
+    }
+    .success-subtitle {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm-brown);
+      margin-bottom: 1.8rem;
+    }
+    .success-body {
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--mid);
+      margin-bottom: 2rem;
+    }
+    .success-coords {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: rgba(61,43,31,0.35);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Amigos" class="nav-skull-icon">
+      <span class="nav-logo">Amigos</span>
+    </div>
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a class="nav-link has-drop">Men</a>
+        <div class="dropdown">
+          <a href="pages/mens.html?cat=all">All Men's</a>
+          <div class="dropdown-divider"></div>
+          <a href="pages/mens.html?cat=t-shirts">T-Shirts</a>
+          <a href="pages/mens.html?cat=hoodies">Hoodies</a>
+          <a href="pages/mens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="pages/mens.html?cat=caps">Caps</a>
+          <a href="pages/mens.html?cat=trousers">Trousers</a>
+          <a href="pages/mens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link has-drop">Women</a>
+        <div class="dropdown">
+          <a href="pages/womens.html?cat=all">All Women's</a>
+          <div class="dropdown-divider"></div>
+          <a href="pages/womens.html?cat=t-shirts">T-Shirts</a>
+          <a href="pages/womens.html?cat=hoodies">Hoodies</a>
+          <a href="pages/womens.html?cat=sweatshirts">Sweatshirts</a>
+          <a href="pages/womens.html?cat=caps">Caps</a>
+          <a href="pages/womens.html?cat=trousers">Trousers</a>
+          <a href="pages/womens.html?cat=jewellery">Jewellery</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="index.html#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="pages/about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="pages/book.html">The Knowing Within</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </nav>
+
+  <div class="success-page">
+    <div class="success-card">
+      <img src="images/logo.png" alt="Amigos" class="success-icon">
+      <h1 class="success-title">Order Confirmed</h1>
+      <p class="success-subtitle">Amigos &nbsp;&middot;&nbsp; Trearddur Bay</p>
+      <p class="success-body">Thank you for your order — Captain Bones is on the case. You'll receive a confirmation email shortly with your order details and tracking information.</p>
+      <p class="success-body">Born by the sea, made for the storm. Amigos por siempre.</p>
+      <p class="success-coords">53°16'04" N &nbsp;&nbsp; 4°37'35" W</p>
+      <a href="index.html" class="btn-primary">Continue Shopping</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

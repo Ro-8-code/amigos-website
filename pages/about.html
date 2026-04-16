@@ -220,5 +220,31 @@
   </footer>
 
   <script src="../script.js"></script>
+  <!-- ══ CART DRAWER — Add this just before </body> in ALL html files ══ -->
+<div class="cart-drawer-overlay" id="cart-overlay" onclick="closeCartDrawer()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Cart</h2>
+    <button class="cart-drawer-close" onclick="closeCartDrawer()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty" id="cart-empty">Your cart is empty</p>
+  </div>
+  <div class="cart-drawer-footer" id="cart-footer" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cart-total">£0.00</span>
+    </div>
+    <button class="checkout-btn" id="checkout-btn" onclick="proceedToCheckout()">
+      Checkout with Stripe
+    </button>
+    <div class="cart-payment-icons">
+      <span class="cart-pay-icon">Stripe</span>
+      <span class="cart-pay-icon">Apple Pay</span>
+      <span class="cart-pay-icon">Klarna</span>
+    </div>
+    <p class="cart-shipping-note">Free UK shipping on orders over £60</p>
+  </div>
+</div>
 </body>
 </html>
