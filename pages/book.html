@@ -56,62 +56,80 @@
 </head>
 <body>
 
-  <nav id="navbar">
-    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'" aria-label="Amigos Home">
-      <svg class="nav-skull-icon" viewBox="0 0 200 240" fill="none" aria-hidden="true">
-        <path d="M100 20 C58 20 28 52 28 90 C28 112 37 132 52 144 L52 172 C52 180 58 186 66 186 L134 186 C142 186 148 180 148 172 L148 144 C163 132 172 112 172 90 C172 52 142 20 100 20 Z" stroke="var(--dark-brown)" stroke-width="3" fill="none"/>
-        <ellipse cx="70" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
-        <ellipse cx="130" cy="96" rx="17" ry="19" stroke="var(--dark-brown)" stroke-width="2.5" fill="none"/>
-        <path d="M28 52 Q100 38 172 52" stroke="var(--warm-brown)" stroke-width="2.2" fill="none"/>
-        <rect x="52" y="10" width="96" height="20" rx="4" stroke="var(--warm-brown)" stroke-width="1.8" fill="none"/>
-        <circle cx="100" cy="20" r="5" stroke="var(--warm-brown)" stroke-width="1.4" fill="none"/>
-        <line x1="100" y1="15" x2="100" y2="26" stroke="var(--warm-brown)" stroke-width="1.2"/>
-      </svg>
-      <span class="nav-logo">Amigos</span>
-    </div>
-    <ul class="nav-center" role="navigation" aria-label="Main navigation">
-      <li class="nav-item">
-        <a class="nav-link has-drop">Men</a>
-        <div class="dropdown">
-          <a href="mens.html?cat=all">All Men's</a>
-          <div class="dropdown-divider"></div>
-          <a href="mens.html?cat=t-shirts">T-Shirts</a>
-          <a href="mens.html?cat=hoodies">Hoodies</a>
-          <a href="mens.html?cat=sweatshirts">Sweatshirts</a>
-          <a href="mens.html?cat=caps">Caps</a>
-          <a href="mens.html?cat=trousers">Trousers</a>
-          <a href="mens.html?cat=jewellery">Jewellery</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link has-drop">Women</a>
-        <div class="dropdown">
-          <a href="womens.html?cat=all">All Women's</a>
-          <div class="dropdown-divider"></div>
-          <a href="womens.html?cat=t-shirts">T-Shirts</a>
-          <a href="womens.html?cat=hoodies">Hoodies</a>
-          <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
-          <a href="womens.html?cat=caps">Caps</a>
-          <a href="womens.html?cat=trousers">Trousers</a>
-          <a href="womens.html?cat=jewellery">Jewellery</a>
-        </div>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
-      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
-      <button class="cart-btn" id="cart-btn" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</button>
-    </div>
-  </nav>
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="mens.html">Men</a>
-    <a href="womens.html">Women</a>
-    <a href="../index.html#bay-section">Trearddur Bay</a>
-    <a href="about.html">About Us</a>
-    <a href="book.html">The Knowing Within</a>
+  <!-- NEW NAV — replace existing nav in mens.html, womens.html, about.html, book.html -->
+<nav id="navbar">
+  <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
+    <img src="../images/logo.png" alt="Amigos" class="nav-skull-icon">
+    <span class="nav-logo">Amigos</span>
   </div>
+  <ul class="nav-center">
+    <li class="nav-item">
+      <a class="nav-link has-drop">Men</a>
+      <div class="dropdown">
+        <a href="mens.html?cat=all">All Men's</a>
+        <div class="dropdown-divider"></div>
+        <a href="mens.html?cat=t-shirts">T-Shirts</a>
+        <a href="mens.html?cat=hoodies">Hoodies</a>
+        <a href="mens.html?cat=sweatshirts">Sweatshirts</a>
+        <a href="mens.html?cat=trousers">Trousers</a>
+        <a href="mens.html?cat=swimwear">Swimwear</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-drop">Women</a>
+      <div class="dropdown">
+        <a href="womens.html?cat=all">All Women's</a>
+        <div class="dropdown-divider"></div>
+        <a href="womens.html?cat=t-shirts">T-Shirts</a>
+        <a href="womens.html?cat=hoodies">Hoodies</a>
+        <a href="womens.html?cat=sweatshirts">Sweatshirts</a>
+        <a href="womens.html?cat=trousers">Trousers</a>
+        <a href="womens.html?cat=swimwear">Swimwear</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-drop">Children</a>
+      <div class="dropdown">
+        <a href="childrens.html?cat=all">All Children's</a>
+        <div class="dropdown-divider"></div>
+        <a href="childrens.html?cat=t-shirts">T-Shirts</a>
+        <a href="childrens.html?cat=hoodies">Hoodies</a>
+        <a href="childrens.html?cat=sweatshirts">Sweatshirts</a>
+        <a href="childrens.html?cat=caps">Caps</a>
+        <a href="childrens.html?cat=swimwear">Swimwear</a>
+        <a href="childrens.html?cat=babygrows">Babygrows</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-drop">Accessories</a>
+      <div class="dropdown">
+        <a href="accessories.html?cat=all">All Accessories</a>
+        <div class="dropdown-divider"></div>
+        <a href="accessories.html?cat=tote-bags">Tote Bags</a>
+        <a href="accessories.html?cat=caps">Caps</a>
+        <a href="accessories.html?cat=jewellery">Jewellery</a>
+        <a href="accessories.html?cat=keyrings">Keyrings</a>
+      </div>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
+    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+    <li class="nav-item"><a class="nav-link" href="book.html">The Knowing Within</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="mens.html">Men</a>
+  <a href="womens.html">Women</a>
+  <a href="childrens.html">Children</a>
+  <a href="accessories.html">Accessories</a>
+  <a href="../index.html#bay-section">Trearddur Bay</a>
+  <a href="about.html">About Us</a>
+  <a href="book.html">The Knowing Within</a>
+</div>
 
   <div class="page-hero" aria-label="The Knowing Within">
     <img src="https://images.unsplash.com/photo-1476611338391-6f395a0ebc7b?w=1400&q=80" alt="The Knowing Within — book by the founder of Amigos">
