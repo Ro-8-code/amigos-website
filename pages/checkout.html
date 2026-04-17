@@ -4,1086 +4,546 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout — Amigos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream:      #F5F0E8;
-      --sand:       #E8DFD0;
-      --dark-brown: #3D2B1F;
-      --warm-brown: #8B6B4A;
-      --ocean:      #6B8FA8;
-      --deep:       #2C4A5E;
-      --steel:      #7A9BB5;
-      --text:       #1a1a1a;
-      --mid:        #5a5a5a;
-      --light:      #9a9a9a;
-      --white:      #FEFEFE;
-      --error:      #c0392b;
-      --success:    #2d7a4f;
+      --cream:       #F5F0E8;
+      --cream-dark:  #EDE8DF;
+      --sand:        #E0D8CB;
+      --dark-brown:  #3D2B1F;
+      --warm-brown:  #8B6B4A;
+      --warm-light:  #C4A882;
+      --ocean:       #6B8FA8;
+      --text:        #1a1a1a;
+      --mid:         #6a5a4e;
+      --light:       #A89880;
+      --faint:       #C8BDB0;
+      --white:       #FEFCF8;
+      --error:       #9B3A2A;
+      --success:     #2d6a4f;
+      --border:      rgba(61,43,31,0.12);
+      --border-strong: rgba(61,43,31,0.25);
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', Arial, sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; font-weight: 300; }
 
-    body {
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--cream);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    /* TOP BAR */
+    .topbar { background: var(--dark-brown); padding: 0.55rem 2.5rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+    .topbar p { font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,240,232,0.65); }
+    .topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-light); opacity: 0.4; }
 
-    /* ── NAV ── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--cream);
-      border-bottom: 1px solid rgba(61,43,31,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-    }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      color: var(--dark-brown);
-    }
-    .nav-logo img {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-    }
-    .nav-logo span {
-      font-family: Georgia, serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-    .nav-secure {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--light);
-    }
-    .nav-secure svg { opacity: 0.5; }
+    /* NAV */
+    .nav { background: var(--cream); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; object-fit: contain; opacity: 0.88; }
+    .nav-logo-text { display: flex; flex-direction: column; gap: 0.06rem; }
+    .nav-logo-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 500; letter-spacing: 0.38em; text-transform: uppercase; color: var(--dark-brown); line-height: 1; }
+    .nav-logo-sub  { font-family: 'Jost', sans-serif; font-size: 0.47rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: var(--light); }
+    .nav-secure { display: flex; align-items: center; gap: 0.5rem; font-family: 'Jost', sans-serif; font-size: 0.58rem; font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); }
+    .nav-secure-icon { width: 24px; height: 24px; border-radius: 50%; background: rgba(61,43,31,0.06); display: flex; align-items: center; justify-content: center; }
 
-    /* ── BREADCRUMB ── */
-    .breadcrumb {
-      padding: 1.2rem 2rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--light);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .breadcrumb a {
-      color: var(--warm-brown);
-      text-decoration: none;
-    }
-    .breadcrumb a:hover { text-decoration: underline; }
+    /* PROGRESS */
+    .progress-wrap { background: var(--cream); border-bottom: 1px solid var(--border); padding: 1rem 2.5rem; display: flex; align-items: center; justify-content: center; }
+    .progress { display: flex; align-items: center; }
+    .step { display: flex; align-items: center; gap: 0.65rem; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: flex; align-items: center; justify-content: center; font-family: 'Jost', sans-serif; font-size: 0.65rem; font-weight: 400; color: var(--light); transition: all 0.3s; flex-shrink: 0; }
+    .step-num.active { background: var(--dark-brown); border-color: var(--dark-brown); color: var(--cream); font-weight: 500; }
+    .step-num.done   { background: var(--warm-brown); border-color: var(--warm-brown); color: var(--cream); }
+    .step-label { font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); transition: color 0.3s; }
+    .step-label.active { color: var(--dark-brown); font-weight: 500; }
+    .step-label.done   { color: var(--warm-brown); }
+    .step-connector { width: 52px; height: 1px; background: var(--border); margin: 0 1rem; transition: background 0.3s; }
+    .step-connector.done { background: var(--warm-brown); opacity: 0.4; }
 
-    /* ── LAYOUT ── */
-    .checkout-layout {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 0;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-      min-height: calc(100vh - 130px);
-    }
+    /* LAYOUT */
+    .checkout-wrap { display: grid; grid-template-columns: 1fr 400px; max-width: 1080px; margin: 0 auto; min-height: calc(100vh - 148px); }
 
-    /* ── LEFT: FORM ── */
-    .checkout-form-section {
-      padding-right: 3.5rem;
-      border-right: 1px solid rgba(61,43,31,0.1);
-    }
+    /* LEFT */
+    .left-panel { padding: 3rem 3.5rem 4rem 2.5rem; border-right: 1px solid var(--border); }
+    .step-panel { display: none; animation: fadeIn 0.25s ease; }
+    .step-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-    .section-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--light);
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid rgba(61,43,31,0.08);
-    }
+    .panel-heading { margin-bottom: 2.2rem; }
+    .panel-heading h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.75rem; font-weight: 400; color: var(--dark-brown); letter-spacing: 0.02em; margin-bottom: 0.25rem; }
+    .panel-heading p  { font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 300; letter-spacing: 0.14em; color: var(--light); }
 
-    .form-section { margin-bottom: 2.5rem; }
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.2rem; }
+    .form-grid.full { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-family: 'Jost', sans-serif; font-size: 0.57rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); }
+    .field input, .field select { background: var(--white); border: 1px solid var(--border); border-radius: 2px; padding: 0.88rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300; color: var(--text); transition: border-color 0.2s, box-shadow 0.2s; outline: none; width: 100%; -webkit-appearance: none; }
+    .field input::placeholder { color: var(--faint); }
+    .field input:focus, .field select:focus { border-color: var(--warm-brown); box-shadow: 0 0 0 3px rgba(139,107,74,0.08); }
+    .field input.error { border-color: var(--error); }
+    .field-error { font-family: 'Jost', sans-serif; font-size: 0.57rem; color: var(--error); letter-spacing: 0.05em; min-height: 0.85rem; }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .form-row.full { grid-template-columns: 1fr; }
+    /* STRIPE ELEMENTS */
+    .stripe-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 2px; padding: 0.88rem 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .stripe-wrap.focused { border-color: var(--warm-brown); box-shadow: 0 0 0 3px rgba(139,107,74,0.08); }
+    .stripe-wrap.error   { border-color: var(--error); }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
-    }
-    .field label {
-      font-family: Arial, sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .field input,
-    .field select {
-      background: var(--white);
-      border: 1px solid rgba(61,43,31,0.2);
-      border-radius: 3px;
-      padding: 0.75rem 1rem;
-      font-family: Georgia, serif;
-      font-size: 0.9rem;
-      color: var(--text);
-      transition: border-color 0.2s;
-      outline: none;
-      width: 100%;
-    }
-    .field input:focus,
-    .field select:focus {
-      border-color: var(--warm-brown);
-    }
-    .field input.error,
-    .field select.error {
-      border-color: var(--error);
-    }
-    .field-error {
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      color: var(--error);
-      letter-spacing: 0.05em;
-      min-height: 0.9rem;
-    }
+    /* SHIPPING OPTIONS */
+    .shipping-options { display: flex; flex-direction: column; gap: 0.75rem; margin: 0.5rem 0 2rem; }
+    .shipping-opt { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.3rem; background: var(--white); border: 1.5px solid var(--border); border-radius: 2px; cursor: pointer; transition: border-color 0.2s; user-select: none; }
+    .shipping-opt:hover { border-color: var(--warm-light); }
+    .shipping-opt.selected { border-color: var(--dark-brown); }
+    .shipping-opt-left { display: flex; align-items: center; gap: 0.9rem; }
+    .radio-circle { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--faint); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; flex-shrink: 0; }
+    .shipping-opt.selected .radio-circle { border-color: var(--dark-brown); }
+    .radio-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dark-brown); transform: scale(0); transition: transform 0.2s; }
+    .shipping-opt.selected .radio-dot { transform: scale(1); }
+    .shipping-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 500; color: var(--dark-brown); }
+    .shipping-eta  { font-family: 'Jost', sans-serif; font-size: 0.57rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-top: 0.1rem; }
+    .shipping-price { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--dark-brown); }
+    .shipping-price.free { font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--success); }
 
-    /* ── STRIPE ELEMENTS ── */
-    .stripe-field {
-      background: var(--white);
-      border: 1px solid rgba(61,43,31,0.2);
-      border-radius: 3px;
-      padding: 0.75rem 1rem;
-      transition: border-color 0.2s;
-    }
-    .stripe-field.focused { border-color: var(--warm-brown); }
-    .stripe-field.error   { border-color: var(--error); }
+    /* EXPRESS PAYMENT */
+    .express-wrap { margin-bottom: 1.5rem; }
+    #payment-request-button { width: 100%; min-height: 50px; }
+    .or-divider { display: flex; align-items: center; gap: 1rem; margin: 1.3rem 0; }
+    .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .or-divider span { font-family: 'Jost', sans-serif; font-size: 0.57rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
 
-    .payment-methods {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    #payment-request-button { width: 100%; }
+    /* CARD FIELDS */
+    .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1.2rem 0;
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--light);
-    }
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(61,43,31,0.1);
-    }
+    /* REVIEW BLOCKS */
+    .review-block { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: 2px; padding: 1rem 1.2rem; margin-bottom: 0.75rem; }
+    .review-block-label { font-family: 'Jost', sans-serif; font-size: 0.54rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .review-block-value { font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 300; color: var(--text); line-height: 1.5; }
+    .review-edit { font-family: 'Jost', sans-serif; font-size: 0.56rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-brown); background: none; border: none; cursor: pointer; white-space: nowrap; padding: 0; flex-shrink: 0; transition: color 0.2s; }
+    .review-edit:hover { color: var(--dark-brown); }
 
-    /* ── SHIPPING OPTIONS ── */
-    .shipping-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
-    .shipping-option {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.9rem 1rem;
-      background: var(--white);
-      border: 1px solid rgba(61,43,31,0.2);
-      border-radius: 3px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .shipping-option:hover { border-color: var(--warm-brown); }
-    .shipping-option.selected {
-      border-color: var(--dark-brown);
-      background: rgba(61,43,31,0.03);
-    }
-    .shipping-option input[type="radio"] { display: none; }
-    .shipping-option-left { display: flex; align-items: center; gap: 0.75rem; }
-    .shipping-radio {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(61,43,31,0.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: border-color 0.2s;
-    }
-    .shipping-option.selected .shipping-radio { border-color: var(--dark-brown); }
-    .shipping-radio-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--dark-brown);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .shipping-option.selected .shipping-radio-dot { opacity: 1; }
-    .shipping-name {
-      font-family: Georgia, serif;
-      font-size: 0.88rem;
-      color: var(--text);
-    }
-    .shipping-eta {
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--light);
-      text-transform: uppercase;
-    }
-    .shipping-price {
-      font-family: Georgia, serif;
-      font-size: 0.88rem;
-      color: var(--dark-brown);
-    }
-
-    /* ── PAY BUTTON ── */
-    .pay-btn {
-      width: 100%;
-      background: var(--dark-brown);
-      color: var(--cream);
-      border: none;
-      border-radius: 3px;
-      padding: 1rem 2rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-    .pay-btn:hover { background: #2a1d14; }
-    .pay-btn:active { transform: scale(0.99); }
-    .pay-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .pay-btn .spinner {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(245,240,232,0.3);
-      border-top-color: var(--cream);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-    }
-    .pay-btn.loading .spinner { display: block; }
-    .pay-btn.loading .btn-text { opacity: 0.6; }
+    /* BUTTONS */
+    .btn-row { display: flex; align-items: center; justify-content: space-between; margin-top: 2.5rem; gap: 1rem; }
+    .btn-back { display: flex; align-items: center; gap: 0.5rem; background: none; border: none; font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm-brown); cursor: pointer; padding: 0.5rem 0; transition: color 0.2s; }
+    .btn-back:hover { color: var(--dark-brown); }
+    .btn-primary { flex: 1; max-width: 300px; background: var(--dark-brown); color: var(--cream); border: none; border-radius: 2px; padding: 1.1rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+    .btn-primary:hover:not(:disabled) { background: #2e1e14; }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-primary .spinner { width: 14px; height: 14px; border: 1.5px solid rgba(245,240,232,0.3); border-top-color: var(--cream); border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    .btn-primary.loading .spinner { display: block; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .secure-note { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-top: 1.2rem; font-family: 'Jost', sans-serif; font-size: 0.54rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); }
+    .stripe-error-msg { background: rgba(155,58,42,0.06); border: 1px solid rgba(155,58,42,0.18); border-radius: 2px; padding: 0.75rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; font-weight: 300; color: var(--error); margin-top: 1rem; display: none; }
+    .stripe-error-msg.show { display: block; }
 
-    .pay-secure-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      margin-top: 1rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--light);
-    }
+    /* RIGHT: SUMMARY */
+    .right-panel { background: var(--cream-dark); border-left: 1px solid var(--border); padding: 3rem 2.2rem; position: sticky; top: 70px; align-self: start; max-height: calc(100vh - 70px); overflow-y: auto; }
+    .summary-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+    .summary-header h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; font-weight: 400; letter-spacing: 0.06em; color: var(--dark-brown); }
+    .summary-item-count { font-family: 'Jost', sans-serif; font-size: 0.57rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); }
+    .summary-items { margin-bottom: 1.5rem; }
+    .summary-item { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+    .summary-item:first-child { padding-top: 0; }
+    .item-img-wrap { position: relative; flex-shrink: 0; }
+    .item-img { width: 62px; height: 62px; object-fit: cover; border-radius: 2px; border: 1px solid var(--border); display: block; }
+    .item-qty-badge { position: absolute; top: -7px; right: -7px; width: 20px; height: 20px; background: var(--dark-brown); color: var(--cream); border-radius: 50%; font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+    .item-details { flex: 1; min-width: 0; }
+    .item-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.98rem; font-weight: 500; color: var(--dark-brown); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-meta { font-family: 'Jost', sans-serif; font-size: 0.57rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); }
+    .item-price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.98rem; font-weight: 400; color: var(--dark-brown); white-space: nowrap; }
+    .summary-totals { padding-top: 1.2rem; border-top: 1px solid var(--border); }
+    .total-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; }
+    .total-line-label { font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
+    .total-line-value { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.98rem; color: var(--text); }
+    .total-line-value.free { font-family: 'Jost', sans-serif; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--success); }
+    .grand-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 1rem; margin-top: 0.5rem; border-top: 1px solid var(--border-strong); }
+    .grand-total-label { font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dark-brown); }
+    .grand-total-amount { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.75rem; font-weight: 400; color: var(--dark-brown); line-height: 1; }
+    .grand-total-currency { font-size: 0.95rem; vertical-align: super; margin-right: 1px; }
+    .summary-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+    .summary-brand-mark { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .summary-brand-mark img { width: 22px; opacity: 0.3; }
+    .summary-brand-mark span { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dark-brown); opacity: 0.3; }
+    .summary-tagline { font-family: 'Jost', sans-serif; font-size: 0.5rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); font-style: italic; }
 
-    .stripe-error {
-      background: rgba(192,57,43,0.06);
-      border: 1px solid rgba(192,57,43,0.2);
-      border-radius: 3px;
-      padding: 0.75rem 1rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      color: var(--error);
-      margin-top: 1rem;
-      display: none;
-    }
-    .stripe-error.show { display: block; }
+    /* EMPTY */
+    .empty-state { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6rem 2rem; text-align: center; gap: 1rem; }
+    .empty-state img { width: 48px; opacity: 0.22; margin-bottom: 0.5rem; }
+    .empty-state h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--dark-brown); }
+    .empty-state p  { font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); }
+    .empty-state a  { display: inline-block; margin-top: 0.5rem; padding: 0.9rem 2.2rem; background: var(--dark-brown); color: var(--cream); text-decoration: none; font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; border-radius: 2px; }
 
-    /* ── RIGHT: ORDER SUMMARY ── */
-    .order-summary {
-      padding-left: 3.5rem;
-      position: sticky;
-      top: 80px;
-      align-self: start;
-    }
-
-    .summary-toggle {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      margin-bottom: 1.5rem;
-    }
-    .summary-toggle-left {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: Arial, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--warm-brown);
-    }
-    .summary-toggle-price {
-      font-family: Georgia, serif;
-      font-size: 1.1rem;
-      color: var(--dark-brown);
-    }
-
-    .summary-items {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(61,43,31,0.1);
-    }
-
-    .summary-item {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      align-items: flex-start;
-    }
-    .summary-item-img-wrap {
-      position: relative;
-      flex-shrink: 0;
-    }
-    .summary-item-img {
-      width: 56px;
-      height: 56px;
-      object-fit: cover;
-      border-radius: 3px;
-      border: 1px solid rgba(61,43,31,0.1);
-    }
-    .summary-item-qty {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      width: 18px;
-      height: 18px;
-      background: var(--dark-brown);
-      color: var(--cream);
-      border-radius: 50%;
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .summary-item-info { flex: 1; }
-    .summary-item-name {
-      font-family: Georgia, serif;
-      font-size: 0.85rem;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-    .summary-item-meta {
-      font-family: Arial, sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--light);
-    }
-    .summary-item-price {
-      font-family: Georgia, serif;
-      font-size: 0.88rem;
-      color: var(--dark-brown);
-      white-space: nowrap;
-    }
-
-    .summary-totals { margin-bottom: 1.5rem; }
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-    .summary-line-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .summary-line-value {
-      font-family: Georgia, serif;
-      font-size: 0.88rem;
-      color: var(--text);
-    }
-    .summary-line-value.free { color: var(--success); font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; }
-    .summary-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(61,43,31,0.1);
-    }
-    .summary-total-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .summary-total-value {
-      font-family: Georgia, serif;
-      font-size: 1.3rem;
-      color: var(--dark-brown);
-    }
-    .summary-total-currency {
-      font-size: 0.75rem;
-      vertical-align: super;
-      margin-right: 1px;
-    }
-
-    .summary-brand {
-      text-align: center;
-      padding-top: 2rem;
-      opacity: 0.35;
-    }
-    .summary-brand img { width: 28px; height: 28px; object-fit: contain; }
-    .summary-brand p {
-      font-family: Arial, sans-serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-top: 0.4rem;
-      color: var(--dark-brown);
-    }
-
-    /* ── EMPTY CART STATE ── */
-    .empty-cart {
-      text-align: center;
-      padding: 4rem 2rem;
-      grid-column: 1 / -1;
-    }
-    .empty-cart h2 {
-      font-family: Georgia, serif;
-      font-size: 1.4rem;
-      color: var(--dark-brown);
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-    .empty-cart p {
-      font-family: Arial, sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--light);
-      margin-bottom: 1.5rem;
-    }
-    .empty-cart a {
-      display: inline-block;
-      padding: 0.75rem 2rem;
-      background: var(--dark-brown);
-      color: var(--cream);
-      text-decoration: none;
-      font-family: Arial, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border-radius: 2px;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 780px) {
-      .checkout-layout {
-        grid-template-columns: 1fr;
-        padding: 0 1rem 3rem;
-      }
-      .checkout-form-section {
-        padding-right: 0;
-        border-right: none;
-        order: 2;
-      }
-      .order-summary {
-        padding-left: 0;
-        position: static;
-        order: 1;
-        border-bottom: 1px solid rgba(61,43,31,0.1);
-        padding-bottom: 1.5rem;
-        margin-bottom: 2rem;
-      }
-      .summary-toggle { display: flex; }
-      .summary-items, .summary-totals { display: none; }
-      .summary-items.open, .summary-totals.open { display: block; }
-      .form-row { grid-template-columns: 1fr; }
-      .nav { padding: 0 1rem; }
+    /* MOBILE */
+    @media (max-width: 800px) {
+      .checkout-wrap { grid-template-columns: 1fr; }
+      .right-panel { position: static; max-height: none; order: -1; border-left: none; border-bottom: 1px solid var(--border); padding: 2rem 1.5rem; }
+      .left-panel  { padding: 2rem 1.5rem 3rem; border-right: none; }
+      .nav, .progress-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .form-grid   { grid-template-columns: 1fr; }
+      .card-row    { grid-template-columns: 1fr; }
+      .btn-row     { flex-direction: column-reverse; }
+      .btn-primary { max-width: 100%; width: 100%; }
+      .topbar      { display: none; }
+      .step-connector { width: 30px; margin: 0 0.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <div class="topbar">
+    <p>Free UK shipping on orders over £60</p>
+    <div class="topbar-dot"></div>
+    <p>Founded in Trearddur Bay · Est. 2025</p>
+    <div class="topbar-dot"></div>
+    <p>Amigos por siempre</p>
+  </div>
+
   <nav class="nav">
     <a class="nav-logo" href="../index.html">
-      <img src="../images/logo.png" alt="Amigos">
-      <span>Amigos</span>
+      <img src="../images/logo.png" alt="Captain Bones — Amigos">
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Amigos</span>
+        <span class="nav-logo-sub">Trearddur Bay · Wales</span>
+      </div>
     </a>
     <div class="nav-secure">
-      <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
-        <path d="M5.5 0L0 2.167V6.5c0 3.016 2.343 5.833 5.5 6.5C8.657 12.333 11 9.516 11 6.5V2.167L5.5 0z" fill="#8B6B4A"/>
-      </svg>
+      <div class="nav-secure-icon">
+        <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0L0 1.818V5.455c0 2.509 2.136 4.858 5 5.545 2.864-.687 5-3.036 5-5.545V1.818L5 0z" fill="#8B6B4A"/></svg>
+      </div>
       Secure Checkout
     </div>
   </nav>
 
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="../index.html">Home</a>
-    <span>›</span>
-    <span>Cart</span>
-    <span>›</span>
-    <span style="color:var(--dark-brown)">Checkout</span>
+  <div class="progress-wrap">
+    <div class="progress">
+      <div class="step">
+        <div class="step-num active" id="sn1">1</div>
+        <span class="step-label active" id="sl1">Contact</span>
+      </div>
+      <div class="step-connector" id="sc1"></div>
+      <div class="step">
+        <div class="step-num" id="sn2">2</div>
+        <span class="step-label" id="sl2">Shipping</span>
+      </div>
+      <div class="step-connector" id="sc2"></div>
+      <div class="step">
+        <div class="step-num" id="sn3">3</div>
+        <span class="step-label" id="sl3">Payment</span>
+      </div>
+    </div>
   </div>
 
-  <!-- MAIN -->
-  <main class="checkout-layout" id="checkout-layout">
+  <div class="checkout-wrap" id="checkout-wrap">
 
-    <!-- LEFT: FORM -->
-    <div class="checkout-form-section" id="form-section">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
 
-      <!-- CONTACT -->
-      <div class="form-section">
-        <div class="section-label">Contact</div>
-        <div class="form-row full">
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="panel-1">
+        <div class="panel-heading">
+          <h2>Contact &amp; Delivery</h2>
+          <p>Where shall we send your order?</p>
+        </div>
+        <div class="form-grid full" style="margin-bottom:1.5rem;">
           <div class="field">
             <label for="email">Email address</label>
             <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
             <span class="field-error" id="email-error"></span>
           </div>
         </div>
-      </div>
-
-      <!-- SHIPPING ADDRESS -->
-      <div class="form-section">
-        <div class="section-label">Shipping address</div>
-        <div class="form-row">
-          <div class="field">
-            <label for="first-name">First name</label>
-            <input type="text" id="first-name" autocomplete="given-name">
-            <span class="field-error" id="first-name-error"></span>
-          </div>
-          <div class="field">
-            <label for="last-name">Last name</label>
-            <input type="text" id="last-name" autocomplete="family-name">
-            <span class="field-error" id="last-name-error"></span>
-          </div>
+        <div class="form-grid">
+          <div class="field"><label for="fn">First name</label><input type="text" id="fn" autocomplete="given-name"><span class="field-error" id="fn-error"></span></div>
+          <div class="field"><label for="ln">Last name</label><input type="text" id="ln" autocomplete="family-name"><span class="field-error" id="ln-error"></span></div>
+          <div class="field full"><label for="a1">Address</label><input type="text" id="a1" autocomplete="address-line1"><span class="field-error" id="a1-error"></span></div>
+          <div class="field full"><label for="a2">Apartment, suite, etc. <span style="opacity:0.45;font-weight:300">(optional)</span></label><input type="text" id="a2" autocomplete="address-line2"></div>
+          <div class="field"><label for="city">Town / City</label><input type="text" id="city" autocomplete="address-level2"><span class="field-error" id="city-error"></span></div>
+          <div class="field"><label for="pc">Postcode</label><input type="text" id="pc" autocomplete="postal-code"><span class="field-error" id="pc-error"></span></div>
         </div>
-        <div class="form-row full">
-          <div class="field">
-            <label for="address1">Address</label>
-            <input type="text" id="address1" autocomplete="address-line1">
-            <span class="field-error" id="address1-error"></span>
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="field">
-            <label for="address2">Apartment, suite, etc. (optional)</label>
-            <input type="text" id="address2" autocomplete="address-line2">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label for="city">Town / City</label>
-            <input type="text" id="city" autocomplete="address-level2">
-            <span class="field-error" id="city-error"></span>
-          </div>
-          <div class="field">
-            <label for="postcode">Postcode</label>
-            <input type="text" id="postcode" autocomplete="postal-code">
-            <span class="field-error" id="postcode-error"></span>
-          </div>
+        <div class="btn-row">
+          <a href="../index.html" class="btn-back">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M5 1L1 5l4 4M1 5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back to shop
+          </a>
+          <button class="btn-primary" onclick="goToStep(2)">
+            Continue to shipping
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M7 1l4 4-4 4M11 5H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
 
-      <!-- SHIPPING METHOD -->
-      <div class="form-section">
-        <div class="section-label">Shipping method</div>
+      <!-- STEP 2 -->
+      <div class="step-panel" id="panel-2">
+        <div class="panel-heading">
+          <h2>Shipping Method</h2>
+          <p>All UK orders dispatched within 1–2 working days</p>
+        </div>
+        <div class="review-block"><div><div class="review-block-label">Contact</div><div class="review-block-value" id="rv-email">—</div></div><button class="review-edit" onclick="goToStep(1)">Edit</button></div>
+        <div class="review-block" style="margin-bottom:1.8rem;"><div><div class="review-block-label">Ship to</div><div class="review-block-value" id="rv-addr">—</div></div><button class="review-edit" onclick="goToStep(1)">Edit</button></div>
         <div class="shipping-options">
-          <label class="shipping-option selected" id="shipping-standard" onclick="selectShipping('standard')">
-            <div class="shipping-option-left">
-              <div class="shipping-radio"><div class="shipping-radio-dot"></div></div>
-              <div>
-                <div class="shipping-name">Standard Delivery</div>
-                <div class="shipping-eta">3–5 working days</div>
-              </div>
+          <div class="shipping-opt selected" id="opt-standard" onclick="selectShipping('standard')">
+            <div class="shipping-opt-left">
+              <div class="radio-circle"><div class="radio-dot"></div></div>
+              <div><div class="shipping-name">Standard Delivery</div><div class="shipping-eta">3–5 working days</div></div>
             </div>
-            <div class="shipping-price" id="shipping-price-display">£3.99</div>
-          </label>
+            <div class="shipping-price" id="ship-opt-price">£3.99</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(1)">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M5 1L1 5l4 4M1 5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <button class="btn-primary" onclick="goToStep(3)">
+            Continue to payment
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M7 1l4 4-4 4M11 5H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
 
-      <!-- PAYMENT -->
-      <div class="form-section">
-        <div class="section-label">Payment</div>
+      <!-- STEP 3 -->
+      <div class="step-panel" id="panel-3">
+        <div class="panel-heading">
+          <h2>Payment</h2>
+          <p>All transactions are encrypted and secure</p>
+        </div>
+        <div class="review-block"><div><div class="review-block-label">Contact</div><div class="review-block-value" id="rv-email-2">—</div></div><button class="review-edit" onclick="goToStep(1)">Edit</button></div>
+        <div class="review-block"><div><div class="review-block-label">Ship to</div><div class="review-block-value" id="rv-addr-2">—</div></div><button class="review-edit" onclick="goToStep(1)">Edit</button></div>
+        <div class="review-block" style="margin-bottom:2rem;"><div><div class="review-block-label">Shipping</div><div class="review-block-value" id="rv-ship">Standard Delivery — £3.99</div></div><button class="review-edit" onclick="goToStep(2)">Edit</button></div>
 
-        <!-- Apple Pay / Google Pay -->
-        <div id="payment-request-button" style="margin-bottom:1rem;"></div>
-        <div class="divider" id="express-divider" style="display:none;">Or pay with card</div>
+        <div class="express-wrap">
+          <div id="payment-request-button"></div>
+          <div class="or-divider" id="express-divider" style="display:none;"><span>Or pay with card</span></div>
+        </div>
 
-        <!-- Card number -->
-        <div class="field">
+        <div class="field" style="margin-bottom:1.25rem;">
           <label>Card number</label>
-          <div class="stripe-field" id="card-number-element"></div>
-          <span class="field-error" id="card-number-error"></span>
+          <div class="stripe-wrap" id="cn-wrap"></div>
+          <span class="field-error" id="cn-err"></span>
+        </div>
+        <div class="card-row">
+          <div class="field"><label>Expiry date</label><div class="stripe-wrap" id="ce-wrap"></div><span class="field-error" id="ce-err"></span></div>
+          <div class="field"><label>Security code</label><div class="stripe-wrap" id="cv-wrap"></div><span class="field-error" id="cv-err"></span></div>
+        </div>
+        <div class="field" style="margin-top:1.25rem;">
+          <label for="card-name">Name on card</label>
+          <input type="text" id="card-name" autocomplete="cc-name">
+          <span class="field-error" id="cn-name-err"></span>
         </div>
 
-        <div class="form-row">
-          <div class="field">
-            <label>Expiry date</label>
-            <div class="stripe-field" id="card-expiry-element"></div>
-            <span class="field-error" id="card-expiry-error"></span>
-          </div>
-          <div class="field">
-            <label>Security code</label>
-            <div class="stripe-field" id="card-cvc-element"></div>
-            <span class="field-error" id="card-cvc-error"></span>
-          </div>
+        <div class="stripe-error-msg" id="stripe-err"></div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(2)">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M5 1L1 5l4 4M1 5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <button class="btn-primary" id="pay-btn" onclick="handlePayment()">
+            <div class="spinner"></div>
+            <span id="pay-btn-text">Pay now — £0.00</span>
+          </button>
         </div>
 
-        <div class="field">
-          <label for="name-on-card">Name on card</label>
-          <input type="text" id="name-on-card" autocomplete="cc-name">
-          <span class="field-error" id="card-name-error"></span>
-        </div>
-
-        <div class="stripe-error" id="stripe-error"></div>
-
-        <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
-          <div class="spinner"></div>
-          <span class="btn-text" id="pay-btn-text">Pay now — £0.00</span>
-        </button>
-
-        <div class="pay-secure-note">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
-            <path d="M5 0L0 2V6c0 2.76 2.14 5.33 5 6 2.86-.67 5-3.24 5-6V2L5 0z" fill="#9a9a9a"/>
-          </svg>
-          Secured by Stripe · SSL encrypted
+        <div class="secure-note">
+          <svg width="9" height="11" viewBox="0 0 9 11" fill="none"><path d="M4.5 0L0 1.667V5c0 2.3 1.93 4.444 4.5 5C7.07 9.444 9 7.3 9 5V1.667L4.5 0z" fill="#C8BDB0"/></svg>
+          Secured by Stripe · 256-bit SSL encryption
         </div>
       </div>
 
-    </div><!-- /form-section -->
+    </div><!-- /left-panel -->
 
-    <!-- RIGHT: ORDER SUMMARY -->
-    <aside class="order-summary" id="order-summary">
-
-      <!-- Mobile toggle -->
-      <div class="summary-toggle" id="summary-toggle" onclick="toggleSummary()">
-        <div class="summary-toggle-left">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M1 1h12M1 5h12M1 9h8" stroke="#8B6B4A" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Show order summary
-        </div>
-        <div class="summary-toggle-price" id="summary-toggle-price">£0.00</div>
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <div class="summary-header">
+        <h3>Your Order</h3>
+        <span class="summary-item-count" id="item-count">0 items</span>
       </div>
-
-      <div class="section-label" style="display:none" id="summary-desktop-label">Order summary</div>
-
       <div class="summary-items" id="summary-items"></div>
-
-      <div class="summary-totals" id="summary-totals">
-        <div class="summary-line">
-          <span class="summary-line-label">Subtotal</span>
-          <span class="summary-line-value" id="subtotal-display">£0.00</span>
-        </div>
-        <div class="summary-line">
-          <span class="summary-line-label">Shipping</span>
-          <span class="summary-line-value" id="shipping-display">£3.99</span>
-        </div>
-        <div class="summary-total">
-          <span class="summary-total-label">Total</span>
-          <span class="summary-total-value" id="total-display">
-            <span class="summary-total-currency">£</span><span id="total-amount">0.00</span>
-          </span>
+      <div class="summary-totals">
+        <div class="total-line"><span class="total-line-label">Subtotal</span><span class="total-line-value" id="sub-val">£0.00</span></div>
+        <div class="total-line"><span class="total-line-label">Shipping</span><span class="total-line-value" id="ship-val">£3.99</span></div>
+        <div class="grand-total">
+          <span class="grand-total-label">Total</span>
+          <span class="grand-total-amount"><span class="grand-total-currency">£</span><span id="total-val">0.00</span></span>
         </div>
       </div>
-
-      <div class="summary-brand">
-        <img src="../images/logo.png" alt="Amigos">
-        <p>Trearddur Bay · Wales</p>
+      <div class="summary-footer">
+        <div class="summary-brand-mark">
+          <img src="../images/logo.png" alt="Amigos">
+          <span>Amigos</span>
+        </div>
+        <p class="summary-tagline">A smooth sea never made a skilled sailor</p>
       </div>
-
     </aside>
 
-  </main>
+  </div>
 
   <script>
-    /* ══════════════════════════════════════════
-       AMIGOS — Checkout Page
-    ══════════════════════════════════════════ */
+    const STRIPE_KEY   = 'pk_live_51TMaACAflN0J7YHbn0LtIghGZTRTZvEeefVa296ODebCQACNIqMqyerKGiiL2n0zoHnzPb0r8jWhyJY6ouf5atPq005nIl8Ul4';
+    const FREE_SHIP    = 6000;
+    const SHIP_COST    = 399;
 
-    const STRIPE_PUBLISHABLE_KEY = 'pk_live_51TMaACAflN0J7YHbn0LtIghGZTRTZvEeefVa296ODebCQACNIqMqyerKGiiL2n0zoHnzPb0r8jWhyJY6ouf5atPq005nIl8Ul4';
-    const FREE_SHIPPING_THRESHOLD = 6000; // £60.00 in pence
-    const SHIPPING_COST = 399;            // £3.99 in pence
-
-    // ── Load cart from sessionStorage (set by script.js before redirect) ──
     let cart = [];
-    try {
-      const stored = sessionStorage.getItem('amigos_cart');
-      if (stored) cart = JSON.parse(stored);
-    } catch(e) {}
+    try { const s = sessionStorage.getItem('amigos_cart'); if (s) cart = JSON.parse(s); } catch(e) {}
 
-    // ── Shipping state ──
-    let selectedShipping = 'standard';
+    let currentStep = 1;
+    const fmt   = p => '£' + (p/100).toFixed(2);
+    const sub   = () => cart.reduce((s,i) => s + i.priceNumber * i.qty, 0);
+    const ship  = () => sub() >= FREE_SHIP ? 0 : SHIP_COST;
+    const tot   = () => sub() + ship();
 
-    function getSubtotal() {
-      return cart.reduce((s, i) => s + (i.priceNumber * i.qty), 0);
-    }
-    function getShippingCost() {
-      return getSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
-    }
-    function getTotal() {
-      return getSubtotal() + getShippingCost();
-    }
-    function formatGBP(pence) {
-      return '£' + (pence / 100).toFixed(2);
-    }
-
-    // ── Render order summary ──
     function renderSummary() {
-      const itemsEl    = document.getElementById('summary-items');
-      const subtotalEl = document.getElementById('subtotal-display');
-      const shippingEl = document.getElementById('shipping-display');
-      const totalEl    = document.getElementById('total-amount');
-      const togglePrice = document.getElementById('summary-toggle-price');
-      const shippingPriceDisplay = document.getElementById('shipping-price-display');
-      const payBtnText = document.getElementById('pay-btn-text');
-
-      const subtotal = getSubtotal();
-      const shipping = getShippingCost();
-      const total    = getTotal();
-
-      // Items
-      if (itemsEl) {
-        itemsEl.innerHTML = cart.map(item => `
+      const items = document.getElementById('summary-items');
+      if (items) {
+        items.innerHTML = cart.map(i => `
           <div class="summary-item">
-            <div class="summary-item-img-wrap">
-              <img src="${item.image}" alt="${item.name}" class="summary-item-img">
-              <span class="summary-item-qty">${item.qty}</span>
+            <div class="item-img-wrap">
+              <img src="${i.image}" alt="${i.name}" class="item-img">
+              <span class="item-qty-badge">${i.qty}</span>
             </div>
-            <div class="summary-item-info">
-              <p class="summary-item-name">${item.name}</p>
-              <p class="summary-item-meta">${item.variant} · Size ${item.size}</p>
+            <div class="item-details">
+              <p class="item-name">${i.name}</p>
+              <p class="item-meta">${i.variant} · Size ${i.size}</p>
             </div>
-            <span class="summary-item-price">${formatGBP(item.priceNumber * item.qty)}</span>
-          </div>
-        `).join('');
+            <span class="item-price">${fmt(i.priceNumber * i.qty)}</span>
+          </div>`).join('');
       }
-
-      if (subtotalEl) subtotalEl.textContent = formatGBP(subtotal);
-      if (shippingEl) shippingEl.innerHTML = shipping === 0
-        ? '<span class="summary-line-value free">Free</span>'
-        : formatGBP(shipping);
-      if (totalEl) totalEl.textContent = (total / 100).toFixed(2);
-      if (togglePrice) togglePrice.textContent = formatGBP(total);
-      if (shippingPriceDisplay) shippingPriceDisplay.textContent = shipping === 0 ? 'Free' : formatGBP(shipping);
-      if (payBtnText) payBtnText.textContent = `Pay now — ${formatGBP(total)}`;
+      const totalItems = cart.reduce((s,i) => s+i.qty, 0);
+      const countEl = document.getElementById('item-count');
+      if (countEl) countEl.textContent = `${totalItems} item${totalItems!==1?'s':''}`;
+      const sc = ship();
+      document.getElementById('sub-val').textContent   = fmt(sub());
+      document.getElementById('ship-val').innerHTML    = sc===0 ? '<span class="total-line-value free">Free</span>' : fmt(sc);
+      document.getElementById('total-val').textContent = (tot()/100).toFixed(2);
+      const sp = document.getElementById('ship-opt-price');
+      if (sp) sp.textContent = sc===0 ? 'Free' : fmt(sc);
+      const pb = document.getElementById('pay-btn-text');
+      if (pb) pb.textContent = `Pay now — ${fmt(tot())}`;
     }
 
-    function selectShipping(type) {
-      selectedShipping = type;
-      document.querySelectorAll('.shipping-option').forEach(el => el.classList.remove('selected'));
-      const el = document.getElementById(`shipping-${type}`);
-      if (el) el.classList.add('selected');
+    function goToStep(n) {
+      if (n > currentStep && currentStep === 1 && !validateStep1()) return;
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${n}`).classList.add('active');
+      for (let i = 1; i <= 3; i++) {
+        const num = document.getElementById(`sn${i}`);
+        const lbl = document.getElementById(`sl${i}`);
+        const con = document.getElementById(`sc${i}`);
+        num.classList.remove('active','done');
+        lbl.classList.remove('active','done');
+        if (con) con.classList.remove('done');
+        if      (i < n)  { num.classList.add('done');   lbl.classList.add('done');   num.textContent='✓'; }
+        else if (i === n){ num.classList.add('active');  lbl.classList.add('active'); num.textContent=i;   }
+        else             { num.textContent=i; }
+        if (con && i < n) con.classList.add('done');
+      }
+      if (n >= 2) {
+        const email = document.getElementById('email')?.value||'';
+        const name  = `${document.getElementById('fn')?.value||''} ${document.getElementById('ln')?.value||''}`.trim();
+        const addr  = [document.getElementById('a1')?.value, document.getElementById('a2')?.value, document.getElementById('city')?.value, document.getElementById('pc')?.value].filter(Boolean).join(', ');
+        ['rv-email','rv-email-2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=email; });
+        ['rv-addr','rv-addr-2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=`${name}, ${addr}`; });
+        const sc = ship();
+        const rs = document.getElementById('rv-ship');
+        if (rs) rs.textContent = `Standard Delivery — ${sc===0?'Free':fmt(sc)}`;
+      }
+      currentStep = n;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       renderSummary();
     }
 
-    function toggleSummary() {
-      document.getElementById('summary-items')?.classList.toggle('open');
-      document.getElementById('summary-totals')?.classList.toggle('open');
-      const toggle = document.getElementById('summary-toggle');
-      const isOpen = document.getElementById('summary-items')?.classList.contains('open');
-      if (toggle) toggle.querySelector('.summary-toggle-left').childNodes[1].textContent =
-        isOpen ? ' Hide order summary' : ' Show order summary';
+    function selectShipping(type) {
+      document.querySelectorAll('.shipping-opt').forEach(o => o.classList.remove('selected'));
+      document.getElementById(`opt-${type}`)?.classList.add('selected');
+      renderSummary();
     }
 
-    // ── Handle empty cart ──
-    function showEmptyCart() {
-      const layout = document.getElementById('checkout-layout');
-      if (!layout) return;
-      layout.innerHTML = `
-        <div class="empty-cart">
-          <h2>Your cart is empty</h2>
-          <p>Add some items before checking out</p>
-          <a href="../pages/mens.html">Shop now</a>
-        </div>`;
+    function setErr(inputId, errId, msg) {
+      const input = document.getElementById(inputId);
+      const err   = document.getElementById(errId);
+      if (msg) { input?.classList.add('error'); if(err) err.textContent=msg; return false; }
+      input?.classList.remove('error'); if(err) err.textContent=''; return true;
     }
 
-    // ── Stripe setup ──
-    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap' }]
-    });
-
-    const elementStyle = {
-      base: {
-        fontFamily: 'Georgia, serif',
-        fontSize: '14px',
-        color: '#1a1a1a',
-        '::placeholder': { color: '#c0b8ae' },
-      },
-      invalid: { color: '#c0392b' }
-    };
-
-    const cardNumber = elements.create('cardNumber', { style: elementStyle, showIcon: true });
-    const cardExpiry = elements.create('cardExpiry', { style: elementStyle });
-    const cardCvc    = elements.create('cardCvc',    { style: elementStyle });
-
-    cardNumber.mount('#card-number-element');
-    cardExpiry.mount('#card-expiry-element');
-    cardCvc.mount('#card-cvc-element');
-
-    // Focus/blur styling
-    [
-      { el: cardNumber, id: 'card-number-element', errId: 'card-number-error' },
-      { el: cardExpiry, id: 'card-expiry-element', errId: 'card-expiry-error' },
-      { el: cardCvc,    id: 'card-cvc-element',    errId: 'card-cvc-error'    },
-    ].forEach(({ el, id, errId }) => {
-      el.on('focus', () => document.getElementById(id)?.classList.add('focused'));
-      el.on('blur',  () => document.getElementById(id)?.classList.remove('focused'));
-      el.on('change', e => {
-        const errEl = document.getElementById(errId);
-        const wrap  = document.getElementById(id);
-        if (e.error) {
-          if (errEl) errEl.textContent = e.error.message;
-          wrap?.classList.add('error');
-        } else {
-          if (errEl) errEl.textContent = '';
-          wrap?.classList.remove('error');
-        }
-      });
-    });
-
-    // ── Apple Pay / Google Pay ──
-    const paymentRequest = stripe.paymentRequest({
-      country: 'GB',
-      currency: 'gbp',
-      total: { label: 'Amigos', amount: getTotal() },
-      requestPayerName: true,
-      requestPayerEmail: true,
-      requestShipping: true,
-      shippingOptions: [{
-        id: 'standard',
-        label: 'Standard Delivery (3–5 days)',
-        detail: 'Delivered to your door',
-        amount: getShippingCost(),
-      }],
-    });
-
-    const prButton = elements.create('paymentRequestButton', {
-      paymentRequest,
-      style: { paymentRequestButton: { type: 'buy', theme: 'dark', height: '48px' } }
-    });
-
-    paymentRequest.canMakePayment().then(result => {
-      if (result) {
-        prButton.mount('#payment-request-button');
-        document.getElementById('express-divider').style.display = 'flex';
-      }
-    });
-
-    paymentRequest.on('paymentmethod', async (ev) => {
-      try {
-        const res = await fetch('/api/checkout-intent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            items: cart,
-            shippingCost: getShippingCost(),
-            email: ev.payerEmail,
-            name: ev.payerName,
-          }),
-        });
-        const { clientSecret, error: serverError } = await res.json();
-        if (serverError) { ev.complete('fail'); return; }
-
-        const { error, paymentIntent } = await stripe.confirmCardPayment(
-          clientSecret, { payment_method: ev.paymentMethod.id }, { handleActions: false }
-        );
-        if (error) { ev.complete('fail'); return; }
-
-        ev.complete('success');
-        if (paymentIntent.status === 'requires_action') {
-          await stripe.confirmCardPayment(clientSecret);
-        }
-        redirectToSuccess(paymentIntent);
-      } catch(err) {
-        ev.complete('fail');
-      }
-    });
-
-    // ── Validation ──
-    function validateField(id, errorId, message) {
-      const val = document.getElementById(id)?.value?.trim();
-      if (!val) {
-        document.getElementById(errorId).textContent = message;
-        document.getElementById(id)?.classList.add('error');
-        return false;
-      }
-      document.getElementById(errorId).textContent = '';
-      document.getElementById(id)?.classList.remove('error');
-      return true;
-    }
-
-    function validateEmail(id, errorId) {
-      const val = document.getElementById(id)?.value?.trim();
-      const ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-      if (!ok) {
-        document.getElementById(errorId).textContent = 'Please enter a valid email address';
-        document.getElementById(id)?.classList.add('error');
-        return false;
-      }
-      document.getElementById(errorId).textContent = '';
-      document.getElementById(id)?.classList.remove('error');
-      return true;
-    }
-
-    function validateForm() {
-      const checks = [
-        validateEmail('email', 'email-error'),
-        validateField('first-name',  'first-name-error',  'First name is required'),
-        validateField('last-name',   'last-name-error',   'Last name is required'),
-        validateField('address1',    'address1-error',    'Address is required'),
-        validateField('city',        'city-error',        'Town / City is required'),
-        validateField('postcode',    'postcode-error',    'Postcode is required'),
-        validateField('name-on-card','card-name-error',   'Name on card is required'),
+    function validateStep1() {
+      const email = document.getElementById('email')?.value?.trim();
+      const ok = [
+        setErr('email', 'email-error', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'Please enter a valid email'),
+        setErr('fn',   'fn-error',   document.getElementById('fn')?.value?.trim()   ? '' : 'Required'),
+        setErr('ln',   'ln-error',   document.getElementById('ln')?.value?.trim()   ? '' : 'Required'),
+        setErr('a1',   'a1-error',   document.getElementById('a1')?.value?.trim()   ? '' : 'Required'),
+        setErr('city', 'city-error', document.getElementById('city')?.value?.trim() ? '' : 'Required'),
+        setErr('pc',   'pc-error',   document.getElementById('pc')?.value?.trim()   ? '' : 'Required'),
       ];
-      return checks.every(Boolean);
+      if (!ok.every(Boolean)) { document.querySelector('.field input.error')?.scrollIntoView({behavior:'smooth',block:'center'}); return false; }
+      return true;
     }
 
-    // ── Payment handler ──
-    async function handlePayment() {
-      if (!validateForm()) {
-        // Scroll to first error
-        const firstError = document.querySelector('.field input.error, .field-error:not(:empty)');
-        firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
+    // Stripe
+    const stripe   = Stripe(STRIPE_KEY);
+    const elements = stripe.elements();
+    const elStyle  = { base: { fontFamily:"'Jost',Arial,sans-serif", fontWeight:'300', fontSize:'14px', color:'#1a1a1a', '::placeholder':{ color:'#C8BDB0' } }, invalid:{ color:'#9B3A2A' } };
+    const cardNum  = elements.create('cardNumber', { style: elStyle, showIcon: true });
+    const cardExp  = elements.create('cardExpiry', { style: elStyle });
+    const cardCvc  = elements.create('cardCvc',    { style: elStyle });
+    cardNum.mount('#cn-wrap');
+    cardExp.mount('#ce-wrap');
+    cardCvc.mount('#cv-wrap');
+    [[cardNum,'cn-wrap','cn-err'],[cardExp,'ce-wrap','ce-err'],[cardCvc,'cv-wrap','cv-err']].forEach(([el,wid,eid]) => {
+      el.on('focus',  () => document.getElementById(wid)?.classList.add('focused'));
+      el.on('blur',   () => document.getElementById(wid)?.classList.remove('focused'));
+      el.on('change', e => { const w=document.getElementById(wid); const er=document.getElementById(eid); if(e.error){w?.classList.add('error');if(er)er.textContent=e.error.message;}else{w?.classList.remove('error');if(er)er.textContent='';} });
+    });
 
-      const btn = document.getElementById('pay-btn');
-      const errEl = document.getElementById('stripe-error');
-      btn.disabled = true;
-      btn.classList.add('loading');
-      errEl.classList.remove('show');
-
+    // Apple/Google Pay
+    const pr = stripe.paymentRequest({ country:'GB', currency:'gbp', total:{ label:'Amigos', amount:tot() }, requestPayerName:true, requestPayerEmail:true, requestShipping:true, shippingOptions:[{id:'standard',label:'Standard Delivery (3–5 days)',amount:ship()}] });
+    const prBtn = elements.create('paymentRequestButton', { paymentRequest:pr, style:{ paymentRequestButton:{ type:'buy', theme:'dark', height:'50px' } } });
+    pr.canMakePayment().then(result => { if(result){ prBtn.mount('#payment-request-button'); document.getElementById('express-divider').style.display='flex'; } });
+    pr.on('paymentmethod', async ev => {
       try {
-        // Create PaymentIntent on server
-        const res = await fetch('/api/checkout-intent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            items: cart,
-            shippingCost: getShippingCost(),
-            email: document.getElementById('email').value.trim(),
-            name: `${document.getElementById('first-name').value.trim()} ${document.getElementById('last-name').value.trim()}`,
-            address: {
-              line1:       document.getElementById('address1').value.trim(),
-              line2:       document.getElementById('address2').value.trim(),
-              city:        document.getElementById('city').value.trim(),
-              postal_code: document.getElementById('postcode').value.trim(),
-              country:     'GB',
-            }
-          }),
-        });
-
-        const { clientSecret, error: serverError } = await res.json();
-
-        if (serverError || !clientSecret) {
-          throw new Error(serverError || 'Could not create payment');
-        }
-
-        // Confirm payment with card details
-        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: cardNumber,
-            billing_details: {
-              name:  document.getElementById('name-on-card').value.trim(),
-              email: document.getElementById('email').value.trim(),
-              address: {
-                line1:       document.getElementById('address1').value.trim(),
-                line2:       document.getElementById('address2').value.trim(),
-                city:        document.getElementById('city').value.trim(),
-                postal_code: document.getElementById('postcode').value.trim(),
-                country:     'GB',
-              }
-            }
-          }
-        });
-
-        if (error) {
-          errEl.textContent = error.message;
-          errEl.classList.add('show');
-          btn.disabled = false;
-          btn.classList.remove('loading');
-          return;
-        }
-
+        const res = await fetch('/api/checkout-intent', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ items:cart, shippingCost:ship(), email:ev.payerEmail, name:ev.payerName }) });
+        const { clientSecret, error:sErr } = await res.json();
+        if (sErr) { ev.complete('fail'); return; }
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method:ev.paymentMethod.id }, { handleActions:false });
+        if (error) { ev.complete('fail'); return; }
+        ev.complete('success');
+        if (paymentIntent.status==='requires_action') await stripe.confirmCardPayment(clientSecret);
         redirectToSuccess(paymentIntent);
+      } catch { ev.complete('fail'); }
+    });
 
+    async function handlePayment() {
+      const cardNameVal = document.getElementById('card-name')?.value?.trim();
+      if (!cardNameVal) { setErr('card-name','cn-name-err','Name on card is required'); return; }
+      setErr('card-name','cn-name-err','');
+      const btn   = document.getElementById('pay-btn');
+      const errEl = document.getElementById('stripe-err');
+      btn.disabled = true; btn.classList.add('loading'); errEl.classList.remove('show');
+      try {
+        const res = await fetch('/api/checkout-intent', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ items:cart, shippingCost:ship(), email:document.getElementById('email')?.value?.trim(), name:`${document.getElementById('fn')?.value?.trim()||''} ${document.getElementById('ln')?.value?.trim()||''}`, address:{ line1:document.getElementById('a1')?.value?.trim(), line2:document.getElementById('a2')?.value?.trim(), city:document.getElementById('city')?.value?.trim(), postal_code:document.getElementById('pc')?.value?.trim(), country:'GB' } })
+        });
+        const { clientSecret, error:sErr } = await res.json();
+        if (sErr || !clientSecret) throw new Error(sErr||'Payment setup failed');
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method:{ card:cardNum, billing_details:{ name:cardNameVal, email:document.getElementById('email')?.value?.trim(), address:{ line1:document.getElementById('a1')?.value?.trim(), city:document.getElementById('city')?.value?.trim(), postal_code:document.getElementById('pc')?.value?.trim(), country:'GB' } } } });
+        if (error) { errEl.textContent=error.message; errEl.classList.add('show'); btn.disabled=false; btn.classList.remove('loading'); return; }
+        redirectToSuccess(paymentIntent);
       } catch(err) {
-        console.error(err);
-        const errEl = document.getElementById('stripe-error');
-        errEl.textContent = 'Something went wrong. Please try again.';
-        errEl.classList.add('show');
-        btn.disabled = false;
-        btn.classList.remove('loading');
+        errEl.textContent='Something went wrong. Please try again.'; errEl.classList.add('show'); btn.disabled=false; btn.classList.remove('loading');
       }
     }
 
-    function redirectToSuccess(paymentIntent) {
-      // Save order details for success page
-      sessionStorage.setItem('amigos_order', JSON.stringify({
-        id: paymentIntent.id,
-        amount: paymentIntent.amount,
-        name: `${document.getElementById('first-name')?.value || ''} ${document.getElementById('last-name')?.value || ''}`.trim(),
-        email: document.getElementById('email')?.value || '',
-        items: cart,
-      }));
+    function redirectToSuccess(pi) {
+      sessionStorage.setItem('amigos_order', JSON.stringify({ id:pi.id, amount:pi.amount, name:`${document.getElementById('fn')?.value||''} ${document.getElementById('ln')?.value||''}`.trim(), email:document.getElementById('email')?.value||'', items:cart }));
       sessionStorage.removeItem('amigos_cart');
       window.location.href = '../success.html';
     }
 
-    // ── Init ──
     document.addEventListener('DOMContentLoaded', () => {
       if (cart.length === 0) {
-        showEmptyCart();
+        document.getElementById('checkout-wrap').innerHTML = `<div class="empty-state"><img src="../images/logo.png" alt="Amigos"><h2>Your cart is empty</h2><p>No loot in your bag, amigo</p><a href="../pages/mens.html">Shop the collection</a></div>`;
         return;
       }
-      document.getElementById('summary-desktop-label').style.display = 'block';
       renderSummary();
     });
   </script>
-
 </body>
 </html>
