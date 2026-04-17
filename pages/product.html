@@ -803,10 +803,10 @@
       'default':     ['Premium quality materials', 'Amigos branded', 'Made to order', 'Designed in Trearddur Bay'],
     };
 
-    let currentProduct  = null;
-    let selectedSize    = null;
-    let selectedColour  = 0;
-    let productCategory = null;
+    let pdpProduct  = null;
+    let pdpSize    = null;
+    let pdpColour  = 0;
+    let pdpCategory = null;
 
     function init() {
       const params = new URLSearchParams(window.location.search);
@@ -823,16 +823,16 @@
 
       if (!found) { window.location.href = '../index.html'; return; }
 
-      currentProduct  = found;
-      productCategory = foundCategory;
+      pdpProduct  = found;
+      pdpCategory = foundCategory;
       renderProduct();
       renderRelated();
       updatePageMeta();
     }
 
     function renderProduct() {
-      const p    = currentProduct;
-      const meta = CATEGORY_META[productCategory] || CATEGORY_META.mens;
+      const p    = pdpProduct;
+      const meta = CATEGORY_META[pdpCategory] || CATEGORY_META.mens;
 
       // Breadcrumb
       document.getElementById('breadcrumb-collection').textContent = meta.label;
@@ -890,7 +890,7 @@
         `).join('');
       } else {
         sizeSection.style.display = 'none';
-        selectedSize = 'One Size';
+        pdpSize = 'One Size';
       }
 
       // Product details list
@@ -910,7 +910,7 @@
     }
 
     function selectColour(index, name) {
-      selectedColour = index;
+      pdpColour = index;
       document.querySelectorAll('.colour-swatch').forEach((s, i) => {
         s.classList.toggle('active', i === index);
       });
@@ -918,7 +918,7 @@
     }
 
     function selectSize(size, btn) {
-      selectedSize = size;
+      pdpSize = size;
       document.querySelectorAll('.size-option').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('selected-size-name').textContent = `— ${size}`;
@@ -926,22 +926,22 @@
     }
 
     function addToCartFromPDP() {
-      const meta  = CATEGORY_META[productCategory] || CATEGORY_META.mens;
+      const meta  = CATEGORY_META[pdpCategory] || CATEGORY_META.mens;
       const sizes = meta.sizes;
 
       // If product has sizes, require selection
-      if (sizes && sizes.length > 0 && !selectedSize) {
+      if (sizes && sizes.length > 0 && !pdpSize) {
         document.getElementById('no-size-warning').classList.add('show');
         document.getElementById('size-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
-      const size = selectedSize || 'One Size';
-      const existing = cart.find(i => i.id === currentProduct.id && i.size === size);
+      const size = pdpSize || 'One Size';
+      const existing = cart.find(i => i.id === pdpProduct.id && i.size === size);
       if (existing) {
         existing.qty++;
       } else {
-        cart.push({ ...currentProduct, size, qty: 1 });
+        cart.push({ ...pdpProduct, size, qty: 1 });
       }
 
       updateCartUI();
@@ -966,9 +966,9 @@
     }
 
     function renderRelated() {
-      const allInCat = PRODUCTS[productCategory] || [];
+      const allInCat = PRODUCTS[pdpCategory] || [];
       const related  = allInCat
-        .filter(p => p.id !== currentProduct.id)
+        .filter(p => p.id !== pdpProduct.id)
         .slice(0, 4);
 
       const grid = document.getElementById('related-grid');
@@ -985,7 +985,7 @@
 
     function updatePageMeta() {
       // Update og:title etc for sharing (basic)
-      document.title = `${currentProduct.name} — Amigos`;
+      document.title = `${pdpProduct.name} — Amigos`;
     }
 
     // ── ACCORDION ──
