@@ -8,76 +8,78 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
   <style>
-    /* ── PAGE SPECIFIC ── */
-    body { font-family: 'Jost', Arial, sans-serif; background: var(--cream); color: var(--text); }
+    body { font-family: 'Jost', Arial, sans-serif; background: var(--cream); color: var(--text); margin: 0; }
 
-    .breadcrumb {
-      padding: 1rem 2.5rem;
+    /* ── BREADCRUMB ── */
+    .pdp-breadcrumb {
+      padding: 0.9rem 3rem;
       font-family: 'Jost', sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.57rem;
       font-weight: 300;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--light);
+      color: var(--light, #A89880);
       display: flex;
       align-items: center;
       gap: 0.5rem;
       border-bottom: 1px solid rgba(61,43,31,0.08);
     }
-    .breadcrumb a { color: var(--warm-brown, #8B6B4A); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--dark-brown, #3D2B1F); }
-    .breadcrumb-sep { opacity: 0.4; }
+    .pdp-breadcrumb a { color: var(--warm-brown, #8B6B4A); text-decoration: none; }
+    .pdp-breadcrumb a:hover { text-decoration: underline; }
 
-    /* ── PRODUCT LAYOUT ── */
-    .product-wrap {
+    /* ── MAIN GRID ── */
+    .pdp-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 2.5rem 2.5rem 5rem;
-      gap: 4rem;
+      padding: 2rem 3rem 6rem;
+      gap: 5rem;
+      align-items: start;
     }
 
-    /* ── LEFT: GALLERY ── */
-    .gallery { position: sticky; top: 80px; align-self: start; }
+    /* ══════════════════════════
+       LEFT — GALLERY
+    ══════════════════════════ */
+    .pdp-gallery { position: sticky; top: 80px; }
 
-    .gallery-main {
-      position: relative;
-      background: #EFEBE3;
+    .pdp-gallery-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: #EDEAE3;
       border-radius: 3px;
       overflow: hidden;
-      aspect-ratio: 4/5;
-      margin-bottom: 0.75rem;
+      position: relative;
+      margin-bottom: 0.8rem;
     }
-    .gallery-main img {
+    .pdp-gallery-main img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: opacity 0.3s;
+      transition: opacity 0.25s ease;
     }
-    .gallery-badge {
+    .pdp-badge {
       position: absolute;
       top: 1.2rem;
       left: 1.2rem;
       background: var(--dark-brown, #3D2B1F);
       color: var(--cream, #F5F0E8);
       font-family: 'Jost', sans-serif;
-      font-size: 0.55rem;
+      font-size: 0.52rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      padding: 0.35rem 0.75rem;
+      padding: 0.38rem 0.8rem;
       border-radius: 1px;
     }
-
-    .gallery-thumbs {
+    .pdp-thumbs {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
-    .gallery-thumb {
-      width: 68px;
-      height: 68px;
+    .pdp-thumb {
+      width: 72px;
+      height: 72px;
       border-radius: 2px;
       overflow: hidden;
       cursor: pointer;
@@ -85,116 +87,125 @@
       transition: border-color 0.2s;
       flex-shrink: 0;
     }
-    .gallery-thumb.active { border-color: var(--dark-brown, #3D2B1F); }
-    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pdp-thumb.active { border-color: var(--dark-brown, #3D2B1F); }
+    .pdp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* ── RIGHT: PRODUCT INFO ── */
-    .product-info { padding-top: 0.5rem; }
+    /* ══════════════════════════
+       RIGHT — INFO
+    ══════════════════════════ */
+    .pdp-info { padding-top: 0.25rem; }
 
-    .product-eyebrow {
+    /* Eyebrow */
+    .pdp-eyebrow {
       font-family: 'Jost', sans-serif;
       font-size: 0.57rem;
       font-weight: 400;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--warm-brown, #8B6B4A);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.55rem;
     }
 
-    .product-name {
+    /* Name */
+    .pdp-name {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.4rem;
+      font-size: 3rem;
       font-weight: 400;
       color: var(--dark-brown, #3D2B1F);
-      line-height: 1.1;
-      letter-spacing: 0.01em;
-      margin-bottom: 0.5rem;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
     }
 
-    .product-variant-label {
+    /* Variant */
+    .pdp-variant {
       font-family: 'Jost', sans-serif;
       font-size: 0.65rem;
       font-weight: 300;
       letter-spacing: 0.1em;
       color: var(--light, #A89880);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.4rem;
     }
 
-    .product-price {
+    /* Price */
+    .pdp-price {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 400;
       color: var(--dark-brown, #3D2B1F);
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
       line-height: 1;
     }
 
-    .divider { height: 1px; background: rgba(61,43,31,0.1); margin: 1.5rem 0; }
+    .pdp-divider { height: 1px; background: rgba(61,43,31,0.1); margin: 1.6rem 0; }
 
-    /* COLOUR SELECTOR */
-    .option-label {
+    /* Option labels */
+    .pdp-option-label {
       font-family: 'Jost', sans-serif;
       font-size: 0.58rem;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--mid, #6a5a4e);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .option-label span {
+    .pdp-option-label em {
+      font-style: normal;
       font-weight: 300;
       color: var(--light, #A89880);
       text-transform: none;
       letter-spacing: 0.05em;
+      font-size: 0.62rem;
     }
 
-    .colour-swatches {
+    /* Colour swatches */
+    .pdp-swatches {
       display: flex;
-      gap: 0.6rem;
-      margin-bottom: 1.5rem;
+      gap: 0.65rem;
+      margin-bottom: 1.8rem;
       flex-wrap: wrap;
     }
-    .colour-swatch {
-      width: 30px;
-      height: 30px;
+    .pdp-swatch {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: border-color 0.2s, transform 0.15s;
+      transition: transform 0.15s, border-color 0.2s;
       position: relative;
+      flex-shrink: 0;
     }
-    .colour-swatch:hover { transform: scale(1.1); }
-    .colour-swatch.active { border-color: var(--dark-brown, #3D2B1F); }
-    .colour-swatch.active::after {
+    .pdp-swatch:hover { transform: scale(1.08); }
+    .pdp-swatch.active { border-color: var(--dark-brown, #3D2B1F); }
+    .pdp-swatch.active::after {
       content: '';
       position: absolute;
-      inset: -4px;
+      inset: -5px;
       border-radius: 50%;
-      border: 1.5px solid var(--dark-brown, #3D2B1F);
-      opacity: 0.4;
+      border: 1.5px solid rgba(61,43,31,0.3);
     }
 
-    /* SIZE SELECTOR */
-    .size-grid {
+    /* Size grid */
+    .pdp-sizes {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.55rem;
       flex-wrap: wrap;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.65rem;
     }
-    .size-option {
-      min-width: 48px;
-      height: 48px;
-      padding: 0 0.8rem;
-      border: 1.5px solid rgba(61,43,31,0.2);
+    .pdp-size {
+      min-width: 52px;
+      height: 50px;
+      padding: 0 0.9rem;
+      border: 1.5px solid rgba(61,43,31,0.18);
       border-radius: 2px;
       background: white;
       font-family: 'Jost', sans-serif;
       font-size: 0.72rem;
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: var(--text, #1a1a1a);
       cursor: pointer;
       transition: border-color 0.2s, background 0.2s, color 0.2s;
@@ -202,21 +213,19 @@
       align-items: center;
       justify-content: center;
     }
-    .size-option:hover { border-color: var(--warm-brown, #8B6B4A); }
-    .size-option.active {
+    .pdp-size:hover:not(.active) { border-color: var(--warm-brown, #8B6B4A); }
+    .pdp-size.active {
       background: var(--dark-brown, #3D2B1F);
       border-color: var(--dark-brown, #3D2B1F);
       color: var(--cream, #F5F0E8);
     }
-    .size-option.unavailable {
-      opacity: 0.3;
-      cursor: not-allowed;
-      text-decoration: line-through;
-    }
 
-    .size-guide-link {
+    .pdp-size-guide {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
       font-family: 'Jost', sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.57rem;
       font-weight: 300;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -227,12 +236,22 @@
       background: none;
       border: none;
       padding: 0;
-      margin-bottom: 1.8rem;
-      display: inline-block;
+      margin-bottom: 2rem;
     }
 
-    /* ADD TO CART */
-    .add-to-cart-btn {
+    /* No size warning */
+    .pdp-no-size {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      color: #9B3A2A;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+    .pdp-no-size.show { display: block; }
+
+    /* Add to cart */
+    .pdp-atc {
       width: 100%;
       background: var(--dark-brown, #3D2B1F);
       color: var(--cream, #F5F0E8);
@@ -245,54 +264,44 @@
       letter-spacing: 0.28em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      margin-bottom: 0.75rem;
+      transition: background 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
     }
-    .add-to-cart-btn:hover:not(:disabled) { background: #2e1e14; }
-    .add-to-cart-btn:active:not(:disabled) { transform: scale(0.99); }
-    .add-to-cart-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .add-to-cart-btn.added {
-      background: var(--success-green, #2d6a4f);
-    }
+    .pdp-atc:hover:not(:disabled) { background: #2e1e14; }
+    .pdp-atc:disabled { opacity: 0.5; cursor: not-allowed; }
+    .pdp-atc.added { background: #2d6a4f; }
 
-    .no-size-warning {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 300;
-      color: #9B3A2A;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
-      display: none;
-    }
-    .no-size-warning.show { display: block; }
-
-    /* TRUST SIGNALS */
-    .trust-row {
+    /* Trust row */
+    .pdp-trust {
       display: flex;
       gap: 1.5rem;
-      margin-bottom: 1.8rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid rgba(61,43,31,0.08);
+      border-bottom: 1px solid rgba(61,43,31,0.08);
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
     }
-    .trust-item {
+    .pdp-trust-item {
       display: flex;
       align-items: center;
       gap: 0.45rem;
       font-family: 'Jost', sans-serif;
       font-size: 0.58rem;
       font-weight: 300;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: var(--mid, #6a5a4e);
     }
-    .trust-item svg { flex-shrink: 0; opacity: 0.6; }
+    .pdp-trust-item svg { opacity: 0.55; flex-shrink: 0; }
 
-    /* PRODUCT DETAILS ACCORDION */
-    .accordion { border-top: 1px solid rgba(61,43,31,0.1); }
-    .accordion-item { border-bottom: 1px solid rgba(61,43,31,0.1); }
-    .accordion-trigger {
+    /* Accordion */
+    .pdp-accordion { margin-top: 0.5rem; }
+    .pdp-acc-item { border-bottom: 1px solid rgba(61,43,31,0.1); }
+    .pdp-acc-item:first-child { border-top: 1px solid rgba(61,43,31,0.1); }
+    .pdp-acc-trigger {
       width: 100%;
       background: none;
       border: none;
@@ -302,117 +311,130 @@
       justify-content: space-between;
       cursor: pointer;
       font-family: 'Jost', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--dark-brown, #3D2B1F);
       text-align: left;
     }
-    .accordion-trigger svg {
-      transition: transform 0.25s;
+    .pdp-acc-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(61,43,31,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .accordion-trigger.open svg { transform: rotate(45deg); }
-    .accordion-body {
+    .pdp-acc-trigger.open .pdp-acc-icon {
+      background: var(--dark-brown, #3D2B1F);
+      border-color: var(--dark-brown, #3D2B1F);
+    }
+    .pdp-acc-icon svg { transition: transform 0.25s; }
+    .pdp-acc-trigger.open .pdp-acc-icon svg { transform: rotate(45deg); }
+    .pdp-acc-trigger.open .pdp-acc-icon svg path { stroke: var(--cream, #F5F0E8); }
+    .pdp-acc-body {
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.3s ease;
     }
-    .accordion-body.open { max-height: 400px; }
-    .accordion-body-inner {
-      padding: 0 0 1.2rem;
+    .pdp-acc-body.open { max-height: 500px; }
+    .pdp-acc-inner {
+      padding: 0 0 1.3rem;
       font-family: 'Jost', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 300;
-      line-height: 1.8;
+      line-height: 1.9;
       color: var(--mid, #6a5a4e);
     }
-    .accordion-body-inner ul {
-      list-style: none;
-      padding: 0;
-    }
-    .accordion-body-inner ul li {
-      padding: 0.2rem 0;
+    .pdp-acc-inner ul { list-style: none; padding: 0; }
+    .pdp-acc-inner ul li {
       display: flex;
       align-items: flex-start;
-      gap: 0.6rem;
+      gap: 0.65rem;
+      padding: 0.15rem 0;
     }
-    .accordion-body-inner ul li::before {
+    .pdp-acc-inner ul li::before {
       content: '—';
       color: var(--warm-brown, #8B6B4A);
+      font-size: 0.6rem;
       flex-shrink: 0;
-      font-size: 0.65rem;
-      margin-top: 0.1rem;
+      margin-top: 0.18rem;
     }
 
-    /* ── RELATED PRODUCTS ── */
-    .related-section {
-      max-width: 1200px;
+    /* ── RELATED ── */
+    .pdp-related {
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 3rem 2.5rem 5rem;
+      padding: 3.5rem 3rem 6rem;
       border-top: 1px solid rgba(61,43,31,0.1);
     }
-    .related-heading {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--dark-brown, #3D2B1F);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.4rem;
-    }
-    .related-sub {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--light, #A89880);
+    .pdp-related-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
       margin-bottom: 2rem;
     }
-    .related-grid {
+    .pdp-related-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--dark-brown, #3D2B1F);
+      letter-spacing: 0.02em;
+    }
+    .pdp-related-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.57rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-brown, #8B6B4A);
+      text-decoration: none;
+    }
+    .pdp-related-link:hover { text-decoration: underline; }
+    .pdp-related-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
-    .related-card {
-      cursor: pointer;
-    }
-    .related-card-img {
+    .pdp-rel-card { cursor: pointer; }
+    .pdp-rel-img {
       aspect-ratio: 4/5;
-      background: #EFEBE3;
+      background: #EDEAE3;
       border-radius: 2px;
       overflow: hidden;
       margin-bottom: 0.75rem;
       transition: opacity 0.2s;
     }
-    .related-card-img:hover { opacity: 0.88; }
-    .related-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .related-card-name {
+    .pdp-rel-img:hover { opacity: 0.85; }
+    .pdp-rel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pdp-rel-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       color: var(--dark-brown, #3D2B1F);
       margin-bottom: 0.15rem;
     }
-    .related-card-variant {
+    .pdp-rel-variant {
       font-family: 'Jost', sans-serif;
       font-size: 0.57rem;
       font-weight: 300;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--light, #A89880);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
-    .related-card-price {
+    .pdp-rel-price {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      font-weight: 400;
+      font-size: 1rem;
       color: var(--dark-brown, #3D2B1F);
     }
 
     /* ── SIZE GUIDE MODAL ── */
-    .size-modal-overlay {
+    .sg-overlay {
       position: fixed;
       inset: 0;
       background: rgba(30,20,12,0.5);
@@ -425,99 +447,100 @@
       transition: opacity 0.25s;
       padding: 1rem;
     }
-    .size-modal-overlay.open { opacity: 1; pointer-events: all; }
-    .size-modal {
+    .sg-overlay.open { opacity: 1; pointer-events: all; }
+    .sg-modal {
       background: var(--cream, #F5F0E8);
       border-radius: 3px;
-      max-width: 560px;
+      max-width: 540px;
       width: 100%;
       padding: 2rem;
-      transform: translateY(12px);
+      transform: translateY(10px);
       transition: transform 0.25s;
       max-height: 90vh;
       overflow-y: auto;
     }
-    .size-modal-overlay.open .size-modal { transform: none; }
-    .size-modal-header {
+    .sg-overlay.open .sg-modal { transform: none; }
+    .sg-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1.5rem;
     }
-    .size-modal-title {
+    .sg-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 500;
+      font-size: 1.4rem;
+      font-weight: 400;
       color: var(--dark-brown, #3D2B1F);
     }
-    .size-modal-close {
+    .sg-close {
       background: none;
       border: none;
       cursor: pointer;
       color: var(--light, #A89880);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       line-height: 1;
       padding: 0.2rem;
       transition: color 0.2s;
     }
-    .size-modal-close:hover { color: var(--dark-brown, #3D2B1F); }
-    .size-table {
+    .sg-close:hover { color: var(--dark-brown, #3D2B1F); }
+    .sg-table {
       width: 100%;
       border-collapse: collapse;
       font-family: 'Jost', sans-serif;
       font-size: 0.75rem;
       font-weight: 300;
     }
-    .size-table th {
+    .sg-table th {
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       color: var(--mid, #6a5a4e);
-      padding: 0.6rem 0.8rem;
+      padding: 0.65rem 0.9rem;
       border-bottom: 1.5px solid rgba(61,43,31,0.15);
       text-align: left;
     }
-    .size-table td {
-      padding: 0.7rem 0.8rem;
-      border-bottom: 1px solid rgba(61,43,31,0.08);
+    .sg-table td {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid rgba(61,43,31,0.07);
       color: var(--text, #1a1a1a);
     }
-    .size-table tr:last-child td { border-bottom: none; }
-    .size-table tr:nth-child(even) td { background: rgba(61,43,31,0.02); }
-    .size-note {
+    .sg-table tr:last-child td { border-bottom: none; }
+    .sg-table tr:nth-child(even) td { background: rgba(61,43,31,0.02); }
+    .sg-note {
       font-family: 'Jost', sans-serif;
       font-size: 0.62rem;
       font-weight: 300;
       color: var(--light, #A89880);
       margin-top: 1rem;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
-    /* ── CART NOTIFICATION ── */
-    .cart-toast {
+    /* ── CART TOAST ── */
+    .pdp-toast {
       position: fixed;
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
       background: var(--dark-brown, #3D2B1F);
       color: var(--cream, #F5F0E8);
-      padding: 0.9rem 1.6rem;
+      padding: 0.9rem 1.5rem;
       border-radius: 2px;
       font-family: 'Jost', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       z-index: 400;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
       align-items: center;
       gap: 0.75rem;
       white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
-    .cart-toast.show { transform: translateX(-50%) translateY(0); }
-    .cart-toast-view {
+    .pdp-toast.show { transform: translateX(-50%) translateY(0); }
+    .pdp-toast-cta {
       color: var(--warm-light, #C4A882);
       cursor: pointer;
       text-decoration: underline;
@@ -525,23 +548,19 @@
     }
 
     /* ── MOBILE ── */
-    @media (max-width: 860px) {
-      .product-wrap { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1.25rem 3rem; }
-      .gallery { position: static; }
-      .breadcrumb { padding: 0.75rem 1.25rem; }
-      .related-grid { grid-template-columns: repeat(2, 1fr); }
-      .related-section { padding: 2rem 1.25rem 3rem; }
-      .product-name { font-size: 1.9rem; }
-    }
-    @media (max-width: 500px) {
-      .related-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-      .trust-row { gap: 1rem; }
+    @media (max-width: 880px) {
+      .pdp-wrap { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1.5rem 4rem; }
+      .pdp-gallery { position: static; }
+      .pdp-breadcrumb { padding: 0.75rem 1.5rem; }
+      .pdp-related { padding: 2rem 1.5rem 4rem; }
+      .pdp-related-grid { grid-template-columns: repeat(2, 1fr); }
+      .pdp-name { font-size: 2.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV (loaded via script.js) -->
+  <!-- NAV -->
   <nav id="navbar" class="navbar">
     <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
       <img src="../images/logo.png" alt="Amigos" class="nav-skull-icon">
@@ -561,7 +580,6 @@
       <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
     </div>
   </nav>
-
   <div class="mobile-menu" id="mobile-menu">
     <a href="mens.html">Men</a><a href="womens.html">Women</a><a href="childrens.html">Children</a>
     <a href="accessories.html">Accessories</a><a href="homeandliving.html">Home &amp; Living</a>
@@ -569,168 +587,165 @@
   </div>
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb" id="breadcrumb">
+  <div class="pdp-breadcrumb">
     <a href="../index.html">Home</a>
-    <span class="breadcrumb-sep">›</span>
-    <a href="#" id="breadcrumb-collection">Collection</a>
-    <span class="breadcrumb-sep">›</span>
-    <span id="breadcrumb-product">Product</span>
+    <span>›</span>
+    <a href="#" id="bc-collection">Collection</a>
+    <span>›</span>
+    <span id="bc-product" style="color:var(--dark-brown,#3D2B1F);">Product</span>
   </div>
 
   <!-- PRODUCT -->
-  <div class="product-wrap" id="product-wrap">
+  <div class="pdp-wrap">
 
     <!-- GALLERY -->
-    <div class="gallery" id="gallery">
-      <div class="gallery-main">
-        <img src="" alt="" id="main-image">
-        <div class="gallery-badge" id="product-badge" style="display:none;"></div>
+    <div class="pdp-gallery">
+      <div class="pdp-gallery-main">
+        <img id="pdp-main-img" src="" alt="">
+        <div class="pdp-badge" id="pdp-badge" style="display:none;"></div>
       </div>
-      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      <div class="pdp-thumbs" id="pdp-thumbs"></div>
     </div>
 
     <!-- INFO -->
-    <div class="product-info">
-      <p class="product-eyebrow" id="product-eyebrow">Amigos · Trearddur Bay</p>
-      <h1 class="product-name" id="product-name">—</h1>
-      <p class="product-variant-label" id="product-variant">—</p>
-      <p class="product-price" id="product-price">—</p>
+    <div class="pdp-info">
 
-      <div class="divider"></div>
+      <p class="pdp-eyebrow" id="pdp-eyebrow">Amigos · Trearddur Bay</p>
+      <h1 class="pdp-name" id="pdp-name">—</h1>
+      <p class="pdp-variant" id="pdp-variant">—</p>
+      <p class="pdp-price" id="pdp-price">—</p>
+
+      <div class="pdp-divider"></div>
 
       <!-- COLOUR -->
-      <div id="colour-section">
-        <p class="option-label">Colour <span id="selected-colour-name"></span></p>
-        <div class="colour-swatches" id="colour-swatches"></div>
+      <div id="pdp-colour-wrap">
+        <p class="pdp-option-label">
+          Colour <em id="pdp-colour-name"></em>
+        </p>
+        <div class="pdp-swatches" id="pdp-swatches"></div>
       </div>
 
       <!-- SIZE -->
-      <div id="size-section">
-        <p class="option-label">Size <span id="selected-size-name"></span></p>
-        <div class="size-grid" id="size-grid"></div>
-        <button class="size-guide-link" onclick="openSizeGuide()">Size guide →</button>
+      <div id="pdp-size-wrap">
+        <p class="pdp-option-label">
+          Size <em id="pdp-size-name"></em>
+        </p>
+        <div class="pdp-sizes" id="pdp-sizes"></div>
+        <button class="pdp-size-guide" onclick="openSizeGuide()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="3" width="10" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M3 3V2M5 3V1.5M7 3V2M9 3V2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Size guide
+        </button>
       </div>
 
-      <p class="no-size-warning" id="no-size-warning">Please select a size before adding to cart</p>
+      <p class="pdp-no-size" id="pdp-no-size">Please select a size to continue</p>
 
       <!-- ADD TO CART -->
-      <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCartFromPDP()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M1 1h2l2.4 7.4a1 1 0 00.96.6h6.28a1 1 0 00.96-.72l1.36-4.88H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="6.5" cy="13.5" r="1" fill="currentColor"/>
-          <circle cx="11.5" cy="13.5" r="1" fill="currentColor"/>
+      <button class="pdp-atc" id="pdp-atc" onclick="pdpAddToCart()">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M1.5 1.5h2l2.5 7.5a1 1 0 001 .7h6.3a1 1 0 001-.73l1.4-5H4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="7" cy="14.5" r="1.2" fill="currentColor"/>
+          <circle cx="12" cy="14.5" r="1.2" fill="currentColor"/>
         </svg>
         Add to cart
       </button>
 
       <!-- TRUST -->
-      <div class="trust-row">
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L1 3v4c0 3.2 2.6 6.2 6 7 3.4-.8 6-3.8 6-7V3L7 1z" stroke="#8B6B4A" stroke-width="1.3"/></svg>
+      <div class="pdp-trust">
+        <div class="pdp-trust-item">
+          <svg width="13" height="14" viewBox="0 0 13 14" fill="none"><path d="M6.5 1L1 3v4c0 3 2.5 5.8 5.5 6.5C9.5 12.8 12 10 12 7V3L6.5 1z" stroke="#8B6B4A" stroke-width="1.2"/></svg>
           Secure payment
         </div>
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="#8B6B4A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="pdp-trust-item">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="#8B6B4A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Free UK shipping over £60
         </div>
-        <div class="trust-item">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7a5 5 0 1010 0A5 5 0 002 7zM7 4v3l2 2" stroke="#8B6B4A" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="pdp-trust-item">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#8B6B4A" stroke-width="1.2"/><path d="M6.5 4v2.5l1.5 1.5" stroke="#8B6B4A" stroke-width="1.2" stroke-linecap="round"/></svg>
           Made to order
         </div>
       </div>
 
-      <div class="divider"></div>
-
       <!-- ACCORDION -->
-      <div class="accordion" id="accordion">
+      <div class="pdp-accordion">
 
-        <div class="accordion-item">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="pdp-acc-item">
+          <button class="pdp-acc-trigger" onclick="pdpToggle(this)">
             Product details
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="pdp-acc-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1v6M1 4h6" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           </button>
-          <div class="accordion-body">
-            <div class="accordion-body-inner" id="product-details-text">
-              <ul id="product-details-list"></ul>
-            </div>
+          <div class="pdp-acc-body">
+            <div class="pdp-acc-inner"><ul id="pdp-details-list"></ul></div>
           </div>
         </div>
 
-        <div class="accordion-item">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="pdp-acc-item">
+          <button class="pdp-acc-trigger" onclick="pdpToggle(this)">
             Sizing &amp; fit
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="pdp-acc-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1v6M1 4h6" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           </button>
-          <div class="accordion-body">
-            <div class="accordion-body-inner">
-              <ul>
-                <li>Model is 6'1" and wears size M</li>
-                <li>Regular fit — not too slim, not oversized</li>
-                <li>We recommend sizing up if you prefer a relaxed fit</li>
-                <li>See our full size guide for exact measurements</li>
-              </ul>
-            </div>
+          <div class="pdp-acc-body">
+            <div class="pdp-acc-inner"><ul>
+              <li>Model is 6'1" and wears size M</li>
+              <li>Regular fit — not too slim, not oversized</li>
+              <li>Size up for a more relaxed look</li>
+              <li>See our full size guide for exact measurements</li>
+            </ul></div>
           </div>
         </div>
 
-        <div class="accordion-item">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="pdp-acc-item">
+          <button class="pdp-acc-trigger" onclick="pdpToggle(this)">
             Delivery &amp; returns
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="pdp-acc-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1v6M1 4h6" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           </button>
-          <div class="accordion-body">
-            <div class="accordion-body-inner">
-              <ul>
-                <li>Free UK standard delivery on orders over £60</li>
-                <li>Standard UK delivery £3.99 — 3 to 5 working days</li>
-                <li>Made to order — please allow 1 to 2 days for production</li>
-                <li>Returns accepted within 30 days of delivery</li>
-                <li>Items must be unworn and in original condition</li>
-              </ul>
-            </div>
+          <div class="pdp-acc-body">
+            <div class="pdp-acc-inner"><ul>
+              <li>Free UK standard delivery on orders over £60</li>
+              <li>Standard UK delivery £3.99 — 3 to 5 working days</li>
+              <li>Made to order — allow 1 to 2 days for production</li>
+              <li>Returns accepted within 30 days of delivery</li>
+              <li>Items must be unworn and in original condition</li>
+            </ul></div>
           </div>
         </div>
 
-        <div class="accordion-item">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="pdp-acc-item">
+          <button class="pdp-acc-trigger" onclick="pdpToggle(this)">
             Care instructions
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="pdp-acc-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1v6M1 4h6" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           </button>
-          <div class="accordion-body">
-            <div class="accordion-body-inner" id="care-text">
-              <ul>
-                <li>Machine wash cold at 30°C</li>
-                <li>Do not tumble dry — hang or lay flat to dry</li>
-                <li>Do not iron directly on print</li>
-                <li>Do not dry clean</li>
-              </ul>
-            </div>
+          <div class="pdp-acc-body">
+            <div class="pdp-acc-inner"><ul>
+              <li>Machine wash cold at 30°C</li>
+              <li>Do not tumble dry — hang or lay flat</li>
+              <li>Do not iron directly on print</li>
+              <li>Do not dry clean</li>
+            </ul></div>
           </div>
         </div>
 
       </div><!-- /accordion -->
+    </div><!-- /pdp-info -->
+  </div><!-- /pdp-wrap -->
 
-    </div><!-- /product-info -->
-  </div><!-- /product-wrap -->
-
-  <!-- RELATED PRODUCTS -->
-  <div class="related-section">
-    <h2 class="related-heading">You might also like</h2>
-    <p class="related-sub">From the same collection</p>
-    <div class="related-grid" id="related-grid"></div>
+  <!-- RELATED -->
+  <div class="pdp-related">
+    <div class="pdp-related-header">
+      <h2 class="pdp-related-title">You might also like</h2>
+      <a href="#" class="pdp-related-link" id="pdp-related-link">View all →</a>
+    </div>
+    <div class="pdp-related-grid" id="pdp-related-grid"></div>
   </div>
 
   <!-- SIZE GUIDE MODAL -->
-  <div class="size-modal-overlay" id="size-modal" onclick="closeSizeGuideOnOverlay(event)">
-    <div class="size-modal">
-      <div class="size-modal-header">
-        <span class="size-modal-title">Size Guide</span>
-        <button class="size-modal-close" onclick="closeSizeGuide()">×</button>
+  <div class="sg-overlay" id="sg-overlay" onclick="sgOverlayClick(event)">
+    <div class="sg-modal">
+      <div class="sg-header">
+        <span class="sg-title">Size Guide</span>
+        <button class="sg-close" onclick="closeSizeGuide()">×</button>
       </div>
-      <table class="size-table">
-        <thead>
-          <tr><th>Size</th><th>Chest (cm)</th><th>Waist (cm)</th><th>Length (cm)</th></tr>
-        </thead>
+      <table class="sg-table">
+        <thead><tr><th>Size</th><th>Chest (cm)</th><th>Waist (cm)</th><th>Length (cm)</th></tr></thead>
         <tbody>
           <tr><td>XS</td><td>84–89</td><td>70–75</td><td>68</td></tr>
           <tr><td>S</td><td>89–94</td><td>75–80</td><td>70</td></tr>
@@ -740,18 +755,18 @@
           <tr><td>2XL</td><td>109–114</td><td>95–100</td><td>78</td></tr>
         </tbody>
       </table>
-      <p class="size-note">Measurements are in centimetres and refer to body measurements, not garment measurements. If you're between sizes, we recommend sizing up for a more relaxed fit.</p>
+      <p class="sg-note">Measurements refer to body measurements, not garment. If between sizes, size up for a relaxed fit.</p>
     </div>
   </div>
 
-  <!-- CART TOAST -->
-  <div class="cart-toast" id="cart-toast">
-    <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6l4 4 8-8" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <!-- TOAST -->
+  <div class="pdp-toast" id="pdp-toast">
+    <svg width="13" height="11" viewBox="0 0 13 11" fill="none"><path d="M1 5.5l3.5 4L12 1" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Added to cart
-    <span class="cart-toast-view" onclick="openCartDrawer()">View cart →</span>
+    <span class="pdp-toast-cta" onclick="openCartDrawer()">View cart →</span>
   </div>
 
-  <!-- CART DRAWER (shared) -->
+  <!-- CART DRAWER -->
   <div class="cart-overlay" id="cart-overlay" onclick="closeCartDrawer()"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-drawer-header">
@@ -762,262 +777,211 @@
       <p class="cart-empty" id="cart-empty">No loot in your bag, amigo!</p>
     </div>
     <div class="cart-footer" id="cart-footer" style="display:none;">
-      <div class="cart-total-row">
-        <span>Total</span>
-        <span id="cart-total">£0.00</span>
-      </div>
+      <div class="cart-total-row"><span>Total</span><span id="cart-total">£0.00</span></div>
       <button class="checkout-btn" id="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
       <p class="cart-shipping-note">Free UK shipping on orders over £60</p>
     </div>
   </div>
 
   <script src="../script.js"></script>
-
   <script>
     /* ══════════════════════════════════════════
-       AMIGOS — Product Detail Page
+       AMIGOS — Product Page (PDP)
+       All vars prefixed pdp_ to avoid script.js conflicts
     ══════════════════════════════════════════ */
 
-    // Category display names and collection page links
-    const CATEGORY_META = {
-      mens:         { label: "Men's",        href: 'mens.html',         sizes: ['XS','S','M','L','XL','2XL'] },
-      womens:       { label: "Women's",      href: 'womens.html',       sizes: ['XS','S','M','L','XL'] },
-      childrens:    { label: "Children's",   href: 'childrens.html',    sizes: ['3-4Y','5-6Y','7-8Y','9-10Y','11-12Y','13-14Y'] },
-      accessories:  { label: 'Accessories',  href: 'accessories.html',  sizes: [] },
-      homeandliving:{ label: 'Home & Living', href: 'homeandliving.html', sizes: [] },
+    const PDP_CATEGORY_META = {
+      mens:          { label: "Men's",         href: 'mens.html',          sizes: ['XS','S','M','L','XL','2XL'] },
+      womens:        { label: "Women's",        href: 'womens.html',        sizes: ['XS','S','M','L','XL'] },
+      childrens:     { label: "Children's",     href: 'childrens.html',     sizes: ['3-4Y','5-6Y','7-8Y','9-10Y','11-12Y','13-14Y'] },
+      accessories:   { label: 'Accessories',    href: 'accessories.html',   sizes: [] },
+      homeandliving: { label: 'Home & Living',  href: 'homeandliving.html', sizes: [] },
     };
 
-    // Product-specific details copy
-    const PRODUCT_DETAILS = {
-      't-shirts':    ['100% organic ring-spun cotton', 'Garment-dyed for a lived-in look', 'Screen-printed Captain Bones graphic', 'Crew neck, short sleeve', 'Pre-shrunk fabric'],
-      'hoodies':     ['350gsm premium heavyweight fleece', 'Brushed interior for warmth', 'Embroidered Amigos branding', 'Kangaroo pocket, adjustable drawcord', 'Ribbed cuffs and hem'],
-      'sweatshirts': ['300gsm fleece fabric', 'Brushed interior finish', 'Crew neck, dropped shoulder', 'Embroidered Captain Bones graphic', 'Ribbed collar and hem'],
-      'joggers':     ['280gsm fleece fabric', 'Elasticated waistband with drawcord', 'Tapered leg, ribbed cuffs', 'Two side pockets, one back pocket', 'Amigos embroidered branding'],
-      'jackets':     ['Outer: 100% recycled polyester', 'Water-resistant shell', 'Adjustable hood and cuffs', 'Zip pockets', 'Amigos chest embroidery'],
-      'trousers':    ['98% cotton, 2% elastane', 'Relaxed fit, wide leg', 'Functional cargo pockets', 'Adjustable waistband', 'Amigos woven label'],
-      'swimwear':    ['100% recycled polyester', 'Quick-dry liner', 'Elasticated waistband with drawcord', 'Side pockets', 'UPF 50+ sun protection'],
-      'pyjamas':     ['100% brushed cotton', 'Elasticated waistband', 'Button-front top', 'Two patch pockets', 'Soft and breathable'],
-      'tote-bags':   ['100% natural cotton canvas', '4oz heavyweight canvas', 'Reinforced handles', 'Internal pocket', 'Screen-printed Amigos graphic'],
-      'caps':        ['100% cotton twill', 'Six-panel structured cap', 'Adjustable strap', 'Embroidered Captain Bones logo', 'One size fits most'],
-      'beanies':     ['100% merino wool blend', 'Double-layered cuff', 'Ribbed knit', 'Embroidered Amigos branding', 'One size'],
-      'default':     ['Premium quality materials', 'Amigos branded', 'Made to order', 'Designed in Trearddur Bay'],
+    const PDP_DETAILS = {
+      't-shirts':    ['100% organic ring-spun cotton','Garment-dyed for a lived-in look','Screen-printed Captain Bones graphic','Crew neck, short sleeve','Pre-shrunk fabric'],
+      'hoodies':     ['350gsm premium heavyweight fleece','Brushed interior for warmth','Embroidered Amigos branding','Kangaroo pocket, adjustable drawcord','Ribbed cuffs and hem'],
+      'sweatshirts': ['300gsm fleece fabric','Brushed interior finish','Crew neck, dropped shoulder','Embroidered Captain Bones graphic','Ribbed collar and hem'],
+      'joggers':     ['280gsm fleece fabric','Elasticated waistband with drawcord','Tapered leg, ribbed cuffs','Two side pockets, one back pocket','Amigos embroidered branding'],
+      'jackets':     ['Outer: 100% recycled polyester','Water-resistant shell','Adjustable hood and cuffs','Zip pockets','Amigos chest embroidery'],
+      'trousers':    ['98% cotton, 2% elastane','Relaxed fit, wide leg','Functional cargo pockets','Adjustable waistband','Amigos woven label'],
+      'swimwear':    ['100% recycled polyester','Quick-dry liner','Elasticated waistband with drawcord','Side pockets','UPF 50+ sun protection'],
+      'pyjamas':     ['100% brushed cotton','Elasticated waistband','Button-front top','Two patch pockets','Soft and breathable'],
+      'tote-bags':   ['100% natural cotton canvas','4oz heavyweight canvas','Reinforced handles','Internal pocket','Screen-printed Amigos graphic'],
+      'caps':        ['100% cotton twill','Six-panel structured cap','Adjustable strap','Embroidered Captain Bones logo','One size fits most'],
+      'beanies':     ['100% merino wool blend','Double-layered cuff','Ribbed knit','Embroidered Amigos branding','One size'],
+      'default':     ['Premium quality materials','Amigos branded','Made to order','Designed in Trearddur Bay'],
     };
 
     let pdpProduct  = null;
-    let pdpSize    = null;
-    let pdpColour  = 0;
+    let pdpSize     = null;
+    let pdpColour   = 0;
     let pdpCategory = null;
 
-    function init() {
+    function pdpInit() {
       const params = new URLSearchParams(window.location.search);
       const id     = params.get('id');
       if (!id) { window.location.href = '../index.html'; return; }
 
-      // Find product across all categories
-      let found = null;
-      let foundCategory = null;
       for (const [cat, products] of Object.entries(PRODUCTS)) {
-        const p = products.find(p => p.id === id);
-        if (p) { found = p; foundCategory = cat; break; }
+        const found = products.find(p => p.id === id);
+        if (found) { pdpProduct = found; pdpCategory = cat; break; }
       }
 
-      if (!found) { window.location.href = '../index.html'; return; }
+      if (!pdpProduct) { window.location.href = '../index.html'; return; }
 
-      pdpProduct  = found;
-      pdpCategory = foundCategory;
-      renderProduct();
-      renderRelated();
-      updatePageMeta();
+      pdpRender();
+      pdpRenderRelated();
     }
 
-    function renderProduct() {
+    function pdpRender() {
       const p    = pdpProduct;
-      const meta = CATEGORY_META[pdpCategory] || CATEGORY_META.mens;
+      const meta = PDP_CATEGORY_META[pdpCategory] || PDP_CATEGORY_META.mens;
 
-      // Breadcrumb
-      document.getElementById('breadcrumb-collection').textContent = meta.label;
-      document.getElementById('breadcrumb-collection').href = meta.href;
-      document.getElementById('breadcrumb-product').textContent = p.name;
+      // Page title + breadcrumb
       document.title = `${p.name} — Amigos`;
+      document.getElementById('bc-collection').textContent = meta.label;
+      document.getElementById('bc-collection').href = meta.href;
+      document.getElementById('bc-product').textContent = p.name;
 
-      // Main image
-      const mainImg = document.getElementById('main-image');
-      mainImg.src = p.image;
-      mainImg.alt = p.name;
+      // Image
+      const img = document.getElementById('pdp-main-img');
+      img.src = p.image;
+      img.alt = p.name;
 
       // Badge
       if (p.tag) {
-        const badge = document.getElementById('product-badge');
+        const badge = document.getElementById('pdp-badge');
         badge.textContent = p.tag;
         badge.style.display = 'block';
       }
 
-      // Gallery thumbs — for now show same image x3 (replace with real multiple images later)
-      const thumbsEl = document.getElementById('gallery-thumbs');
-      const thumbImages = [p.image, p.image, p.image]; // swap with real multi-image array later
-      thumbsEl.innerHTML = thumbImages.map((src, i) => `
-        <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${src}', this)">
-          <img src="${src}" alt="${p.name} view ${i+1}">
-        </div>`).join('');
+      // Thumbnails (same image × 3 for now — replace with real images later)
+      const thumbs = document.getElementById('pdp-thumbs');
+      [p.image, p.image, p.image].forEach((src, i) => {
+        const t = document.createElement('div');
+        t.className = `pdp-thumb${i === 0 ? ' active' : ''}`;
+        t.innerHTML = `<img src="${src}" alt="${p.name}">`;
+        t.onclick = () => {
+          document.getElementById('pdp-main-img').style.opacity = '0';
+          setTimeout(() => { document.getElementById('pdp-main-img').src = src; document.getElementById('pdp-main-img').style.opacity = '1'; }, 200);
+          document.querySelectorAll('.pdp-thumb').forEach(x => x.classList.remove('active'));
+          t.classList.add('active');
+        };
+        thumbs.appendChild(t);
+      });
 
       // Info
-      document.getElementById('product-eyebrow').textContent = `${meta.label} · Amigos`;
-      document.getElementById('product-name').textContent    = p.name;
-      document.getElementById('product-variant').textContent = p.variant;
-      document.getElementById('product-price').textContent   = `${p.price}.00`;
+      document.getElementById('pdp-eyebrow').textContent = `${meta.label} · Amigos`;
+      document.getElementById('pdp-name').textContent     = p.name;
+      document.getElementById('pdp-variant').textContent  = p.variant;
+      document.getElementById('pdp-price').textContent    = `${p.price}.00`;
 
-      // Colour swatches
-      const swatchesEl = document.getElementById('colour-swatches');
+      // Colours
       if (p.colors && p.colors.length > 0) {
-        document.getElementById('selected-colour-name').textContent = `— ${p.variant.split('/')[0].trim()}`;
-        swatchesEl.innerHTML = p.colors.map((c, i) => `
-          <div class="colour-swatch ${i === 0 ? 'active' : ''}"
-               style="background:${c}"
-               onclick="selectColour(${i}, '${p.variant.split('/')[i] || p.variant}')"
-               title="${p.variant.split('/')[i] || p.variant}">
-          </div>`).join('');
+        const colourNames = p.variant.split('/').map(s => s.trim());
+        document.getElementById('pdp-colour-name').textContent = colourNames[0] || '';
+        const swatchWrap = document.getElementById('pdp-swatches');
+        p.colors.forEach((c, i) => {
+          const s = document.createElement('div');
+          s.className = `pdp-swatch${i === 0 ? ' active' : ''}`;
+          s.style.background = c;
+          s.title = colourNames[i] || c;
+          s.onclick = () => {
+            pdpColour = i;
+            document.querySelectorAll('.pdp-swatch').forEach((x, j) => x.classList.toggle('active', j === i));
+            document.getElementById('pdp-colour-name').textContent = colourNames[i] || c;
+          };
+          swatchWrap.appendChild(s);
+        });
       } else {
-        document.getElementById('colour-section').style.display = 'none';
+        document.getElementById('pdp-colour-wrap').style.display = 'none';
       }
 
-      // Size options
-      const sizeSection = document.getElementById('size-section');
+      // Sizes
       const sizes = meta.sizes;
       if (sizes && sizes.length > 0) {
-        const sizeGrid = document.getElementById('size-grid');
-        sizeGrid.innerHTML = sizes.map(s => `
-          <button class="size-option" onclick="selectSize('${s}', this)">${s}</button>
-        `).join('');
+        const sizeWrap = document.getElementById('pdp-sizes');
+        sizes.forEach(sz => {
+          const btn = document.createElement('button');
+          btn.className = 'pdp-size';
+          btn.textContent = sz;
+          btn.onclick = () => {
+            pdpSize = sz;
+            document.querySelectorAll('.pdp-size').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('pdp-size-name').textContent = sz;
+            document.getElementById('pdp-no-size').classList.remove('show');
+          };
+          sizeWrap.appendChild(btn);
+        });
       } else {
-        sizeSection.style.display = 'none';
+        document.getElementById('pdp-size-wrap').style.display = 'none';
         pdpSize = 'One Size';
       }
 
       // Product details list
-      const details = PRODUCT_DETAILS[p.category] || PRODUCT_DETAILS.default;
-      document.getElementById('product-details-list').innerHTML =
+      const details = PDP_DETAILS[p.category] || PDP_DETAILS.default;
+      document.getElementById('pdp-details-list').innerHTML =
         details.map(d => `<li>${d}</li>`).join('');
     }
 
-    function switchImage(src, thumbEl) {
-      document.getElementById('main-image').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('main-image').src = src;
-        document.getElementById('main-image').style.opacity = '1';
-      }, 150);
-      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-      thumbEl.classList.add('active');
+    function pdpRenderRelated() {
+      const all     = PRODUCTS[pdpCategory] || [];
+      const related = all.filter(p => p.id !== pdpProduct.id).slice(0, 4);
+      const meta    = PDP_CATEGORY_META[pdpCategory] || PDP_CATEGORY_META.mens;
+
+      document.getElementById('pdp-related-link').href = meta.href;
+
+      const grid = document.getElementById('pdp-related-grid');
+      grid.innerHTML = related.map(p => `
+        <div class="pdp-rel-card" onclick="navigateToProduct('${p.id}')">
+          <div class="pdp-rel-img"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+          <p class="pdp-rel-name">${p.name}</p>
+          <p class="pdp-rel-variant">${p.variant}</p>
+          <p class="pdp-rel-price">${p.price}.00</p>
+        </div>`).join('');
     }
 
-    function selectColour(index, name) {
-      pdpColour = index;
-      document.querySelectorAll('.colour-swatch').forEach((s, i) => {
-        s.classList.toggle('active', i === index);
-      });
-      document.getElementById('selected-colour-name').textContent = `— ${name.trim()}`;
-    }
-
-    function selectSize(size, btn) {
-      pdpSize = size;
-      document.querySelectorAll('.size-option').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('selected-size-name').textContent = `— ${size}`;
-      document.getElementById('no-size-warning').classList.remove('show');
-    }
-
-    function addToCartFromPDP() {
-      const meta  = CATEGORY_META[pdpCategory] || CATEGORY_META.mens;
-      const sizes = meta.sizes;
-
-      // If product has sizes, require selection
-      if (sizes && sizes.length > 0 && !pdpSize) {
-        document.getElementById('no-size-warning').classList.add('show');
-        document.getElementById('size-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    function pdpAddToCart() {
+      const meta  = PDP_CATEGORY_META[pdpCategory] || PDP_CATEGORY_META.mens;
+      if (meta.sizes && meta.sizes.length > 0 && !pdpSize) {
+        document.getElementById('pdp-no-size').classList.add('show');
+        document.getElementById('pdp-sizes').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
-
       const size = pdpSize || 'One Size';
       const existing = cart.find(i => i.id === pdpProduct.id && i.size === size);
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ ...pdpProduct, size, qty: 1 });
-      }
-
+      if (existing) { existing.qty++; }
+      else { cart.push({ ...pdpProduct, size, qty: 1 }); }
       updateCartUI();
 
-      // Button feedback
-      const btn = document.getElementById('add-to-cart-btn');
+      const btn = document.getElementById('pdp-atc');
       btn.classList.add('added');
       btn.innerHTML = `<svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6l4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Added to cart`;
       setTimeout(() => {
         btn.classList.remove('added');
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 1h2l2.4 7.4a1 1 0 00.96.6h6.28a1 1 0 00.96-.72l1.36-4.88H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="13.5" r="1" fill="currentColor"/><circle cx="11.5" cy="13.5" r="1" fill="currentColor"/></svg> Add to cart`;
-      }, 2000);
+        btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M1.5 1.5h2l2.5 7.5a1 1 0 001 .7h6.3a1 1 0 001-.73l1.4-5H4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="14.5" r="1.2" fill="currentColor"/><circle cx="12" cy="14.5" r="1.2" fill="currentColor"/></svg> Add to cart`;
+      }, 2200);
 
-      // Toast
-      showToast();
-    }
-
-    function showToast() {
-      const toast = document.getElementById('cart-toast');
+      const toast = document.getElementById('pdp-toast');
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    function renderRelated() {
-      const allInCat = PRODUCTS[pdpCategory] || [];
-      const related  = allInCat
-        .filter(p => p.id !== pdpProduct.id)
-        .slice(0, 4);
-
-      const grid = document.getElementById('related-grid');
-      grid.innerHTML = related.map(p => `
-        <div class="related-card" onclick="navigateToProduct('${p.id}')">
-          <div class="related-card-img">
-            <img src="${p.image}" alt="${p.name}" loading="lazy">
-          </div>
-          <p class="related-card-name">${p.name}</p>
-          <p class="related-card-variant">${p.variant}</p>
-          <p class="related-card-price">${p.price}.00</p>
-        </div>`).join('');
-    }
-
-    function updatePageMeta() {
-      // Update og:title etc for sharing (basic)
-      document.title = `${pdpProduct.name} — Amigos`;
-    }
-
-    // ── ACCORDION ──
-    function toggleAccordion(trigger) {
-      const body = trigger.nextElementSibling;
+    function pdpToggle(trigger) {
+      const body   = trigger.nextElementSibling;
       const isOpen = body.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
-      document.querySelectorAll('.accordion-trigger').forEach(t => t.classList.remove('open'));
-      // Open this one if it was closed
-      if (!isOpen) {
-        body.classList.add('open');
-        trigger.classList.add('open');
-      }
+      document.querySelectorAll('.pdp-acc-body').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.pdp-acc-trigger').forEach(t => t.classList.remove('open'));
+      if (!isOpen) { body.classList.add('open'); trigger.classList.add('open'); }
     }
 
-    // ── SIZE GUIDE ──
-    function openSizeGuide() {
-      document.getElementById('size-modal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeSizeGuide() {
-      document.getElementById('size-modal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function closeSizeGuideOnOverlay(e) {
-      if (e.target === document.getElementById('size-modal')) closeSizeGuide();
-    }
+    function openSizeGuide()    { document.getElementById('sg-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeSizeGuide()   { document.getElementById('sg-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+    function sgOverlayClick(e)  { if (e.target === document.getElementById('sg-overlay')) closeSizeGuide(); }
 
-    // Run on load
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', pdpInit);
   </script>
-
 </body>
 </html>
