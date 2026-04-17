@@ -139,20 +139,23 @@ function changeQty(i,d) { cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); u
 function removeFromCart(i) { cart.splice(i,1); updateCartUI(); }
 
 /* ══ GRID ══ */
-function renderGrid(products,containerId,openFn) {
+function renderGrid(products, containerId, openFn) {
   const grid = document.getElementById(containerId);
   if (!grid) return;
   grid.innerHTML = '';
-  products.forEach((p,i) => {
+  products.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
-      <div class="product-img-wrap" onclick="${openFn}(${i})">
-        ${p.tag?`<div class="product-badge">${p.tag}</div>`:''}
+      <div class="product-img-wrap" onclick="navigateToProduct('${p.id}')">
+        ${p.tag ? `<div class="product-badge">${p.tag}</div>` : ''}
         <img src="${p.image}" alt="${p.name}" loading="lazy">
       </div>
       <div class="product-info">
-        <div><p class="product-name">${p.name}</p><p class="product-variant">${p.variant}</p></div>
+        <div>
+          <p class="product-name">${p.name}</p>
+          <p class="product-variant">${p.variant}</p>
+        </div>
         <p class="product-price">${p.price}</p>
       </div>`;
     grid.appendChild(card);
@@ -268,6 +271,12 @@ function setupModal() {
 function setupCartBtn() {
   const btn = document.getElementById('cart-btn');
   if (btn) btn.onclick = () => openCartDrawer();
+}
+
+function navigateToProduct(id) {
+  const isInPagesFolder = window.location.pathname.includes('/pages/');
+  const base = isInPagesFolder ? '' : 'pages/';
+  window.location.href = `${base}product.html?id=${id}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Amigos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ── PAGE SPECIFIC ── */
+    body { font-family: 'Jost', Arial, sans-serif; background: var(--cream); color: var(--text); }
+
+    .breadcrumb {
+      padding: 1rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(61,43,31,0.08);
+    }
+    .breadcrumb a { color: var(--warm-brown, #8B6B4A); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--dark-brown, #3D2B1F); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    /* ── PRODUCT LAYOUT ── */
+    .product-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2.5rem 5rem;
+      gap: 4rem;
+    }
+
+    /* ── LEFT: GALLERY ── */
+    .gallery { position: sticky; top: 80px; align-self: start; }
+
+    .gallery-main {
+      position: relative;
+      background: #EFEBE3;
+      border-radius: 3px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      margin-bottom: 0.75rem;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s;
+    }
+    .gallery-badge {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: var(--dark-brown, #3D2B1F);
+      color: var(--cream, #F5F0E8);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 1px;
+    }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .gallery-thumb {
+      width: 68px;
+      height: 68px;
+      border-radius: 2px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .gallery-thumb.active { border-color: var(--dark-brown, #3D2B1F); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── RIGHT: PRODUCT INFO ── */
+    .product-info { padding-top: 0.5rem; }
+
+    .product-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.57rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm-brown, #8B6B4A);
+      margin-bottom: 0.6rem;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--dark-brown, #3D2B1F);
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-variant-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--light, #A89880);
+      margin-bottom: 1.2rem;
+    }
+
+    .product-price {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--dark-brown, #3D2B1F);
+      margin-bottom: 1.8rem;
+      line-height: 1;
+    }
+
+    .divider { height: 1px; background: rgba(61,43,31,0.1); margin: 1.5rem 0; }
+
+    /* COLOUR SELECTOR */
+    .option-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid, #6a5a4e);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .option-label span {
+      font-weight: 300;
+      color: var(--light, #A89880);
+      text-transform: none;
+      letter-spacing: 0.05em;
+    }
+
+    .colour-swatches {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .colour-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .colour-swatch:hover { transform: scale(1.1); }
+    .colour-swatch.active { border-color: var(--dark-brown, #3D2B1F); }
+    .colour-swatch.active::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1.5px solid var(--dark-brown, #3D2B1F);
+      opacity: 0.4;
+    }
+
+    /* SIZE SELECTOR */
+    .size-grid {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+    .size-option {
+      min-width: 48px;
+      height: 48px;
+      padding: 0 0.8rem;
+      border: 1.5px solid rgba(61,43,31,0.2);
+      border-radius: 2px;
+      background: white;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--text, #1a1a1a);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .size-option:hover { border-color: var(--warm-brown, #8B6B4A); }
+    .size-option.active {
+      background: var(--dark-brown, #3D2B1F);
+      border-color: var(--dark-brown, #3D2B1F);
+      color: var(--cream, #F5F0E8);
+    }
+    .size-option.unavailable {
+      opacity: 0.3;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .size-guide-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-brown, #8B6B4A);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 1.8rem;
+      display: inline-block;
+    }
+
+    /* ADD TO CART */
+    .add-to-cart-btn {
+      width: 100%;
+      background: var(--dark-brown, #3D2B1F);
+      color: var(--cream, #F5F0E8);
+      border: none;
+      border-radius: 2px;
+      padding: 1.1rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .add-to-cart-btn:hover:not(:disabled) { background: #2e1e14; }
+    .add-to-cart-btn:active:not(:disabled) { transform: scale(0.99); }
+    .add-to-cart-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .add-to-cart-btn.added {
+      background: var(--success-green, #2d6a4f);
+    }
+
+    .no-size-warning {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 300;
+      color: #9B3A2A;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+    .no-size-warning.show { display: block; }
+
+    /* TRUST SIGNALS */
+    .trust-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--mid, #6a5a4e);
+    }
+    .trust-item svg { flex-shrink: 0; opacity: 0.6; }
+
+    /* PRODUCT DETAILS ACCORDION */
+    .accordion { border-top: 1px solid rgba(61,43,31,0.1); }
+    .accordion-item { border-bottom: 1px solid rgba(61,43,31,0.1); }
+    .accordion-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dark-brown, #3D2B1F);
+      text-align: left;
+    }
+    .accordion-trigger svg {
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .accordion-trigger.open svg { transform: rotate(45deg); }
+    .accordion-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+    .accordion-body.open { max-height: 400px; }
+    .accordion-body-inner {
+      padding: 0 0 1.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid, #6a5a4e);
+    }
+    .accordion-body-inner ul {
+      list-style: none;
+      padding: 0;
+    }
+    .accordion-body-inner ul li {
+      padding: 0.2rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .accordion-body-inner ul li::before {
+      content: '—';
+      color: var(--warm-brown, #8B6B4A);
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      margin-top: 0.1rem;
+    }
+
+    /* ── RELATED PRODUCTS ── */
+    .related-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 5rem;
+      border-top: 1px solid rgba(61,43,31,0.1);
+    }
+    .related-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--dark-brown, #3D2B1F);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+    .related-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light, #A89880);
+      margin-bottom: 2rem;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .related-card {
+      cursor: pointer;
+    }
+    .related-card-img {
+      aspect-ratio: 4/5;
+      background: #EFEBE3;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      transition: opacity 0.2s;
+    }
+    .related-card-img:hover { opacity: 0.88; }
+    .related-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .related-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--dark-brown, #3D2B1F);
+      margin-bottom: 0.15rem;
+    }
+    .related-card-variant {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.57rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light, #A89880);
+      margin-bottom: 0.3rem;
+    }
+    .related-card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--dark-brown, #3D2B1F);
+    }
+
+    /* ── SIZE GUIDE MODAL ── */
+    .size-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30,20,12,0.5);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      padding: 1rem;
+    }
+    .size-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .size-modal {
+      background: var(--cream, #F5F0E8);
+      border-radius: 3px;
+      max-width: 560px;
+      width: 100%;
+      padding: 2rem;
+      transform: translateY(12px);
+      transition: transform 0.25s;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .size-modal-overlay.open .size-modal { transform: none; }
+    .size-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .size-modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--dark-brown, #3D2B1F);
+    }
+    .size-modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--light, #A89880);
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 0.2rem;
+      transition: color 0.2s;
+    }
+    .size-modal-close:hover { color: var(--dark-brown, #3D2B1F); }
+    .size-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+    }
+    .size-table th {
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-size: 0.58rem;
+      color: var(--mid, #6a5a4e);
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1.5px solid rgba(61,43,31,0.15);
+      text-align: left;
+    }
+    .size-table td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid rgba(61,43,31,0.08);
+      color: var(--text, #1a1a1a);
+    }
+    .size-table tr:last-child td { border-bottom: none; }
+    .size-table tr:nth-child(even) td { background: rgba(61,43,31,0.02); }
+    .size-note {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 300;
+      color: var(--light, #A89880);
+      margin-top: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ── CART NOTIFICATION ── */
+    .cart-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--dark-brown, #3D2B1F);
+      color: var(--cream, #F5F0E8);
+      padding: 0.9rem 1.6rem;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      z-index: 400;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      white-space: nowrap;
+    }
+    .cart-toast.show { transform: translateX(-50%) translateY(0); }
+    .cart-toast-view {
+      color: var(--warm-light, #C4A882);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 860px) {
+      .product-wrap { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1.25rem 3rem; }
+      .gallery { position: static; }
+      .breadcrumb { padding: 0.75rem 1.25rem; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      .related-section { padding: 2rem 1.25rem 3rem; }
+      .product-name { font-size: 1.9rem; }
+    }
+    @media (max-width: 500px) {
+      .related-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .trust-row { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV (loaded via script.js) -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-logo-wrap" onclick="window.location.href='../index.html'">
+      <img src="../images/logo.png" alt="Amigos" class="nav-skull-icon">
+      <span class="nav-logo">Amigos</span>
+    </div>
+    <ul class="nav-center">
+      <li class="nav-item"><a class="nav-link has-drop">Men</a><div class="dropdown"><a href="mens.html?cat=all">All Men's</a><div class="dropdown-divider"></div><a href="mens.html?cat=t-shirts">T-Shirts</a><a href="mens.html?cat=hoodies">Hoodies</a><a href="mens.html?cat=sweatshirts">Sweatshirts</a><a href="mens.html?cat=joggers">Joggers</a><a href="mens.html?cat=trousers">Trousers</a><a href="mens.html?cat=jackets">Jackets</a><a href="mens.html?cat=swimwear">Swimwear</a><a href="mens.html?cat=pyjamas">Pyjamas</a></div></li>
+      <li class="nav-item"><a class="nav-link has-drop">Women</a><div class="dropdown"><a href="womens.html?cat=all">All Women's</a><div class="dropdown-divider"></div><a href="womens.html?cat=t-shirts">T-Shirts</a><a href="womens.html?cat=hoodies">Hoodies</a><a href="womens.html?cat=sweatshirts">Sweatshirts</a><a href="womens.html?cat=joggers">Joggers</a><a href="womens.html?cat=trousers">Trousers</a><a href="womens.html?cat=jackets">Jackets</a><a href="womens.html?cat=swimwear">Swimwear</a><a href="womens.html?cat=pyjamas">Pyjamas</a></div></li>
+      <li class="nav-item"><a class="nav-link has-drop">Children</a><div class="dropdown"><a href="childrens.html?cat=all">All Children's</a><div class="dropdown-divider"></div><a href="childrens.html?cat=t-shirts">T-Shirts</a><a href="childrens.html?cat=hoodies">Hoodies</a><a href="childrens.html?cat=sweatshirts">Sweatshirts</a><a href="childrens.html?cat=joggers">Joggers</a><a href="childrens.html?cat=swimwear">Swimwear</a></div></li>
+      <li class="nav-item"><a class="nav-link has-drop">Accessories</a><div class="dropdown"><a href="accessories.html?cat=all">All Accessories</a><div class="dropdown-divider"></div><a href="accessories.html?cat=tote-bags">Tote Bags</a><a href="accessories.html?cat=caps">Caps</a><a href="accessories.html?cat=beanies">Beanies</a><a href="accessories.html?cat=beach-towels">Beach Towels</a><a href="accessories.html?cat=phone-cases">Phone Cases</a></div></li>
+      <li class="nav-item"><a class="nav-link has-drop">Home &amp; Living</a><div class="dropdown"><a href="homeandliving.html?cat=all">All Home &amp; Living</a><div class="dropdown-divider"></div><a href="homeandliving.html?cat=mugs">Mugs</a><a href="homeandliving.html?cat=cushions">Cushions</a><a href="homeandliving.html?cat=candles">Candles</a><a href="homeandliving.html?cat=wall-art">Wall Art</a></div></li>
+      <li class="nav-item"><a class="nav-link" href="../index.html#bay-section">Trearddur Bay</a></li>
+      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="mens.html">Men</a><a href="womens.html">Women</a><a href="childrens.html">Children</a>
+    <a href="accessories.html">Accessories</a><a href="homeandliving.html">Home &amp; Living</a>
+    <a href="about.html">About Us</a>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="#" id="breadcrumb-collection">Collection</a>
+    <span class="breadcrumb-sep">›</span>
+    <span id="breadcrumb-product">Product</span>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="product-wrap" id="product-wrap">
+
+    <!-- GALLERY -->
+    <div class="gallery" id="gallery">
+      <div class="gallery-main">
+        <img src="" alt="" id="main-image">
+        <div class="gallery-badge" id="product-badge" style="display:none;"></div>
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+      <p class="product-eyebrow" id="product-eyebrow">Amigos · Trearddur Bay</p>
+      <h1 class="product-name" id="product-name">—</h1>
+      <p class="product-variant-label" id="product-variant">—</p>
+      <p class="product-price" id="product-price">—</p>
+
+      <div class="divider"></div>
+
+      <!-- COLOUR -->
+      <div id="colour-section">
+        <p class="option-label">Colour <span id="selected-colour-name"></span></p>
+        <div class="colour-swatches" id="colour-swatches"></div>
+      </div>
+
+      <!-- SIZE -->
+      <div id="size-section">
+        <p class="option-label">Size <span id="selected-size-name"></span></p>
+        <div class="size-grid" id="size-grid"></div>
+        <button class="size-guide-link" onclick="openSizeGuide()">Size guide →</button>
+      </div>
+
+      <p class="no-size-warning" id="no-size-warning">Please select a size before adding to cart</p>
+
+      <!-- ADD TO CART -->
+      <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCartFromPDP()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M1 1h2l2.4 7.4a1 1 0 00.96.6h6.28a1 1 0 00.96-.72l1.36-4.88H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="6.5" cy="13.5" r="1" fill="currentColor"/>
+          <circle cx="11.5" cy="13.5" r="1" fill="currentColor"/>
+        </svg>
+        Add to cart
+      </button>
+
+      <!-- TRUST -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L1 3v4c0 3.2 2.6 6.2 6 7 3.4-.8 6-3.8 6-7V3L7 1z" stroke="#8B6B4A" stroke-width="1.3"/></svg>
+          Secure payment
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="#8B6B4A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Free UK shipping over £60
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7a5 5 0 1010 0A5 5 0 002 7zM7 4v3l2 2" stroke="#8B6B4A" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Made to order
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ACCORDION -->
+      <div class="accordion" id="accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            Product details
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-body-inner" id="product-details-text">
+              <ul id="product-details-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            Sizing &amp; fit
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <ul>
+                <li>Model is 6'1" and wears size M</li>
+                <li>Regular fit — not too slim, not oversized</li>
+                <li>We recommend sizing up if you prefer a relaxed fit</li>
+                <li>See our full size guide for exact measurements</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            Delivery &amp; returns
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <ul>
+                <li>Free UK standard delivery on orders over £60</li>
+                <li>Standard UK delivery £3.99 — 3 to 5 working days</li>
+                <li>Made to order — please allow 1 to 2 days for production</li>
+                <li>Returns accepted within 30 days of delivery</li>
+                <li>Items must be unworn and in original condition</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            Care instructions
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-body-inner" id="care-text">
+              <ul>
+                <li>Machine wash cold at 30°C</li>
+                <li>Do not tumble dry — hang or lay flat to dry</li>
+                <li>Do not iron directly on print</li>
+                <li>Do not dry clean</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /accordion -->
+
+    </div><!-- /product-info -->
+  </div><!-- /product-wrap -->
+
+  <!-- RELATED PRODUCTS -->
+  <div class="related-section">
+    <h2 class="related-heading">You might also like</h2>
+    <p class="related-sub">From the same collection</p>
+    <div class="related-grid" id="related-grid"></div>
+  </div>
+
+  <!-- SIZE GUIDE MODAL -->
+  <div class="size-modal-overlay" id="size-modal" onclick="closeSizeGuideOnOverlay(event)">
+    <div class="size-modal">
+      <div class="size-modal-header">
+        <span class="size-modal-title">Size Guide</span>
+        <button class="size-modal-close" onclick="closeSizeGuide()">×</button>
+      </div>
+      <table class="size-table">
+        <thead>
+          <tr><th>Size</th><th>Chest (cm)</th><th>Waist (cm)</th><th>Length (cm)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>XS</td><td>84–89</td><td>70–75</td><td>68</td></tr>
+          <tr><td>S</td><td>89–94</td><td>75–80</td><td>70</td></tr>
+          <tr><td>M</td><td>94–99</td><td>80–85</td><td>72</td></tr>
+          <tr><td>L</td><td>99–104</td><td>85–90</td><td>74</td></tr>
+          <tr><td>XL</td><td>104–109</td><td>90–95</td><td>76</td></tr>
+          <tr><td>2XL</td><td>109–114</td><td>95–100</td><td>78</td></tr>
+        </tbody>
+      </table>
+      <p class="size-note">Measurements are in centimetres and refer to body measurements, not garment measurements. If you're between sizes, we recommend sizing up for a more relaxed fit.</p>
+    </div>
+  </div>
+
+  <!-- CART TOAST -->
+  <div class="cart-toast" id="cart-toast">
+    <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6l4 4 8-8" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Added to cart
+    <span class="cart-toast-view" onclick="openCartDrawer()">View cart →</span>
+  </div>
+
+  <!-- CART DRAWER (shared) -->
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title">Your Cart</span>
+      <button class="cart-drawer-close" onclick="closeCartDrawer()">×</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <p class="cart-empty" id="cart-empty">No loot in your bag, amigo!</p>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total">£0.00</span>
+      </div>
+      <button class="checkout-btn" id="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+      <p class="cart-shipping-note">Free UK shipping on orders over £60</p>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+
+  <script>
+    /* ══════════════════════════════════════════
+       AMIGOS — Product Detail Page
+    ══════════════════════════════════════════ */
+
+    // Category display names and collection page links
+    const CATEGORY_META = {
+      mens:         { label: "Men's",        href: 'mens.html',         sizes: ['XS','S','M','L','XL','2XL'] },
+      womens:       { label: "Women's",      href: 'womens.html',       sizes: ['XS','S','M','L','XL'] },
+      childrens:    { label: "Children's",   href: 'childrens.html',    sizes: ['3-4Y','5-6Y','7-8Y','9-10Y','11-12Y','13-14Y'] },
+      accessories:  { label: 'Accessories',  href: 'accessories.html',  sizes: [] },
+      homeandliving:{ label: 'Home & Living', href: 'homeandliving.html', sizes: [] },
+    };
+
+    // Product-specific details copy
+    const PRODUCT_DETAILS = {
+      't-shirts':    ['100% organic ring-spun cotton', 'Garment-dyed for a lived-in look', 'Screen-printed Captain Bones graphic', 'Crew neck, short sleeve', 'Pre-shrunk fabric'],
+      'hoodies':     ['350gsm premium heavyweight fleece', 'Brushed interior for warmth', 'Embroidered Amigos branding', 'Kangaroo pocket, adjustable drawcord', 'Ribbed cuffs and hem'],
+      'sweatshirts': ['300gsm fleece fabric', 'Brushed interior finish', 'Crew neck, dropped shoulder', 'Embroidered Captain Bones graphic', 'Ribbed collar and hem'],
+      'joggers':     ['280gsm fleece fabric', 'Elasticated waistband with drawcord', 'Tapered leg, ribbed cuffs', 'Two side pockets, one back pocket', 'Amigos embroidered branding'],
+      'jackets':     ['Outer: 100% recycled polyester', 'Water-resistant shell', 'Adjustable hood and cuffs', 'Zip pockets', 'Amigos chest embroidery'],
+      'trousers':    ['98% cotton, 2% elastane', 'Relaxed fit, wide leg', 'Functional cargo pockets', 'Adjustable waistband', 'Amigos woven label'],
+      'swimwear':    ['100% recycled polyester', 'Quick-dry liner', 'Elasticated waistband with drawcord', 'Side pockets', 'UPF 50+ sun protection'],
+      'pyjamas':     ['100% brushed cotton', 'Elasticated waistband', 'Button-front top', 'Two patch pockets', 'Soft and breathable'],
+      'tote-bags':   ['100% natural cotton canvas', '4oz heavyweight canvas', 'Reinforced handles', 'Internal pocket', 'Screen-printed Amigos graphic'],
+      'caps':        ['100% cotton twill', 'Six-panel structured cap', 'Adjustable strap', 'Embroidered Captain Bones logo', 'One size fits most'],
+      'beanies':     ['100% merino wool blend', 'Double-layered cuff', 'Ribbed knit', 'Embroidered Amigos branding', 'One size'],
+      'default':     ['Premium quality materials', 'Amigos branded', 'Made to order', 'Designed in Trearddur Bay'],
+    };
+
+    let currentProduct  = null;
+    let selectedSize    = null;
+    let selectedColour  = 0;
+    let productCategory = null;
+
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      const id     = params.get('id');
+      if (!id) { window.location.href = '../index.html'; return; }
+
+      // Find product across all categories
+      let found = null;
+      let foundCategory = null;
+      for (const [cat, products] of Object.entries(PRODUCTS)) {
+        const p = products.find(p => p.id === id);
+        if (p) { found = p; foundCategory = cat; break; }
+      }
+
+      if (!found) { window.location.href = '../index.html'; return; }
+
+      currentProduct  = found;
+      productCategory = foundCategory;
+      renderProduct();
+      renderRelated();
+      updatePageMeta();
+    }
+
+    function renderProduct() {
+      const p    = currentProduct;
+      const meta = CATEGORY_META[productCategory] || CATEGORY_META.mens;
+
+      // Breadcrumb
+      document.getElementById('breadcrumb-collection').textContent = meta.label;
+      document.getElementById('breadcrumb-collection').href = meta.href;
+      document.getElementById('breadcrumb-product').textContent = p.name;
+      document.title = `${p.name} — Amigos`;
+
+      // Main image
+      const mainImg = document.getElementById('main-image');
+      mainImg.src = p.image;
+      mainImg.alt = p.name;
+
+      // Badge
+      if (p.tag) {
+        const badge = document.getElementById('product-badge');
+        badge.textContent = p.tag;
+        badge.style.display = 'block';
+      }
+
+      // Gallery thumbs — for now show same image x3 (replace with real multiple images later)
+      const thumbsEl = document.getElementById('gallery-thumbs');
+      const thumbImages = [p.image, p.image, p.image]; // swap with real multi-image array later
+      thumbsEl.innerHTML = thumbImages.map((src, i) => `
+        <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${src}', this)">
+          <img src="${src}" alt="${p.name} view ${i+1}">
+        </div>`).join('');
+
+      // Info
+      document.getElementById('product-eyebrow').textContent = `${meta.label} · Amigos`;
+      document.getElementById('product-name').textContent    = p.name;
+      document.getElementById('product-variant').textContent = p.variant;
+      document.getElementById('product-price').textContent   = `${p.price}.00`;
+
+      // Colour swatches
+      const swatchesEl = document.getElementById('colour-swatches');
+      if (p.colors && p.colors.length > 0) {
+        document.getElementById('selected-colour-name').textContent = `— ${p.variant.split('/')[0].trim()}`;
+        swatchesEl.innerHTML = p.colors.map((c, i) => `
+          <div class="colour-swatch ${i === 0 ? 'active' : ''}"
+               style="background:${c}"
+               onclick="selectColour(${i}, '${p.variant.split('/')[i] || p.variant}')"
+               title="${p.variant.split('/')[i] || p.variant}">
+          </div>`).join('');
+      } else {
+        document.getElementById('colour-section').style.display = 'none';
+      }
+
+      // Size options
+      const sizeSection = document.getElementById('size-section');
+      const sizes = meta.sizes;
+      if (sizes && sizes.length > 0) {
+        const sizeGrid = document.getElementById('size-grid');
+        sizeGrid.innerHTML = sizes.map(s => `
+          <button class="size-option" onclick="selectSize('${s}', this)">${s}</button>
+        `).join('');
+      } else {
+        sizeSection.style.display = 'none';
+        selectedSize = 'One Size';
+      }
+
+      // Product details list
+      const details = PRODUCT_DETAILS[p.category] || PRODUCT_DETAILS.default;
+      document.getElementById('product-details-list').innerHTML =
+        details.map(d => `<li>${d}</li>`).join('');
+    }
+
+    function switchImage(src, thumbEl) {
+      document.getElementById('main-image').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('main-image').src = src;
+        document.getElementById('main-image').style.opacity = '1';
+      }, 150);
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumbEl.classList.add('active');
+    }
+
+    function selectColour(index, name) {
+      selectedColour = index;
+      document.querySelectorAll('.colour-swatch').forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      document.getElementById('selected-colour-name').textContent = `— ${name.trim()}`;
+    }
+
+    function selectSize(size, btn) {
+      selectedSize = size;
+      document.querySelectorAll('.size-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('selected-size-name').textContent = `— ${size}`;
+      document.getElementById('no-size-warning').classList.remove('show');
+    }
+
+    function addToCartFromPDP() {
+      const meta  = CATEGORY_META[productCategory] || CATEGORY_META.mens;
+      const sizes = meta.sizes;
+
+      // If product has sizes, require selection
+      if (sizes && sizes.length > 0 && !selectedSize) {
+        document.getElementById('no-size-warning').classList.add('show');
+        document.getElementById('size-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const size = selectedSize || 'One Size';
+      const existing = cart.find(i => i.id === currentProduct.id && i.size === size);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...currentProduct, size, qty: 1 });
+      }
+
+      updateCartUI();
+
+      // Button feedback
+      const btn = document.getElementById('add-to-cart-btn');
+      btn.classList.add('added');
+      btn.innerHTML = `<svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6l4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Added to cart`;
+      setTimeout(() => {
+        btn.classList.remove('added');
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 1h2l2.4 7.4a1 1 0 00.96.6h6.28a1 1 0 00.96-.72l1.36-4.88H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="13.5" r="1" fill="currentColor"/><circle cx="11.5" cy="13.5" r="1" fill="currentColor"/></svg> Add to cart`;
+      }, 2000);
+
+      // Toast
+      showToast();
+    }
+
+    function showToast() {
+      const toast = document.getElementById('cart-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function renderRelated() {
+      const allInCat = PRODUCTS[productCategory] || [];
+      const related  = allInCat
+        .filter(p => p.id !== currentProduct.id)
+        .slice(0, 4);
+
+      const grid = document.getElementById('related-grid');
+      grid.innerHTML = related.map(p => `
+        <div class="related-card" onclick="navigateToProduct('${p.id}')">
+          <div class="related-card-img">
+            <img src="${p.image}" alt="${p.name}" loading="lazy">
+          </div>
+          <p class="related-card-name">${p.name}</p>
+          <p class="related-card-variant">${p.variant}</p>
+          <p class="related-card-price">${p.price}.00</p>
+        </div>`).join('');
+    }
+
+    function updatePageMeta() {
+      // Update og:title etc for sharing (basic)
+      document.title = `${currentProduct.name} — Amigos`;
+    }
+
+    // ── ACCORDION ──
+    function toggleAccordion(trigger) {
+      const body = trigger.nextElementSibling;
+      const isOpen = body.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.accordion-trigger').forEach(t => t.classList.remove('open'));
+      // Open this one if it was closed
+      if (!isOpen) {
+        body.classList.add('open');
+        trigger.classList.add('open');
+      }
+    }
+
+    // ── SIZE GUIDE ──
+    function openSizeGuide() {
+      document.getElementById('size-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSizeGuide() {
+      document.getElementById('size-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeSizeGuideOnOverlay(e) {
+      if (e.target === document.getElementById('size-modal')) closeSizeGuide();
+    }
+
+    // Run on load
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>
