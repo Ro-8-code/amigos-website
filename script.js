@@ -100,10 +100,15 @@ const PRODUCTS = {
 
 /* ══ CART ══ */
 let cart = [];
+try {
+  const saved = localStorage.getItem('amigos_cart');
+  if (saved) cart = JSON.parse(saved);
+} catch(e) {}
 function getCartTotal() { return cart.reduce((s,i) => s+(i.priceNumber*i.qty),0); }
 function getCartCount() { return cart.reduce((s,i) => s+i.qty,0); }
 
 function updateCartUI() {
+  try { localStorage.setItem('amigos_cart', JSON.stringify(cart)); } catch(e) {}
   document.querySelectorAll('#cart-count').forEach(el => el.textContent = getCartCount());
   const cartItems = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');

@@ -640,7 +640,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Read order from sessionStorage (set by checkout.html on success)
+      localStorage.removeItem('amigos_cart');
       let order = null;
       try {
         const stored = sessionStorage.getItem('amigos_order');
