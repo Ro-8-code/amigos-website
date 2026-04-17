@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Amigos</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #F5F0E8;
+      --sand:       #E8DFD0;
+      --dark-brown: #3D2B1F;
+      --warm-brown: #8B6B4A;
+      --ocean:      #6B8FA8;
+      --deep:       #2C4A5E;
+      --steel:      #7A9BB5;
+      --text:       #1a1a1a;
+      --mid:        #5a5a5a;
+      --light:      #9a9a9a;
+      --white:      #FEFEFE;
+      --error:      #c0392b;
+      --success:    #2d7a4f;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(61,43,31,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--dark-brown);
+    }
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .nav-logo span {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .nav-secure {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    .nav-secure svg { opacity: 0.5; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 1.2rem 2rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .breadcrumb a {
+      color: var(--warm-brown);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ── LAYOUT ── */
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      min-height: calc(100vh - 130px);
+    }
+
+    /* ── LEFT: FORM ── */
+    .checkout-form-section {
+      padding-right: 3.5rem;
+      border-right: 1px solid rgba(61,43,31,0.1);
+    }
+
+    .section-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(61,43,31,0.08);
+    }
+
+    .form-section { margin-bottom: 2.5rem; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-row.full { grid-template-columns: 1fr; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .field label {
+      font-family: Arial, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .field input,
+    .field select {
+      background: var(--white);
+      border: 1px solid rgba(61,43,31,0.2);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--warm-brown);
+    }
+    .field input.error,
+    .field select.error {
+      border-color: var(--error);
+    }
+    .field-error {
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      color: var(--error);
+      letter-spacing: 0.05em;
+      min-height: 0.9rem;
+    }
+
+    /* ── STRIPE ELEMENTS ── */
+    .stripe-field {
+      background: var(--white);
+      border: 1px solid rgba(61,43,31,0.2);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      transition: border-color 0.2s;
+    }
+    .stripe-field.focused { border-color: var(--warm-brown); }
+    .stripe-field.error   { border-color: var(--error); }
+
+    .payment-methods {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    #payment-request-button { width: 100%; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.2rem 0;
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(61,43,31,0.1);
+    }
+
+    /* ── SHIPPING OPTIONS ── */
+    .shipping-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+    .shipping-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1rem;
+      background: var(--white);
+      border: 1px solid rgba(61,43,31,0.2);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .shipping-option:hover { border-color: var(--warm-brown); }
+    .shipping-option.selected {
+      border-color: var(--dark-brown);
+      background: rgba(61,43,31,0.03);
+    }
+    .shipping-option input[type="radio"] { display: none; }
+    .shipping-option-left { display: flex; align-items: center; gap: 0.75rem; }
+    .shipping-radio {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(61,43,31,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+    .shipping-option.selected .shipping-radio { border-color: var(--dark-brown); }
+    .shipping-radio-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--dark-brown);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .shipping-option.selected .shipping-radio-dot { opacity: 1; }
+    .shipping-name {
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .shipping-eta {
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .shipping-price {
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      color: var(--dark-brown);
+    }
+
+    /* ── PAY BUTTON ── */
+    .pay-btn {
+      width: 100%;
+      background: var(--dark-brown);
+      color: var(--cream);
+      border: none;
+      border-radius: 3px;
+      padding: 1rem 2rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .pay-btn:hover { background: #2a1d14; }
+    .pay-btn:active { transform: scale(0.99); }
+    .pay-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .pay-btn .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(245,240,232,0.3);
+      border-top-color: var(--cream);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .pay-btn.loading .spinner { display: block; }
+    .pay-btn.loading .btn-text { opacity: 0.6; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .pay-secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    .stripe-error {
+      background: rgba(192,57,43,0.06);
+      border: 1px solid rgba(192,57,43,0.2);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      color: var(--error);
+      margin-top: 1rem;
+      display: none;
+    }
+    .stripe-error.show { display: block; }
+
+    /* ── RIGHT: ORDER SUMMARY ── */
+    .order-summary {
+      padding-left: 3.5rem;
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+
+    .summary-toggle {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+    }
+    .summary-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-brown);
+    }
+    .summary-toggle-price {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--dark-brown);
+    }
+
+    .summary-items {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(61,43,31,0.1);
+    }
+
+    .summary-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .summary-item-img-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .summary-item-img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 1px solid rgba(61,43,31,0.1);
+    }
+    .summary-item-qty {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 18px;
+      height: 18px;
+      background: var(--dark-brown);
+      color: var(--cream);
+      border-radius: 50%;
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .summary-item-info { flex: 1; }
+    .summary-item-name {
+      font-family: Georgia, serif;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .summary-item-meta {
+      font-family: Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    .summary-item-price {
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      color: var(--dark-brown);
+      white-space: nowrap;
+    }
+
+    .summary-totals { margin-bottom: 1.5rem; }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .summary-line-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .summary-line-value {
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .summary-line-value.free { color: var(--success); font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(61,43,31,0.1);
+    }
+    .summary-total-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .summary-total-value {
+      font-family: Georgia, serif;
+      font-size: 1.3rem;
+      color: var(--dark-brown);
+    }
+    .summary-total-currency {
+      font-size: 0.75rem;
+      vertical-align: super;
+      margin-right: 1px;
+    }
+
+    .summary-brand {
+      text-align: center;
+      padding-top: 2rem;
+      opacity: 0.35;
+    }
+    .summary-brand img { width: 28px; height: 28px; object-fit: contain; }
+    .summary-brand p {
+      font-family: Arial, sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+      color: var(--dark-brown);
+    }
+
+    /* ── EMPTY CART STATE ── */
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 2rem;
+      grid-column: 1 / -1;
+    }
+    .empty-cart h2 {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--dark-brown);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    .empty-cart p {
+      font-family: Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.5rem;
+    }
+    .empty-cart a {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: var(--dark-brown);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 780px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+        padding: 0 1rem 3rem;
+      }
+      .checkout-form-section {
+        padding-right: 0;
+        border-right: none;
+        order: 2;
+      }
+      .order-summary {
+        padding-left: 0;
+        position: static;
+        order: 1;
+        border-bottom: 1px solid rgba(61,43,31,0.1);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .summary-toggle { display: flex; }
+      .summary-items, .summary-totals { display: none; }
+      .summary-items.open, .summary-totals.open { display: block; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo" href="../index.html">
+      <img src="../images/logo.png" alt="Amigos">
+      <span>Amigos</span>
+    </a>
+    <div class="nav-secure">
+      <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
+        <path d="M5.5 0L0 2.167V6.5c0 3.016 2.343 5.833 5.5 6.5C8.657 12.333 11 9.516 11 6.5V2.167L5.5 0z" fill="#8B6B4A"/>
+      </svg>
+      Secure Checkout
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>›</span>
+    <span>Cart</span>
+    <span>›</span>
+    <span style="color:var(--dark-brown)">Checkout</span>
+  </div>
+
+  <!-- MAIN -->
+  <main class="checkout-layout" id="checkout-layout">
+
+    <!-- LEFT: FORM -->
+    <div class="checkout-form-section" id="form-section">
+
+      <!-- CONTACT -->
+      <div class="form-section">
+        <div class="section-label">Contact</div>
+        <div class="form-row full">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+            <span class="field-error" id="email-error"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHIPPING ADDRESS -->
+      <div class="form-section">
+        <div class="section-label">Shipping address</div>
+        <div class="form-row">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input type="text" id="first-name" autocomplete="given-name">
+            <span class="field-error" id="first-name-error"></span>
+          </div>
+          <div class="field">
+            <label for="last-name">Last name</label>
+            <input type="text" id="last-name" autocomplete="family-name">
+            <span class="field-error" id="last-name-error"></span>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="field">
+            <label for="address1">Address</label>
+            <input type="text" id="address1" autocomplete="address-line1">
+            <span class="field-error" id="address1-error"></span>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="field">
+            <label for="address2">Apartment, suite, etc. (optional)</label>
+            <input type="text" id="address2" autocomplete="address-line2">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="city">Town / City</label>
+            <input type="text" id="city" autocomplete="address-level2">
+            <span class="field-error" id="city-error"></span>
+          </div>
+          <div class="field">
+            <label for="postcode">Postcode</label>
+            <input type="text" id="postcode" autocomplete="postal-code">
+            <span class="field-error" id="postcode-error"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHIPPING METHOD -->
+      <div class="form-section">
+        <div class="section-label">Shipping method</div>
+        <div class="shipping-options">
+          <label class="shipping-option selected" id="shipping-standard" onclick="selectShipping('standard')">
+            <div class="shipping-option-left">
+              <div class="shipping-radio"><div class="shipping-radio-dot"></div></div>
+              <div>
+                <div class="shipping-name">Standard Delivery</div>
+                <div class="shipping-eta">3–5 working days</div>
+              </div>
+            </div>
+            <div class="shipping-price" id="shipping-price-display">£3.99</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="form-section">
+        <div class="section-label">Payment</div>
+
+        <!-- Apple Pay / Google Pay -->
+        <div id="payment-request-button" style="margin-bottom:1rem;"></div>
+        <div class="divider" id="express-divider" style="display:none;">Or pay with card</div>
+
+        <!-- Card number -->
+        <div class="field">
+          <label>Card number</label>
+          <div class="stripe-field" id="card-number-element"></div>
+          <span class="field-error" id="card-number-error"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Expiry date</label>
+            <div class="stripe-field" id="card-expiry-element"></div>
+            <span class="field-error" id="card-expiry-error"></span>
+          </div>
+          <div class="field">
+            <label>Security code</label>
+            <div class="stripe-field" id="card-cvc-element"></div>
+            <span class="field-error" id="card-cvc-error"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="name-on-card">Name on card</label>
+          <input type="text" id="name-on-card" autocomplete="cc-name">
+          <span class="field-error" id="card-name-error"></span>
+        </div>
+
+        <div class="stripe-error" id="stripe-error"></div>
+
+        <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
+          <div class="spinner"></div>
+          <span class="btn-text" id="pay-btn-text">Pay now — £0.00</span>
+        </button>
+
+        <div class="pay-secure-note">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+            <path d="M5 0L0 2V6c0 2.76 2.14 5.33 5 6 2.86-.67 5-3.24 5-6V2L5 0z" fill="#9a9a9a"/>
+          </svg>
+          Secured by Stripe · SSL encrypted
+        </div>
+      </div>
+
+    </div><!-- /form-section -->
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <aside class="order-summary" id="order-summary">
+
+      <!-- Mobile toggle -->
+      <div class="summary-toggle" id="summary-toggle" onclick="toggleSummary()">
+        <div class="summary-toggle-left">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1h12M1 5h12M1 9h8" stroke="#8B6B4A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Show order summary
+        </div>
+        <div class="summary-toggle-price" id="summary-toggle-price">£0.00</div>
+      </div>
+
+      <div class="section-label" style="display:none" id="summary-desktop-label">Order summary</div>
+
+      <div class="summary-items" id="summary-items"></div>
+
+      <div class="summary-totals" id="summary-totals">
+        <div class="summary-line">
+          <span class="summary-line-label">Subtotal</span>
+          <span class="summary-line-value" id="subtotal-display">£0.00</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-line-label">Shipping</span>
+          <span class="summary-line-value" id="shipping-display">£3.99</span>
+        </div>
+        <div class="summary-total">
+          <span class="summary-total-label">Total</span>
+          <span class="summary-total-value" id="total-display">
+            <span class="summary-total-currency">£</span><span id="total-amount">0.00</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="summary-brand">
+        <img src="../images/logo.png" alt="Amigos">
+        <p>Trearddur Bay · Wales</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <script>
+    /* ══════════════════════════════════════════
+       AMIGOS — Checkout Page
+    ══════════════════════════════════════════ */
+
+    const STRIPE_PUBLISHABLE_KEY = 'pk_live_51TMaACAflN0J7YHbn0LtIghGZTRTZvEeefVa296ODebCQACNIqMqyerKGiiL2n0zoHnzPb0r8jWhyJY6ouf5atPq005nIl8Ul4';
+    const FREE_SHIPPING_THRESHOLD = 6000; // £60.00 in pence
+    const SHIPPING_COST = 399;            // £3.99 in pence
+
+    // ── Load cart from sessionStorage (set by script.js before redirect) ──
+    let cart = [];
+    try {
+      const stored = sessionStorage.getItem('amigos_cart');
+      if (stored) cart = JSON.parse(stored);
+    } catch(e) {}
+
+    // ── Shipping state ──
+    let selectedShipping = 'standard';
+
+    function getSubtotal() {
+      return cart.reduce((s, i) => s + (i.priceNumber * i.qty), 0);
+    }
+    function getShippingCost() {
+      return getSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+    }
+    function getTotal() {
+      return getSubtotal() + getShippingCost();
+    }
+    function formatGBP(pence) {
+      return '£' + (pence / 100).toFixed(2);
+    }
+
+    // ── Render order summary ──
+    function renderSummary() {
+      const itemsEl    = document.getElementById('summary-items');
+      const subtotalEl = document.getElementById('subtotal-display');
+      const shippingEl = document.getElementById('shipping-display');
+      const totalEl    = document.getElementById('total-amount');
+      const togglePrice = document.getElementById('summary-toggle-price');
+      const shippingPriceDisplay = document.getElementById('shipping-price-display');
+      const payBtnText = document.getElementById('pay-btn-text');
+
+      const subtotal = getSubtotal();
+      const shipping = getShippingCost();
+      const total    = getTotal();
+
+      // Items
+      if (itemsEl) {
+        itemsEl.innerHTML = cart.map(item => `
+          <div class="summary-item">
+            <div class="summary-item-img-wrap">
+              <img src="${item.image}" alt="${item.name}" class="summary-item-img">
+              <span class="summary-item-qty">${item.qty}</span>
+            </div>
+            <div class="summary-item-info">
+              <p class="summary-item-name">${item.name}</p>
+              <p class="summary-item-meta">${item.variant} · Size ${item.size}</p>
+            </div>
+            <span class="summary-item-price">${formatGBP(item.priceNumber * item.qty)}</span>
+          </div>
+        `).join('');
+      }
+
+      if (subtotalEl) subtotalEl.textContent = formatGBP(subtotal);
+      if (shippingEl) shippingEl.innerHTML = shipping === 0
+        ? '<span class="summary-line-value free">Free</span>'
+        : formatGBP(shipping);
+      if (totalEl) totalEl.textContent = (total / 100).toFixed(2);
+      if (togglePrice) togglePrice.textContent = formatGBP(total);
+      if (shippingPriceDisplay) shippingPriceDisplay.textContent = shipping === 0 ? 'Free' : formatGBP(shipping);
+      if (payBtnText) payBtnText.textContent = `Pay now — ${formatGBP(total)}`;
+    }
+
+    function selectShipping(type) {
+      selectedShipping = type;
+      document.querySelectorAll('.shipping-option').forEach(el => el.classList.remove('selected'));
+      const el = document.getElementById(`shipping-${type}`);
+      if (el) el.classList.add('selected');
+      renderSummary();
+    }
+
+    function toggleSummary() {
+      document.getElementById('summary-items')?.classList.toggle('open');
+      document.getElementById('summary-totals')?.classList.toggle('open');
+      const toggle = document.getElementById('summary-toggle');
+      const isOpen = document.getElementById('summary-items')?.classList.contains('open');
+      if (toggle) toggle.querySelector('.summary-toggle-left').childNodes[1].textContent =
+        isOpen ? ' Hide order summary' : ' Show order summary';
+    }
+
+    // ── Handle empty cart ──
+    function showEmptyCart() {
+      const layout = document.getElementById('checkout-layout');
+      if (!layout) return;
+      layout.innerHTML = `
+        <div class="empty-cart">
+          <h2>Your cart is empty</h2>
+          <p>Add some items before checking out</p>
+          <a href="../pages/mens.html">Shop now</a>
+        </div>`;
+    }
+
+    // ── Stripe setup ──
+    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+    const elements = stripe.elements({
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap' }]
+    });
+
+    const elementStyle = {
+      base: {
+        fontFamily: 'Georgia, serif',
+        fontSize: '14px',
+        color: '#1a1a1a',
+        '::placeholder': { color: '#c0b8ae' },
+      },
+      invalid: { color: '#c0392b' }
+    };
+
+    const cardNumber = elements.create('cardNumber', { style: elementStyle, showIcon: true });
+    const cardExpiry = elements.create('cardExpiry', { style: elementStyle });
+    const cardCvc    = elements.create('cardCvc',    { style: elementStyle });
+
+    cardNumber.mount('#card-number-element');
+    cardExpiry.mount('#card-expiry-element');
+    cardCvc.mount('#card-cvc-element');
+
+    // Focus/blur styling
+    [
+      { el: cardNumber, id: 'card-number-element', errId: 'card-number-error' },
+      { el: cardExpiry, id: 'card-expiry-element', errId: 'card-expiry-error' },
+      { el: cardCvc,    id: 'card-cvc-element',    errId: 'card-cvc-error'    },
+    ].forEach(({ el, id, errId }) => {
+      el.on('focus', () => document.getElementById(id)?.classList.add('focused'));
+      el.on('blur',  () => document.getElementById(id)?.classList.remove('focused'));
+      el.on('change', e => {
+        const errEl = document.getElementById(errId);
+        const wrap  = document.getElementById(id);
+        if (e.error) {
+          if (errEl) errEl.textContent = e.error.message;
+          wrap?.classList.add('error');
+        } else {
+          if (errEl) errEl.textContent = '';
+          wrap?.classList.remove('error');
+        }
+      });
+    });
+
+    // ── Apple Pay / Google Pay ──
+    const paymentRequest = stripe.paymentRequest({
+      country: 'GB',
+      currency: 'gbp',
+      total: { label: 'Amigos', amount: getTotal() },
+      requestPayerName: true,
+      requestPayerEmail: true,
+      requestShipping: true,
+      shippingOptions: [{
+        id: 'standard',
+        label: 'Standard Delivery (3–5 days)',
+        detail: 'Delivered to your door',
+        amount: getShippingCost(),
+      }],
+    });
+
+    const prButton = elements.create('paymentRequestButton', {
+      paymentRequest,
+      style: { paymentRequestButton: { type: 'buy', theme: 'dark', height: '48px' } }
+    });
+
+    paymentRequest.canMakePayment().then(result => {
+      if (result) {
+        prButton.mount('#payment-request-button');
+        document.getElementById('express-divider').style.display = 'flex';
+      }
+    });
+
+    paymentRequest.on('paymentmethod', async (ev) => {
+      try {
+        const res = await fetch('/api/checkout-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: cart,
+            shippingCost: getShippingCost(),
+            email: ev.payerEmail,
+            name: ev.payerName,
+          }),
+        });
+        const { clientSecret, error: serverError } = await res.json();
+        if (serverError) { ev.complete('fail'); return; }
+
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret, { payment_method: ev.paymentMethod.id }, { handleActions: false }
+        );
+        if (error) { ev.complete('fail'); return; }
+
+        ev.complete('success');
+        if (paymentIntent.status === 'requires_action') {
+          await stripe.confirmCardPayment(clientSecret);
+        }
+        redirectToSuccess(paymentIntent);
+      } catch(err) {
+        ev.complete('fail');
+      }
+    });
+
+    // ── Validation ──
+    function validateField(id, errorId, message) {
+      const val = document.getElementById(id)?.value?.trim();
+      if (!val) {
+        document.getElementById(errorId).textContent = message;
+        document.getElementById(id)?.classList.add('error');
+        return false;
+      }
+      document.getElementById(errorId).textContent = '';
+      document.getElementById(id)?.classList.remove('error');
+      return true;
+    }
+
+    function validateEmail(id, errorId) {
+      const val = document.getElementById(id)?.value?.trim();
+      const ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!ok) {
+        document.getElementById(errorId).textContent = 'Please enter a valid email address';
+        document.getElementById(id)?.classList.add('error');
+        return false;
+      }
+      document.getElementById(errorId).textContent = '';
+      document.getElementById(id)?.classList.remove('error');
+      return true;
+    }
+
+    function validateForm() {
+      const checks = [
+        validateEmail('email', 'email-error'),
+        validateField('first-name',  'first-name-error',  'First name is required'),
+        validateField('last-name',   'last-name-error',   'Last name is required'),
+        validateField('address1',    'address1-error',    'Address is required'),
+        validateField('city',        'city-error',        'Town / City is required'),
+        validateField('postcode',    'postcode-error',    'Postcode is required'),
+        validateField('name-on-card','card-name-error',   'Name on card is required'),
+      ];
+      return checks.every(Boolean);
+    }
+
+    // ── Payment handler ──
+    async function handlePayment() {
+      if (!validateForm()) {
+        // Scroll to first error
+        const firstError = document.querySelector('.field input.error, .field-error:not(:empty)');
+        firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const btn = document.getElementById('pay-btn');
+      const errEl = document.getElementById('stripe-error');
+      btn.disabled = true;
+      btn.classList.add('loading');
+      errEl.classList.remove('show');
+
+      try {
+        // Create PaymentIntent on server
+        const res = await fetch('/api/checkout-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: cart,
+            shippingCost: getShippingCost(),
+            email: document.getElementById('email').value.trim(),
+            name: `${document.getElementById('first-name').value.trim()} ${document.getElementById('last-name').value.trim()}`,
+            address: {
+              line1:       document.getElementById('address1').value.trim(),
+              line2:       document.getElementById('address2').value.trim(),
+              city:        document.getElementById('city').value.trim(),
+              postal_code: document.getElementById('postcode').value.trim(),
+              country:     'GB',
+            }
+          }),
+        });
+
+        const { clientSecret, error: serverError } = await res.json();
+
+        if (serverError || !clientSecret) {
+          throw new Error(serverError || 'Could not create payment');
+        }
+
+        // Confirm payment with card details
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardNumber,
+            billing_details: {
+              name:  document.getElementById('name-on-card').value.trim(),
+              email: document.getElementById('email').value.trim(),
+              address: {
+                line1:       document.getElementById('address1').value.trim(),
+                line2:       document.getElementById('address2').value.trim(),
+                city:        document.getElementById('city').value.trim(),
+                postal_code: document.getElementById('postcode').value.trim(),
+                country:     'GB',
+              }
+            }
+          }
+        });
+
+        if (error) {
+          errEl.textContent = error.message;
+          errEl.classList.add('show');
+          btn.disabled = false;
+          btn.classList.remove('loading');
+          return;
+        }
+
+        redirectToSuccess(paymentIntent);
+
+      } catch(err) {
+        console.error(err);
+        const errEl = document.getElementById('stripe-error');
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    function redirectToSuccess(paymentIntent) {
+      // Save order details for success page
+      sessionStorage.setItem('amigos_order', JSON.stringify({
+        id: paymentIntent.id,
+        amount: paymentIntent.amount,
+        name: `${document.getElementById('first-name')?.value || ''} ${document.getElementById('last-name')?.value || ''}`.trim(),
+        email: document.getElementById('email')?.value || '',
+        items: cart,
+      }));
+      sessionStorage.removeItem('amigos_cart');
+      window.location.href = '../success.html';
+    }
+
+    // ── Init ──
+    document.addEventListener('DOMContentLoaded', () => {
+      if (cart.length === 0) {
+        showEmptyCart();
+        return;
+      }
+      document.getElementById('summary-desktop-label').style.display = 'block';
+      renderSummary();
+    });
+  </script>
+
+</body>
+</html>

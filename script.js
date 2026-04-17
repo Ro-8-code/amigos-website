@@ -240,56 +240,21 @@ function closeCartDrawer() {
   document.getElementById('cart-overlay')?.classList.remove('open');
 }
 
-// ══════════════════════════════════════════
-// REPLACEMENT for proceedToCheckout() in script.js
-// Replace the existing proceedToCheckout function with this one
-// ══════════════════════════════════════════
+
 
 async function proceedToCheckout() {
   if (cart.length === 0) return;
 
-  const btn = document.getElementById('checkout-btn');
-  if (btn) { btn.textContent = 'Loading...'; btn.disabled = true; }
+  // Save cart to sessionStorage so checkout.html can read it
+  sessionStorage.setItem('amigos_cart', JSON.stringify(cart));
 
-  try {
-    // Step 1: Create a Checkout Session on the server
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: cart.map(item => ({
-          name: item.name,
-          variant: item.variant,
-          size: item.size,
-          priceNumber: item.priceNumber, // pence e.g. 4500 = £45.00
-          qty: item.qty,
-          image: item.image,
-        })),
-      }),
-    });
+  // Route to the custom checkout page
+  // From index.html (root): pages/checkout.html
+  // From /pages/*.html: checkout.html (same folder)
+  const isInPagesFolder = window.location.pathname.includes('/pages/');
+  const checkoutUrl = isInPagesFolder ? 'checkout.html' : 'pages/checkout.html';
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to create checkout session');
-    }
-
-    const { sessionId } = await response.json();
-
-    // Step 2: Redirect to Stripe Checkout with the sessionId
-    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const { error } = await stripe.redirectToCheckout({ sessionId });
-
-    if (error) {
-      // Stripe redirect failed — show the error
-      alert('Checkout error: ' + error.message);
-      if (btn) { btn.textContent = 'Checkout'; btn.disabled = false; }
-    }
-
-  } catch (err) {
-    console.error('Checkout failed:', err);
-    alert('Something went wrong. Please try again.');
-    if (btn) { btn.textContent = 'Checkout'; btn.disabled = false; }
-  }
+  window.location.href = checkoutUrl;
 }
 
 function setupModal() {
